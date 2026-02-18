@@ -1,0 +1,396 @@
+﻿{
+    "metadata": {
+        "title": "Saša Pajić — Full Stack & AI Engineer",
+        "description": "Full Stack Engineer and AI Developer building systems and tools that make work easier and more efficient.",
+        "url": "https://sasapajic.dev"
+    },
+    "personal": {
+        "name": "Saša Pajić",
+        "role": "Full Stack & AI Engineer",
+        "location": "Valencia, Spain (Open to remote)",
+        "socials": [
+            {
+                "platform": "linkedin",
+                "url": "https://linkedin.com/in/sasathepajic",
+                "label": "LinkedIn"
+            },
+            {
+                "platform": "github",
+                "url": "https://github.com/sasathepajic",
+                "label": "GitHub"
+            },
+            {
+                "platform": "email",
+                "url": "mailto:sasathepajic@gmail.com",
+                "label": "Email"
+            }
+        ]
+    },
+    "nav": [
+        {
+            "label": "Work",
+            "href": "#work"
+        },
+        {
+            "label": "Experience",
+            "href": "#experience"
+        },
+        {
+            "label": "Skills",
+            "href": "#skills"
+        },
+        {
+            "label": "Contact",
+            "href": "#contact"
+        }
+    ],
+    "theme": {
+        "colors": {
+            "background": "#010102",
+            "foreground": "#E8E8ED",
+            "primary": "#059669",
+            "secondary": "#9CA3AF",
+            "accent": "#1E40AF",
+            "surface": "#020204"
+        }
+    },
+    "sections": [
+        {
+            "type": "hero",
+            "id": "hero",
+            "visible": true,
+            "content": {
+                "greeting": "Full Stack & AI Engineer",
+                "headline": "Functionality doesn't have to be ugly.",
+                "subheadline": "I’m a Full Stack & AI Engineer who believes powerful backend logic deserves a beautiful frontend. It’s not enough for it to work—it has to feel right.",
+                "ctaText": "View My Work",
+                "ctaLink": "#work",
+                "secondaryCtaText": "Get in Touch",
+                "secondaryCtaLink": "#contact"
+            }
+        },
+        {
+            "type": "projects",
+            "id": "work",
+            "visible": true,
+            "content": {
+                "title": "// Selected Work",
+                "subtitle": "Recent engineering highlights.",
+                "items": [
+                    {
+                        "id": "safety-platform",
+                        "title": "ABL S.A.F.E.T.Y™ Platform",
+                        "subtitle": "Enterprise SaaS — Psychological Safety",
+                        "description": "Built and launched a full-stack platform for The Academy of Brain-based Leadership (ABL) to measure and improve psychological safety across organizations. The system handles psychometric assessments, automated PDF report generation, and real-time team analytics.",
+                        "gradient": "from-purple-600 via-purple-400 to-fuchsia-400",
+                        "techStack": [
+                            "FastAPI",
+                            "React",
+                            "TypeScript",
+                            "MySQL 8",
+                            "Docker",
+                            "AWS RDS",
+                            "Nginx"
+                        ],
+                        "dateRange": "Jul 2025 — Jan 2026",
+                        "company": "Pragmatic Labs",
+                        "client": "ABL — Academy of Brain-based Leadership",
+                        "demoUrl": "https://ablsafety.com/",
+                        "highlights": [
+                            "Assessment upgrades (free → professional) increased ~483% vs. prior year average following platform improvements",
+                            "Migrated ~18,000 users and 3,500+ historical S.A.F.E.T.Y™ assessments from legacy PHP system to FastAPI/React with zero downtime",
+                            "Engineered percentile-based scoring algorithm reducing computation complexity from O(N²) to O(log N), achieving 10-30ms processing and designed to scale to 100,000+ assessments",
+                            "Optimized database operations through caching and indexing, reducing dashboard load times by 95% with sub-5ms query response times",
+                            "Deployed containerized production environment on AWS EC2/RDS with 99.9% uptime"
+                        ],
+                        "challenge": "Replace a fragile legacy PHP application with a modern, scalable system — while migrating ~18,000 users, tens of thousands of reports, and complex psychometric scoring logic without any data loss or downtime.",
+                        "solution": "Designed a FastAPI + React architecture with async background processing for email delivery and PDF generation. Implemented the S.A.F.E.T.Y™ scoring algorithms (raw scores → percentile rankings across 6 domains). Delivered mobile-first responsive UI. Deployed via Docker + Nginx on AWS.",
+                        "responsibilities": [
+                            "Full platform architecture and development (FastAPI + React)",
+                            "Psychometric scoring algorithm implementation",
+                            "PS Pulse™ continuous feedback system",
+                            "Legacy PHP → modern stack migration",
+                            "Async email + automated PDF report generation",
+                            "Containerized deployment (Docker, Nginx, AWS RDS)",
+                            "Mobile-first responsive UI"
+                        ]
+                    },
+                    {
+                        "id": "ai-assistant",
+                        "title": "ABL S.A.F.E.T.Y™ AI Assistant",
+                        "subtitle": "AI/LLM Application — Content Generation",
+                        "description": "Built an AI-powered content platform enabling non-technical team members to generate blogs, email campaigns, social posts, and internal communications using guided prompts and persona-based controls.",
+                        "gradient": "from-emerald-500 via-green-400 to-emerald-600",
+                        "techStack": [
+                            "Streamlit",
+                            "LlamaIndex",
+                            "LangGraph",
+                            "OpenAI GPT",
+                            "AWS Bedrock",
+                            "Claude",
+                            "DeepSeek R1"
+                        ],
+                        "dateRange": "Mar 2025 — Jun 2025",
+                        "company": "Pragmatic Labs",
+                        "client": "ABL — Academy of Brain-based Leadership",
+                        "highlights": [
+                            "Enabled non-technical team members to generate and iterate on on-brand content using guided prompts and persona-based controls"
+                        ],
+                        "challenge": "Non-technical staff needed to produce on-brand content across multiple formats (blogs, emails, social), but had no way to leverage AI tools without engineering support.",
+                        "solution": "Built a Streamlit app with persona-based customization, PDF Q&A with streaming responses, and integrated three separate AI providers (OpenAI via LlamaIndex, AWS Bedrock for Claude/DeepSeek, and direct Anthropic API). Used LangGraph for multi-step reasoning workflows.",
+                        "responsibilities": [
+                            "Multi-provider AI integration (OpenAI, AWS Bedrock, Anthropic)",
+                            "Persona-based customization for role-specific outputs",
+                            "PDF assistant with conversation history + streaming",
+                            "LangGraph for complex multi-step AI workflows",
+                            "Debug mode for system monitoring and model selection"
+                        ]
+                    },
+                    {
+                        "id": "cv-intelligence",
+                        "title": "RecOne AI Engine",
+                        "subtitle": "AI/LLM Application — Document Processing",
+                        "description": "Built a CV extraction and analysis application that converts PDF and DOCX resumes into structured JSON, enabling recruiters to search, compare, and filter candidates without manual reading.",
+                        "gradient": "from-purple-500 via-violet-400 to-purple-600",
+                        "techStack": [
+                            "Streamlit",
+                            "Python",
+                            "PDF/DOCX Parsing",
+                            "LLM Extraction",
+                            "JSON"
+                        ],
+                        "dateRange": "Oct 2024 — Feb 2025",
+                        "company": "Self Employed",
+                        "highlights": [
+                            "Enabled recruiters to shortlist candidates by applying filters and reviewing AI-generated insights directly in the app"
+                        ],
+                        "challenge": "Recruiters were manually reading hundreds of resumes to find qualified candidates — slow, inconsistent, and error-prone.",
+                        "solution": "Built a modular pipeline: upload PDFs/DOCX → extract structured fields via LLM → standardize into JSON schema → present searchable/filterable UI. Added job description parsing so recruiters could match candidates against specific requirements.",
+                        "responsibilities": [
+                            "Resume-to-JSON extraction pipeline",
+                            "Job description parsing and matching",
+                            "Modular Streamlit UI with real-time outputs",
+                            "Structured schema design for candidate data"
+                        ]
+                    },
+                    {
+                        "id": "pragmatic-labs",
+                        "title": "Pragmatic Labs",
+                        "subtitle": "AI-First Enterprise Application",
+                        "description": "AI-first enterprise application focused on advanced prompt design and interaction workflows.",
+                        "dateRange": "Jan 2026 — Present",
+                        "company": "Pragmatic Labs",
+                        "techStack": [
+                            "AI",
+                            "Prompt Engineering",
+                            "Enterprise UI"
+                        ],
+                        "highlights": [
+                            "Building a “Deep Tech” visual style with a custom color scale and a geometric type system to make the product feel precise, trustworthy, and enterprise-ready.",
+                            "Designing a chat interface that shifts its layout depending on what the AI is returning, so plain text and structured data are both easy to read and use.",
+                            "Creating the Prompt Builder as a step-by-step flow with collapsible sections and example inputs to make complex configuration tasks easier to understand and complete."
+                        ],
+                        "gradient": "from-blue-600 via-blue-400 to-cyan-400"
+                    },
+                    {
+                        "id": "cimba-saige",
+                        "title": "CIMBA SAIGE",
+                        "subtitle": "Student AI Guidance Engine",
+                        "description": "Chat-based AI guidance tool designed to help university students navigate academic information and services.",
+                        "dateRange": "Sep 2025 — Oct 2025",
+                        "company": "Pragmatic Labs",
+                        "client": "CIMBA Italy",
+                        "techStack": [
+                            "AI Chat",
+                            "University Services",
+                            "Guidance Engine"
+                        ],
+                        "highlights": [
+                            "Designed the user interface and component system with a focus on simple navigation and fast access to common student questions.",
+                            "Created a chat-centered layout optimized for clarity and low cognitive load, making AI interactions easy to follow for non-technical users."
+                        ],
+                        "gradient": "from-emerald-500 via-teal-400 to-cyan-400"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "experience",
+            "id": "experience",
+            "visible": true,
+            "content": {
+                "title": "## Experience",
+                "subtitle": "Where I've been building.",
+                "items": [
+                    {
+                        "jobTitle": "Full-Stack Engineer",
+                        "type": "Contract",
+                        "company": "Pragmatic Labs",
+                        "client": "The Academy of Brain-based Leadership (ABL)",
+                        "location": "Remote",
+                        "dateRange": "Jul 2025 — Jan 2026",
+                        "highlights": [
+                            "Assessment upgrades (free → professional) increased ~483% vs. prior year average following platform improvements",
+                            "Migrated ~18,000 users and 3,500+ historical S.A.F.E.T.Y™ assessments from legacy PHP system to FastAPI/React with zero downtime",
+                            "Engineered percentile-based scoring algorithm reducing computation complexity from O(N²) to O(log N), achieving 10-30ms processing",
+                            "Optimized database operations through caching and indexing, reducing dashboard load times by 95%",
+                            "Deployed containerized production environment on AWS EC2/RDS with 99.9% uptime"
+                        ],
+                        "responsibilities": []
+                    },
+                    {
+                        "jobTitle": "AI Engineer (LLM Applications)",
+                        "type": "Contract",
+                        "company": "Pragmatic Labs",
+                        "client": "The Academy of Brain-based Leadership (ABL)",
+                        "location": "Remote",
+                        "dateRange": "Mar 2025 — Jun 2025",
+                        "highlights": [
+                            "Enabled non-technical team members to generate and iterate on on-brand content using guided prompts and persona-based controls"
+                        ],
+                        "responsibilities": []
+                    },
+                    {
+                        "jobTitle": "AI Engineer (Document Processing)",
+                        "type": "Contract",
+                        "company": "Self Employed",
+                        "client": "Paid client (Serbia)",
+                        "location": "Remote",
+                        "dateRange": "Oct 2024 — Feb 2025",
+                        "highlights": [
+                            "Enabled recruiters to shortlist candidates by applying filters and reviewing generated insights directly in the app"
+                        ],
+                        "responsibilities": []
+                    },
+                    {
+                        "jobTitle": "Web Designer & Developer",
+                        "type": "Freelance",
+                        "company": "Freelance",
+                        "location": "Remote",
+                        "dateRange": "Feb 2022 — Feb 2023",
+                        "highlights": [],
+                        "responsibilities": []
+                    }
+                ]
+            }
+        },
+        {
+            "type": "experience",
+            "id": "project-experience",
+            "visible": true,
+            "content": {
+                "title": "&& Projects",
+                "subtitle": "Applications delivered from concept to production.",
+                "items": [
+                    {
+                        "jobTitle": "Pragmatic Labs Application",
+                        "company": "Pragmatic Labs",
+                        "location": "Remote",
+                        "dateRange": "Jan 2026 — Present",
+                        "type": "Project",
+                        "responsibilities": [
+                            "Building a visual style with a custom color scale and a geometric type system to make the product feel precise, trustworthy, and enterprise-ready.",
+                            "Designing a chat interface that shifts its layout depending on what the AI is returning, so plain text and structured data are both easy to read and use.",
+                            "Creating the Prompt Builder as a step-by-step flow with collapsible sections and example inputs to make complex configuration tasks easier to understand and complete."
+                        ]
+                    },
+                    {
+                        "jobTitle": "CIMBA SAIGE",
+                        "company": "Pragmatic Labs",
+                        "client": "CIMBA Italy",
+                        "location": "Remote",
+                        "dateRange": "Sep 2025 — Oct 2025",
+                        "type": "Project",
+                        "responsibilities": [
+                            "Designed the user interface and component system with a focus on simple navigation and fast access to common student questions.",
+                            "Created a chat-centered layout optimized for clarity and low cognitive load, making AI interactions easy to follow for non-technical users."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "skills",
+            "id": "skills",
+            "visible": true,
+            "content": {
+                "title": "/* Technical Skills */",
+                "subtitle": "What I work with daily.",
+                "categories": [
+                    {
+                        "name": "Backend",
+                        "items": [
+                            "Python",
+                            "FastAPI",
+                            "REST APIs",
+                            "SQLAlchemy",
+                            "Alembic",
+                            "Async/Background Processing"
+                        ]
+                    },
+                    {
+                        "name": "Frontend",
+                        "items": [
+                            "React",
+                            "TypeScript",
+                            "Responsive UI",
+                            "HTML/CSS",
+                            "Angular",
+                            "Mobile-First Design"
+                        ]
+                    },
+                    {
+                        "name": "AI / LLM",
+                        "items": [
+                            "LlamaIndex",
+                            "LangGraph",
+                            "OpenAI GPT",
+                            "AWS Bedrock",
+                            "Anthropic Claude",
+                            "DeepSeek R1"
+                        ]
+                    },
+                    {
+                        "name": "Database",
+                        "items": [
+                            "MySQL 8",
+                            "SQL",
+                            "Relational Modeling",
+                            "SQLAlchemy ORM"
+                        ]
+                    },
+                    {
+                        "name": "DevOps & Cloud",
+                        "items": [
+                            "Docker",
+                            "Nginx",
+                            "AWS RDS",
+                            "Deployment & Monitoring"
+                        ]
+                    },
+                    {
+                        "name": "Design & UX",
+                        "items": [
+                            "Figma",
+                            "Product Design",
+                            "User Flow Layouts",
+                            "Responsive Systems",
+                            "Visual Hierarchy"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "contact",
+            "id": "contact",
+            "visible": true,
+            "content": {
+                "title": "Let's work together.",
+                "subtitle": "Open to remote opportunities. Based in Valencia, Spain.",
+                "email": "sasathepajic@gmail.com",
+                "location": "Valencia, Spain"
+            }
+        }
+    ]
+}

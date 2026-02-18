@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-glow: var(--glow);
+}
+
+:root {
+  --background: #06060a;
+  --foreground: #e8e8ed;
+  --primary: #059669;
+  --secondary: #6b7280;
+  --accent: #a855f7;
+  --surface: #0c0c14;
+  --glow: #059669;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ─── Neon text effect ────────────────────────────── */
+.neon-text {
+  color: var(--background);
+  -webkit-text-stroke: 1px var(--primary);
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 4px var(--primary),
+    0 0 12px rgba(5, 150, 105, 0.5),
+    0 0 5px rgba(5, 150, 105, 0.35);
+}
+
+/* ─── Carbon fiber background ─────────────────────── */
+.dot-grid {
+  background-color: var(--background);
+}
+.dot-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* SVG bitmap tile — rasterized once, then GPU-tiled (no per-frame gradient recompute) */
+  background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 L4 4 M4 0 L0 4' stroke='rgba(255%2C255%2C255%2C0.045)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateZ(0);
+}
+
+/* ─── Corner bracket decorations ──────────────────── */
+.corner-brackets {
+  --b-size: 16px;
+  --b-weight: 2px;
+  --b-color: rgba(16, 185, 129, 0.45);
+  position: relative;
+}
+.corner-brackets::before,
+.corner-brackets::after {
+  content: "";
+  position: absolute;
+  width: var(--b-size);
+  height: var(--b-size);
+  pointer-events: none;
+  z-index: 1;
+}
+.corner-brackets::before {
+  top: 8px;
+  left: 8px;
+  border-top: var(--b-weight) solid var(--b-color);
+  border-left: var(--b-weight) solid var(--b-color);
+}
+.corner-brackets::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: var(--b-weight) solid var(--b-color);
+  border-right: var(--b-weight) solid var(--b-color);
+}
+
+/* ─── Scanline overlay ────────────────────────────── */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Glow card hover ─────────────────────────────── */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+.glow-card > .card-inner {
+  border-radius: inherit;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+/* ─── Gradient text ───────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Animated gradient border ────────────────────── */
+@keyframes border-rotate {
+  0% {
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
+  }
+}
+
+/* ─── Pulse ring ──────────────────────────────────── */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* ─── Float animation ─────────────────────────────── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(4px) rotate(-1deg);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-2deg);
+  }
+}
+
+/* ─── Section divider ─────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent
+  );
+}
+
+/* Smooth scroll via Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
