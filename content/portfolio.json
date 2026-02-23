@@ -2,7 +2,7 @@
     "metadata": {
         "title": "Saša Pajić — Full Stack & AI Engineer",
         "description": "Full Stack Engineer and AI Developer building systems and tools that make work easier and more efficient.",
-        "url": "https://sasapajic.dev"
+        "url": "https://sasathepajic.ai"
     },
     "personal": {
         "name": "Saša Pajić",
@@ -11,22 +11,26 @@
         "socials": [
             {
                 "platform": "linkedin",
-                "url": "https://linkedin.com/in/sasathepajic",
+                "url": "https://www.linkedin.com/in/sa%C5%A1a-paji%C4%87-3b515a263/",
                 "label": "LinkedIn"
             },
             {
                 "platform": "github",
-                "url": "https://github.com/sasathepajic",
+                "url": "https://github.com/sasathepajic-ai",
                 "label": "GitHub"
             },
             {
                 "platform": "email",
-                "url": "mailto:sasathepajic@gmail.com",
+                "url": "mailto:sasathepajic.ai@gmail.com",
                 "label": "Email"
             }
         ]
     },
     "nav": [
+        {
+            "label": "About",
+            "href": "#about"
+        },
         {
             "label": "Work",
             "href": "#work"
@@ -50,7 +54,7 @@
             "foreground": "#E8E8ED",
             "primary": "#059669",
             "secondary": "#9CA3AF",
-            "accent": "#1E40AF",
+            "accent": "#1447e6",
             "surface": "#020204"
         }
     },
@@ -70,54 +74,127 @@
             }
         },
         {
+            "type": "about",
+            "id": "about",
+            "visible": true,
+            "content": {
+                "bio": "Most of my work starts with something that doesn't quite make sense yet. A half-formed idea, a system that's grown in strange directions, or a product that works but feels heavier than it should. I like sitting with that mess for a while and figuring out what's actually going on underneath it.\n\nI'm patient with complexity, but I get uncomfortable with confusion. When something feels off, I usually want to trace it back to the decision that caused it and fix it there, instead of adding another layer on top. A lot of my time goes into small choices that won't show up in screenshots, but quietly shape how everything behaves later.\n\nWhat keeps me interested is work where the outcome has weight. Not just shipping for the sake of shipping, but making something that holds together over time and doesn't treat the person using it like an afterthought. I like when a product has a clear direction, even if that means saying no to things.\n\nI'm based in Valencia, Spain. Open to remote and B2B work.",
+                "values": [
+                    "Clean Architecture",
+                    "Performance-First",
+                    "Pixel-Precise UI",
+                    "Pragmatic AI",
+                    "Zero Downtime Deploys"
+                ],
+                "availableForWork": true
+            }
+        },
+        {
             "type": "projects",
             "id": "work",
             "visible": true,
             "content": {
-                "title": "// Selected Work",
-                "subtitle": "Recent engineering highlights.",
+                "title": "Recent Work",
+                "subtitle": "What I'm building right now.",
                 "items": [
                     {
                         "id": "safety-platform",
-                        "title": "ABL S.A.F.E.T.Y™ Platform",
-                        "subtitle": "Enterprise SaaS — Psychological Safety",
-                        "description": "Built and launched a full-stack platform for The Academy of Brain-based Leadership (ABL) to measure and improve psychological safety across organizations. The system handles psychometric assessments, automated PDF report generation, and real-time team analytics.",
+                        "title": "ABL S.A.F.E.T.Y.™ Platform",
+                        "subtitle": "Full-Stack SaaS — Psychological Safety",
+                        "description": "A self-service platform built from scratch for The Academy of Brain-based Leadership — delivering two flagship products digitally: the S.A.F.E.T.Y.™ psychometric assessment and PS Pulse™ team survey tool. Handles onboarding, assessment delivery, real-time scoring, instant PDF reports, payment processing, CRM sync, and an AI coaching feature.",
                         "gradient": "from-purple-600 via-purple-400 to-fuchsia-400",
                         "techStack": [
                             "FastAPI",
                             "React",
                             "TypeScript",
-                            "MySQL 8",
+                            "MySQL",
                             "Docker",
-                            "AWS RDS",
-                            "Nginx"
+                            "Nginx",
+                            "LiteLLM",
+                            "Alembic",
+                            "Git"
                         ],
-                        "dateRange": "Jul 2025 — Jan 2026",
+                        "dateRange": "Mar 2025 — Present",
                         "company": "Pragmatic Labs",
                         "client": "ABL — Academy of Brain-based Leadership",
                         "demoUrl": "https://ablsafety.com/",
-                        "highlights": [
-                            "Assessment upgrades (free → professional) increased ~483% vs. prior year average following platform improvements",
-                            "Migrated ~18,000 users and 3,500+ historical S.A.F.E.T.Y™ assessments from legacy PHP system to FastAPI/React with zero downtime",
-                            "Engineered percentile-based scoring algorithm reducing computation complexity from O(N²) to O(log N), achieving 10-30ms processing and designed to scale to 100,000+ assessments",
-                            "Optimized database operations through caching and indexing, reducing dashboard load times by 95% with sub-5ms query response times",
-                            "Deployed containerized production environment on AWS EC2/RDS with 99.9% uptime"
+                        "images": [
+                            {
+                                "src": "/assets/abl-desktop-home.png",
+                                "type": "desktop",
+                                "alt": "Platform homepage"
+                            },
+                            {
+                                "src": "/assets/abl-mobile-home.png",
+                                "type": "mobile",
+                                "alt": "Mobile homepage"
+                            },
+                            {
+                                "src": "/assets/abl-desktop.png",
+                                "type": "desktop",
+                                "alt": "Dashboard overview"
+                            },
+                            {
+                                "src": "/assets/abl-safety-1.png",
+                                "type": "desktop",
+                                "alt": "Assessment analytics"
+                            }
                         ],
-                        "challenge": "Replace a fragile legacy PHP application with a modern, scalable system — while migrating ~18,000 users, tens of thousands of reports, and complex psychometric scoring logic without any data loss or downtime.",
-                        "solution": "Designed a FastAPI + React architecture with async background processing for email delivery and PDF generation. Implemented the S.A.F.E.T.Y™ scoring algorithms (raw scores → percentile rankings across 6 domains). Delivered mobile-first responsive UI. Deployed via Docker + Nginx on AWS.",
+                        "highlights": [
+                            "Replaced a manual-first operation with a fully self-service product — onboarding, assessment, scoring, reports, and payment with no staff intervention required",
+                            "Assessment completions increased 483% vs. prior year average following the platform launch",
+                            "Instant client-side PDF report generation — full multi-page professional reports with no server queue or wait time",
+                            "Payment webhook integration with zero-touch code provisioning and automatic CRM sync on every user action",
+                            "Embedded AI coaching feature with real-time streaming and provider-agnostic model switching via environment variable"
+                        ],
+                        "challenge": "ABL ran their two flagship products manually. There was no user-facing platform — coaches distributed access by hand, assessment results lived in a staff admin backend, and every new client meant more work for the same small team.\n\nThe brief was to build the product that didn't exist: a self-service platform where users could sign up, take the assessment, receive their report, and manage team surveys without anyone at ABL needing to get involved.",
+                        "solution": "I built the full platform from scratch — onboarding with email verification, two-tier assessment delivery with access code validation, real-time percentile scoring, instant browser-side PDF reports, team survey management, a payment webhook integration, outbound CRM sync, and an embedded AI coaching feature.\n\nThe existing database of 3,500+ legacy assessments was absorbed into the new schema and retroactively scored, so the historical data remained accurate and useful from day one.",
+                        "sections": [
+                            {
+                                "title": "Design Direction",
+                                "image": "/assets/abl-desktop.png",
+                                "mobileImage": "/assets/abl-mobile.png",
+                                "body": "ABL was specific about how the platform should look and feel. They didn't want a generic internal tool — they wanted something that reflected the quality of the work they do, and that their users could actually navigate without friction.\n\nThe UI leans dark with deliberate use of color: accents that direct attention without demanding it, plenty of breathing room around data, and typography that keeps scores and analytics readable at a glance regardless of how much is on screen.\n\nBecause the platform deals with sensitive psychometric data, clarity mattered more than cleverness. Every layout decision was about making the right information visible at the right time — nothing more."
+                            },
+                            {
+                                "title": "The Assessment",
+                                "image": "/assets/abl-safety-1.png",
+                                "mobileImage": "/assets/abl-mobile-safety-dashboard.png",
+                                "body": "The S.A.F.E.T.Y.™ model is a neuroscience-based framework that measures how strongly a person responds to six psychological domains: Security, Autonomy, Fairness, Esteem, Trust, and You. Users complete 50 questions in 10–15 minutes, and the platform returns scores that reflect not just their answers — but where they stand relative to everyone who has taken the assessment before them.\n\nThe platform delivers this in two tiers. The free assessment gives users a basic view of their domain scores. The professional tier — unlocked with a single-use access code — produces a full multi-page report with detailed domain impact analysis and a personalized narrative. Codes are purchased directly through the platform or provided by a coach.\n\nScoring runs in real time against the full population of prior responses. Every submission is ranked, and the system is built to hold that speed well past 100,000 assessments without changes."
+                            },
+                            {
+                                "title": "PS Pulse™",
+                                "image": "/assets/abl-pulse-1.png",
+                                "mobileImage": "/assets/abl-mobile-pulse.png",
+                                "body": "PS Pulse™ is the team-level complement to the individual assessment. Where S.A.F.E.T.Y.™ gives each person a deep look at their own psychological profile, PS Pulse™ gives team leaders a recurring read on how their team is doing collectively.\n\nTeam leaders create named teams, generate per-team access codes, distribute a survey link, and receive aggregated domain scores on a dedicated dashboard. Survey cycles can be repeated — the platform tracks trends over time so leaders can see whether things are improving, stalling, or shifting.\n\nReports can be downloaded, emailed, or compared side-by-side against previous cycles directly in the dashboard. Assessment completions increased 483% vs. the prior year average after the platform launched — a direct reflection of how much easier the new experience made it to complete a cycle."
+                            },
+                            {
+                                "title": "Reports",
+                                "image": "/assets/abl-desktop-safety-history.png",
+                                "mobileImage": "/assets/abl-mobile-safety-history.png",
+                                "body": "Every professional S.A.F.E.T.Y.™ assessment produces a full multi-page PDF report — cover page, table of contents, scoring overview, per-domain charts, impact analysis, and a personalized narrative — generated entirely in the browser, instantly, with no server involved.\n\nA user submits their assessment and the report is ready to download in the same moment. There's no queue, no wait, no backend infrastructure to maintain or scale. The report includes live data, so there's no lag between completing the assessment and receiving results.\n\nThe same applies to Pulse reports: team leaders can download or email a formatted PDF summary of any survey cycle directly from the dashboard."
+                            },
+                            {
+                                "title": "Payment & Integrations",
+                                "body": "Payments happen through ABL's existing CRM. When a purchase completes in Tekmatix, a webhook fires to the platform — which identifies the buyer, generates the correct access codes, saves them to the database, and emails a confirmation with the codes attached. No one at ABL touches anything. If the buyer doesn't have an account yet, the codes wait and link automatically on signup. Bundle purchases provision multiple codes in a single transaction.\n\nEvery significant user action — signup, assessment completion, Pulse activity — fires an outbound webhook to keep the CRM contact records current. ABL sees each user's full journey in their CRM timeline without any manual export step and without changing the way their team already works.\n\nThe platform also includes an AI coaching feature available to users as a preview: a streaming chat interface that responds in real time, with the underlying model swappable between providers via environment variable — no code change required."
+                            }
+                        ],
                         "responsibilities": [
-                            "Full platform architecture and development (FastAPI + React)",
-                            "Psychometric scoring algorithm implementation",
-                            "PS Pulse™ continuous feedback system",
-                            "Legacy PHP → modern stack migration",
-                            "Async email + automated PDF report generation",
-                            "Containerized deployment (Docker, Nginx, AWS RDS)",
-                            "Mobile-first responsive UI"
+                            "Built and launched the S.A.F.E.T.Y.™ platform to measure and improve psychological safety across organizations",
+                            "Developed PS Pulse™ as a continuous feedback and sentiment tracking system segmented by team and department",
+                            "Implemented S.A.F.E.T.Y.™ assessment scoring logic, converting statistical models into algorithms producing raw scores and percentile rankings across multiple domains",
+                            "Built client-side PDF report generation using @react-pdf/renderer for full multi-page professional reports",
+                            "Integrated Tekmatix payment webhook for zero-touch access code provisioning and CRM contact sync",
+                            "Built embedded AI coaching feature using LiteLLM with streaming SSE responses and provider-agnostic model switching",
+                            "Implemented two-step email verification signup, profile completion gates, and HMAC-signed admin bridge API",
+                            "Containerized frontend and backend with Docker Compose, Nginx reverse proxy with SSL termination on VPS",
+                            "Implemented GitHub-based CI/CD pipelines to automate testing, builds, and deployments",
+                            "Wrote automated tests for core business logic and data processing pipelines"
                         ]
                     },
                     {
                         "id": "ai-assistant",
-                        "title": "ABL S.A.F.E.T.Y™ AI Assistant",
+                        "title": "ABL S.A.F.E.T.Y.™ AI Assistant",
                         "subtitle": "AI/LLM Application — Content Generation",
                         "description": "Built an AI-powered content platform enabling non-technical team members to generate blogs, email campaigns, social posts, and internal communications using guided prompts and persona-based controls.",
                         "gradient": "from-emerald-500 via-green-400 to-emerald-600",
@@ -148,29 +225,34 @@
                     },
                     {
                         "id": "cv-intelligence",
-                        "title": "RecOne AI Engine",
-                        "subtitle": "AI/LLM Application — Document Processing",
-                        "description": "Built a CV extraction and analysis application that converts PDF and DOCX resumes into structured JSON, enabling recruiters to search, compare, and filter candidates without manual reading.",
+                        "title": "RecOneAI",
+                        "subtitle": "AI Recruitment Automation Platform",
+                        "description": "Full-stack AI recruitment platform built for Totema — combining a production-ready FastAPI backend with a multi-page Streamlit UI. The system automates CV parsing, job description analysis, voice transcript processing, and candidate search via a conversational AI agent.",
                         "gradient": "from-purple-500 via-violet-400 to-purple-600",
                         "techStack": [
-                            "Streamlit",
+                            "FastAPI",
                             "Python",
-                            "PDF/DOCX Parsing",
-                            "LLM Extraction",
-                            "JSON"
+                            "Streamlit",
+                            "OpenAI GPT-4o",
+                            "Claude 3.5 Sonnet",
+                            "LangChain"
                         ],
-                        "dateRange": "Oct 2024 — Feb 2025",
-                        "company": "Self Employed",
+                        "dateRange": "May 2024 — Feb 2025",
+                        "company": "Totema",
                         "highlights": [
-                            "Enabled recruiters to shortlist candidates by applying filters and reviewing AI-generated insights directly in the app"
+                            "Delivered a full-stack AI recruitment platform as a solo project — production API backend + multi-page Streamlit UI",
+                            "Applied multi-LLM routing: GPT-4o for classification, GPT-4o-mini for extraction, Claude Sonnet for vision, o3-mini for complex reasoning",
+                            "Built TARA — a stateful conversational search agent with iterative query refinement before surfacing candidate results"
                         ],
-                        "challenge": "Recruiters were manually reading hundreds of resumes to find qualified candidates — slow, inconsistent, and error-prone.",
-                        "solution": "Built a modular pipeline: upload PDFs/DOCX → extract structured fields via LLM → standardize into JSON schema → present searchable/filterable UI. Added job description parsing so recruiters could match candidates against specific requirements.",
+                        "challenge": "Recruiters were manually reading hundreds of resumes and had no scalable way to process CVs, job descriptions, and voice call transcripts consistently or quickly.",
+                        "solution": "Designed a modular FastAPI + Streamlit platform: CV-to-JSON pipeline, JD parser, voice transcript classifier, CV optimizer, and TARA — an AI chatbot for natural language candidate search. Multi-LLM routing assigned each task to the best-fit model.",
                         "responsibilities": [
-                            "Resume-to-JSON extraction pipeline",
-                            "Job description parsing and matching",
-                            "Modular Streamlit UI with real-time outputs",
-                            "Structured schema design for candidate data"
+                            "FastAPI REST API with token-based auth and multiple AI processing endpoints",
+                            "CV-to-structured-JSON extraction pipeline with prompt engineering and output validation",
+                            "Job Description parser converting raw text/PDF to structured filter criteria",
+                            "Voice transcript classifier for extracting candidate identity data",
+                            "CV Optimization module cross-analyzing CV vs. job description",
+                            "TARA — conversational AI recruitment assistant with session-state management"
                         ]
                     },
                     {
@@ -219,57 +301,69 @@
             "id": "experience",
             "visible": true,
             "content": {
-                "title": "## Experience",
+                "title": "Experience",
                 "subtitle": "Where I've been building.",
                 "items": [
                     {
-                        "jobTitle": "Full-Stack Engineer",
+                        "jobTitle": "Full Stack & AI Engineer",
                         "type": "Contract",
-                        "company": "Pragmatic Labs",
-                        "client": "The Academy of Brain-based Leadership (ABL)",
+                        "company": "The Academy of Brain-based Leadership (ABL)",
                         "location": "Remote",
-                        "dateRange": "Jul 2025 — Jan 2026",
+                        "dateRange": "Mar 2025 — Present",
                         "highlights": [
-                            "Assessment upgrades (free → professional) increased ~483% vs. prior year average following platform improvements",
-                            "Migrated ~18,000 users and 3,500+ historical S.A.F.E.T.Y™ assessments from legacy PHP system to FastAPI/React with zero downtime",
-                            "Engineered percentile-based scoring algorithm reducing computation complexity from O(N²) to O(log N), achieving 10-30ms processing",
-                            "Optimized database operations through caching and indexing, reducing dashboard load times by 95%",
-                            "Deployed containerized production environment on AWS EC2/RDS with 99.9% uptime"
+                            "Migrated ~18,000 users and thousands of S.A.F.E.T.Y.™ assessment records from a legacy PHP system to a FastAPI/React platform with zero downtime",
+                            "Assessment upgrades increased ~483% vs. prior year average following platform improvements",
+                            "Engineered percentile-based scoring algorithm reducing computation complexity from O(N²) to O(log N), achieving 10–30ms processing and designed to scale to 100,000+ assessments",
+                            "Optimized database operations via caching and indexing, reducing dashboard load times by 95% with sub-5ms query response times",
+                            "Designed LLM-powered tools used by non-technical teams to generate and iterate on on-brand content"
                         ],
-                        "responsibilities": []
+                        "responsibilities": [
+                            "Built and launched the S.A.F.E.T.Y.™ platform to measure and improve psychological safety across organizations",
+                            "Developed PS Pulse™ as a continuous feedback and sentiment tracking system segmented by team and department",
+                            "Implemented S.A.F.E.T.Y.™ assessment scoring logic, converting statistical models into algorithms producing raw scores and percentile rankings across multiple domains",
+                            "Built a Streamlit-based AI content assistant supporting blogs, email campaigns, social media posts, and internal communications",
+                            "Built a RAG assistant allowing users to upload PDFs, ask questions, and maintain conversation history with real-time streaming responses",
+                            "Integrated multiple AI providers: OpenAI (via LlamaIndex), AWS Bedrock (Claude, DeepSeek R1), and Anthropic Claude",
+                            "Used LangGraph to support multi-step AI workflows and agentic reasoning",
+                            "Implemented async email delivery and automated PDF report generation for high-volume assessments",
+                            "Implemented GitHub-based CI/CD pipelines to automate testing, builds, and deployments",
+                            "Wrote automated tests for core business logic and data processing pipelines"
+                        ]
                     },
                     {
-                        "jobTitle": "AI Engineer (LLM Applications)",
+                        "jobTitle": "Full Stack & AI Engineer",
                         "type": "Contract",
-                        "company": "Pragmatic Labs",
-                        "client": "The Academy of Brain-based Leadership (ABL)",
+                        "company": "Totema",
                         "location": "Remote",
-                        "dateRange": "Mar 2025 — Jun 2025",
+                        "dateRange": "May 2024 — Feb 2025",
                         "highlights": [
-                            "Enabled non-technical team members to generate and iterate on on-brand content using guided prompts and persona-based controls"
+                            "Delivered a full-stack AI recruitment platform combining a production-ready FastAPI backend with a multi-page Streamlit UI — solo project",
+                            "Applied multi-LLM strategy: routed tasks to the best-fit model (GPT-4o for classification, GPT-4o-mini for extraction, Claude Sonnet for vision, o3-mini for complex reasoning)",
+                            "Built TARA — a stateful conversational search agent that handles iterative query refinement before surfacing candidate results"
                         ],
-                        "responsibilities": []
-                    },
-                    {
-                        "jobTitle": "AI Engineer (Document Processing)",
-                        "type": "Contract",
-                        "company": "Self Employed",
-                        "client": "Paid client (Serbia)",
-                        "location": "Remote",
-                        "dateRange": "Oct 2024 — Feb 2025",
-                        "highlights": [
-                            "Enabled recruiters to shortlist candidates by applying filters and reviewing generated insights directly in the app"
-                        ],
-                        "responsibilities": []
+                        "responsibilities": [
+                            "Designed and developed RecOneAI, a multi-module AI-powered recruitment automation platform, from architecture through deployment",
+                            "Built a FastAPI REST API with token-based authentication serving multiple AI processing endpoints",
+                            "Integrated OpenAI GPT-4o and Anthropic Claude 3.5 Sonnet via LangChain for document extraction, classification, and analysis",
+                            "Implemented a CV-to-structured-JSON extraction pipeline with prompt engineering and programmatic output validation",
+                            "Developed a Job Description parser converting raw text/PDF into structured candidate filter criteria",
+                            "Built a voice transcript classifier extracting candidate identity data from unstructured call transcripts",
+                            "Developed a CV Optimization module that cross-analyzes a CV against a job description and generates improvement suggestions",
+                            "Built TARA — an AI-powered conversational recruitment assistant (Streamlit chatbot) with session-state management"
+                        ]
                     },
                     {
                         "jobTitle": "Web Designer & Developer",
                         "type": "Freelance",
                         "company": "Freelance",
                         "location": "Remote",
-                        "dateRange": "Feb 2022 — Feb 2023",
+                        "dateRange": "Feb 2023 — Jan 2024",
                         "highlights": [],
-                        "responsibilities": []
+                        "responsibilities": [
+                            "Designed and built user interfaces for collaboration platforms supporting Cyber-Physical Systems development",
+                            "Developed responsive, reusable UI components using HTML, CSS, TypeScript, and Angular",
+                            "Improved usability and consistency across desktop and mobile devices"
+                        ]
                     }
                 ]
             }
@@ -279,30 +373,32 @@
             "id": "project-experience",
             "visible": true,
             "content": {
-                "title": "&& Projects",
-                "subtitle": "Applications delivered from concept to production.",
+                "title": "UI & Product Design",
+                "subtitle": "Product interfaces I designed — from visual identity to interaction patterns.",
                 "items": [
                     {
-                        "jobTitle": "Pragmatic Labs Application",
+                        "jobTitle": "Pragmatic Labs — Product UI Design",
                         "company": "Pragmatic Labs",
                         "location": "Remote",
                         "dateRange": "Jan 2026 — Present",
                         "type": "Project",
+                        "highlights": [],
                         "responsibilities": [
-                            "Building a visual style with a custom color scale and a geometric type system to make the product feel precise, trustworthy, and enterprise-ready.",
-                            "Designing a chat interface that shifts its layout depending on what the AI is returning, so plain text and structured data are both easy to read and use.",
-                            "Creating the Prompt Builder as a step-by-step flow with collapsible sections and example inputs to make complex configuration tasks easier to understand and complete."
+                            "Built a \"Deep Tech\" visual style with a custom color scale and geometric type system to make the product feel precise, trustworthy, and enterprise-ready.",
+                            "Designed a chat interface that shifts its layout depending on what the AI is returning, so plain text and structured data are both easy to scan and act on.",
+                            "Created the Prompt Builder as a step-by-step flow with collapsible sections and contextual examples to make complex configuration feel approachable."
                         ]
                     },
                     {
-                        "jobTitle": "CIMBA SAIGE",
+                        "jobTitle": "CIMBA SAIGE — Student AI Interface",
                         "company": "Pragmatic Labs",
                         "client": "CIMBA Italy",
                         "location": "Remote",
                         "dateRange": "Sep 2025 — Oct 2025",
                         "type": "Project",
+                        "highlights": [],
                         "responsibilities": [
-                            "Designed the user interface and component system with a focus on simple navigation and fast access to common student questions.",
+                            "Designed the full UI and component system with a focus on simple navigation and fast access to common student questions.",
                             "Created a chat-centered layout optimized for clarity and low cognitive load, making AI interactions easy to follow for non-technical users."
                         ]
                     }
@@ -314,7 +410,7 @@
             "id": "skills",
             "visible": true,
             "content": {
-                "title": "/* Technical Skills */",
+                "title": "Technical Skills",
                 "subtitle": "What I work with daily.",
                 "categories": [
                     {
@@ -332,7 +428,9 @@
                         "name": "Frontend",
                         "items": [
                             "React",
+                            "Next.js",
                             "TypeScript",
+                            "Tailwind CSS",
                             "Responsive UI",
                             "HTML/CSS",
                             "Angular",
@@ -342,12 +440,15 @@
                     {
                         "name": "AI / LLM",
                         "items": [
+                            "RAG",
+                            "Prompt Engineering",
+                            "Agentic Workflows",
                             "LlamaIndex",
-                            "LangGraph",
+                            "LangChain",
+                            "Streamlit",
                             "OpenAI GPT",
                             "AWS Bedrock",
-                            "Anthropic Claude",
-                            "DeepSeek R1"
+                            "Anthropic Claude"
                         ]
                     },
                     {
@@ -362,8 +463,10 @@
                     {
                         "name": "DevOps & Cloud",
                         "items": [
+                            "Git",
                             "Docker",
                             "Nginx",
+                            "AWS EC2",
                             "AWS RDS",
                             "Deployment & Monitoring"
                         ]
@@ -388,7 +491,7 @@
             "content": {
                 "title": "Let's work together.",
                 "subtitle": "Open to remote opportunities. Based in Valencia, Spain.",
-                "email": "sasathepajic@gmail.com",
+                "email": "sasathepajic.ai@gmail.com",
                 "location": "Valencia, Spain"
             }
         }

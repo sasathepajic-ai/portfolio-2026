@@ -53,6 +53,12 @@ const HeroSectionSchema = BaseSectionSchema.extend({
 });
 
 // ─── Project ────────────────────────────────────────
+const ProjectImageSchema = z.object({
+  src: z.string(),
+  type: z.enum(["desktop", "mobile"]),
+  alt: z.string().optional(),
+});
+
 export const ProjectSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -61,11 +67,22 @@ export const ProjectSchema = z.object({
   gradient: z.string(),
   icon: z.string().optional(),
   image: z.string().optional(),
+  images: z.array(ProjectImageSchema).optional(),
   techStack: z.array(z.string()),
   highlights: z.array(z.string()).optional(),
   responsibilities: z.array(z.string()).optional(),
   challenge: z.string().optional(),
   solution: z.string().optional(),
+  sections: z
+    .array(
+      z.object({
+        title: z.string(),
+        body: z.string(),
+        image: z.string().optional(),
+        mobileImage: z.string().optional(),
+      }),
+    )
+    .optional(),
   dateRange: z.string().optional(),
   company: z.string().optional(),
   client: z.string().optional(),
@@ -131,9 +148,21 @@ const ContactSectionSchema = BaseSectionSchema.extend({
   }),
 });
 
+// ─── About ──────────────────────────────────────────
+const AboutSectionSchema = BaseSectionSchema.extend({
+  type: z.literal("about"),
+  content: z.object({
+    bio: z.string(),
+    values: z.array(z.string()).optional(),
+    availableForWork: z.boolean().optional(),
+    resumeUrl: z.string().optional(),
+  }),
+});
+
 // ─── Union ──────────────────────────────────────────
 const SectionSchema = z.discriminatedUnion("type", [
   HeroSectionSchema,
+  AboutSectionSchema,
   ProjectsSectionSchema,
   SkillsSectionSchema,
   ExperienceSectionSchema,
@@ -162,5 +191,6 @@ export const PortfolioConfigSchema = z.object({
 export type PortfolioConfig = z.infer<typeof PortfolioConfigSchema>;
 export type SectionType = z.infer<typeof SectionSchema>;
 export type ProjectType = z.infer<typeof ProjectSchema>;
+export type ProjectImageType = z.infer<typeof ProjectImageSchema>;
 export type ExperienceItemType = z.infer<typeof ExperienceItemSchema>;
 export type SkillCategoryType = z.infer<typeof SkillCategorySchema>;

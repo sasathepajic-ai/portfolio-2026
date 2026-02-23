@@ -1,5 +1,6 @@
 import { type SectionType } from "@/core/config/schema";
 import Hero from "@/components/features/Hero";
+import About from "@/components/features/About";
 import Projects from "@/components/features/Projects";
 import Experience from "@/components/features/Experience";
 import Skills from "@/components/features/Skills";
@@ -7,9 +8,10 @@ import Contact from "@/components/features/Contact";
 
 interface SectionRendererProps {
   sections: SectionType[];
+  socials?: { platform: string; url: string; label?: string }[];
 }
 
-export default function SectionRenderer({ sections }: SectionRendererProps) {
+export default function SectionRenderer({ sections, socials = [] }: SectionRendererProps) {
   return (
     <>
       {sections
@@ -17,8 +19,13 @@ export default function SectionRenderer({ sections }: SectionRendererProps) {
         .map((section) => {
           switch (section.type) {
             case "hero":
+              return <Hero key={section.id} data={section} />;
+
+            case "about":
               return (
-                <Hero key={section.id} data={section} />
+                <div key={section.id} id={section.id}>
+                  <About data={section} socials={socials} />
+                </div>
               );
 
             case "projects":
@@ -74,3 +81,4 @@ export default function SectionRenderer({ sections }: SectionRendererProps) {
     </>
   );
 }
+

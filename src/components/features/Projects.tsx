@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { type ProjectType } from "@/core/config/schema";
-import { ArrowUpRight, Layers, ExternalLink } from "lucide-react";
-import ProjectModal from "./ProjectModal";
+import { ExternalLink, ArrowRight } from "lucide-react";
+import CaseStudy from "./CaseStudy";
 
 interface ProjectsProps {
   title: string;
@@ -12,191 +13,178 @@ interface ProjectsProps {
   items: ProjectType[];
 }
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.12 },
-  },
-};
+// --- Desktop browser-chrome mockup ---
+function DesktopMockup({ src, alt }: { src: string; alt?: string }) {
+  return (
+    <div className="relative w-full rounded-xl overflow-hidden border border-white/10 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.8)]">
+      {/* Browser chrome */}
+      <div className="flex items-center gap-1.5 px-3 py-2 bg-[#111116] border-b border-white/6">
+        <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+        <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
+        <span className="w-2 h-2 rounded-full bg-[#28c840]" />
+        <div className="flex-1 mx-2.5 h-4 rounded-full bg-white/5 flex items-center px-2.5 gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-white/15 shrink-0" />
+          <span className="text-[8px] text-white/25 font-mono truncate">ablsafety.com</span>
+        </div>
+      </div>
+      {/* Screen: FHD 16:9 */}
+      <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+        <Image
+          src={src}
+          alt={alt ?? "Desktop screenshot"}
+          fill
+          className="object-cover object-top"
+          sizes="(max-width: 768px) 100vw, 60vw"
+        />
+      </div>
+    </div>
+  );
+}
 
-const cardMotion = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
-};
+function PhoneMockup({ src, alt }: { src: string; alt?: string }) {
+  return (
+    <div
+      className="relative rounded-[18px] overflow-hidden border-[3px] border-white/10 bg-[#0a0a0c] w-full"
+      style={{
+        aspectRatio: "9/19.5",
+        boxShadow: "0 24px 60px -8px rgba(0,0,0,0.95), inset 0 0 0 1px rgba(255,255,255,0.05)",
+      }}
+    >
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#0a0a0c] z-10 ring-[1.5px] ring-white/8" />
+      <Image
+        src={src}
+        alt={alt ?? "Mobile screenshot"}
+        fill
+        className="object-cover object-top"
+        sizes="200px"
+      />
+    </div>
+  );
+}
 
 export default function Projects({ title, subtitle, items }: ProjectsProps) {
   const [selected, setSelected] = useState<ProjectType | null>(null);
 
+  const featured = items[0];
+
+  const desktopImages = featured?.images?.filter((i) => i.type === "desktop") ?? [];
+  const mobileHero = featured?.images?.find((i) => i.type === "mobile");
+
   return (
-    <section className="relative py-28 sm:py-36">
-      {/* Section divider */}
-      <div className="section-divider absolute top-0 left-6 right-6" />
+    <>
+      <section className="relative py-28 sm:py-36">
+        <div className="section-divider absolute top-0 left-6 right-6" />
 
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Header with HUD bracket */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-20"
-        >
-          <div className="flex items-start gap-4 mb-4">
-            <div className="flex flex-col items-center">
-              <Layers className="w-6 h-6 text-primary/60" />
-              <div className="w-px h-8 bg-linear-to-b from-primary/30 to-transparent" />
-            </div>
-            <div className="flex-1">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">{title}</h2>
-              {subtitle && <p className="mt-3 text-secondary max-w-xl">{subtitle}</p>}
-            </div>
-          </div>
-        </motion.div>
+        <div className="mx-auto max-w-6xl px-6">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-3 flex items-center gap-3">
+              {title}
+              <span className="text-primary/40 font-mono text-2xl leading-none select-none font-normal translate-y-0.5">&lt; /&gt;</span>
+            </h2>
+            {subtitle && <p className="text-secondary max-w-xl">{subtitle}</p>}
+          </motion.div>
 
-        {/* Grid — featured first item large, rest in 2-col */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-          className="space-y-5"
-        >
           {/* Featured project */}
-          {items[0] && (
-            <motion.article
-              variants={cardMotion}
-              onClick={() => setSelected(items[0])}
-              className="glow-card group cursor-pointer rounded-2xl"
+          {featured && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="corner-brackets rounded-2xl border border-white/8 bg-linear-to-br from-white/2 to-transparent overflow-hidden mb-6"
             >
-              <div className="card-inner corner-brackets rounded-2xl border border-white/8 bg-linear-to-br from-white/2 to-transparent overflow-hidden hover:border-primary/30 hover:from-primary/3 transition-all duration-300">
-                {/* Hover accent line */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/0 to-transparent group-hover:via-primary/50 transition-all duration-500 z-10" />
-                <div className="p-8 relative">
-                  {/* Arrow indicator */}
-                  <div className="absolute top-6 right-6 p-2.5 rounded-full bg-white/5 text-white opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                  
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-primary/60 font-mono text-xs font-semibold">0x01</span>
-                    {items[0].dateRange && (
-                      <>
-                        <div className="w-px h-3 bg-primary/20" />
-                        <p className="text-xs text-primary/60 font-mono tracking-widest uppercase">
-                          {items[0].dateRange}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-2xl font-bold text-foreground tracking-tight">
-                      {items[0].title}
+              <div className="h-px w-full bg-linear-to-r from-transparent via-primary/30 to-transparent" />
+
+              <div className="grid lg:grid-cols-[1fr_1.25fr] gap-0">
+
+                {/* Left: info */}
+                <div className="p-8 lg:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/6">
+                  <div>
+                    <div className="flex items-center gap-3 mb-5">
+                      <span className="text-primary/50 font-mono text-xs font-semibold">0x01</span>
+                      {featured.dateRange && (
+                        <span className="text-secondary/40 font-mono text-[10px]">{featured.dateRange}</span>
+                      )}
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight leading-tight mb-1.5">
+                      {featured.title}
                     </h3>
-                    {items[0].demoUrl && (
+                    {featured.client && (
+                      <p className="text-secondary/45 text-[11px] font-mono mb-4">{featured.client}</p>
+                    )}
+                    <p className="text-secondary/75 text-sm leading-relaxed mb-6">
+                      {featured.description}
+                    </p>
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="mt-8 flex items-center gap-3 flex-wrap">
+                    {featured.demoUrl && (
                       <a
-                        href={items[0].demoUrl}
+                        href={featured.demoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-1 px-2 py-1 bg-primary/10 hover:bg-primary/20 border border-primary/20 hover:border-primary/30 text-primary rounded text-[10px] font-medium transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 hover:bg-primary/18 border border-primary/30 hover:border-primary/50 text-primary text-xs font-mono transition-all duration-200"
                       >
                         <ExternalLink className="w-3 h-3" />
-                        Live
+                        View live
                       </a>
                     )}
+                    <button
+                      onClick={() => setSelected(featured)}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-foreground/70 hover:text-foreground text-xs font-mono transition-all duration-200"
+                    >
+                      View case study
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
                   </div>
-                  <p className="text-secondary text-sm mb-2">{items[0].subtitle}</p>
-                  <p className="text-secondary/80 text-sm leading-relaxed mb-6 line-clamp-3">
-                    {items[0].description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-1.5">
-                    {items[0].techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-0.5 text-[11px] font-mono rounded bg-primary/8 text-primary/80 border border-primary/12"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                </div>
+
+                {/* Right: mockup showcase */}
+                <div className="relative p-6 lg:p-8 flex flex-col gap-4 bg-surface/40 overflow-hidden">
+                  {/* Subtle dot grid */}
+                  <div
+                    className="absolute inset-0 opacity-[0.025]"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)",
+                      backgroundSize: "24px 24px",
+                    }}
+                  />
+
+                  {/* Desktop + phone overlay */}
+                  {desktopImages[0] && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className={`relative z-10 w-full${mobileHero ? " pr-[15%] pb-[7%]" : ""}`}
+                    >
+                      <DesktopMockup src={desktopImages[0].src} alt={desktopImages[0].alt} />
+                      {mobileHero && (
+                        <div className="absolute bottom-0 right-0 w-[22%]">
+                          <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} />
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
                 </div>
               </div>
-            </motion.article>
+            </motion.div>
           )}
+        </div>
+      </section>
 
-          {/* Remaining projects in 2-col */}
-          <div className="grid gap-5 sm:grid-cols-2">
-            {items.slice(1).map((project, index) => (
-              <motion.article
-                key={project.id}
-                variants={cardMotion}
-                onClick={() => setSelected(project)}
-                className="glow-card group cursor-pointer rounded-2xl"
-              >
-                <div className="card-inner corner-brackets rounded-2xl border border-white/8 bg-linear-to-br from-white/2 to-transparent overflow-hidden hover:border-primary/30 hover:from-primary/3 transition-all duration-300">
-                  {/* Hover accent line */}
-                  <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/0 to-transparent group-hover:via-primary/50 transition-all duration-500 z-10" />
-                  <div className="p-6 relative">
-                    {/* Arrow indicator */}
-                    <div className="absolute top-4 right-4 p-2 rounded-full bg-white/5 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </div>
-                    
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-primary/60 font-mono text-xs font-semibold">0x0{index + 2}</span>
-                      {project.dateRange && (
-                        <>
-                          <div className="w-px h-3 bg-primary/20" />
-                          <p className="text-[10px] text-primary/50 font-mono tracking-widest uppercase">
-                            {project.dateRange}
-                          </p>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-semibold text-foreground tracking-tight leading-snug">
-                        {project.title}
-                      </h3>
-                      {project.demoUrl && (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-primary/10 hover:bg-primary/20 border border-primary/20 hover:border-primary/30 text-primary rounded text-[9px] font-medium transition-colors"
-                        >
-                          <ExternalLink className="w-2.5 h-2.5" />
-                          Live
-                        </a>
-                      )}
-                    </div>
-                    <p className="text-secondary text-sm mt-1 mb-4 line-clamp-2">{project.subtitle}</p>
-
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.techStack.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-0.5 text-[11px] font-mono rounded bg-white/4 text-secondary/70 border border-white/6"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.techStack.length > 4 && (
-                        <span className="px-2.5 py-0.5 text-[11px] font-mono rounded bg-white/4 text-secondary/40">
-                          +{project.techStack.length - 4}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      <ProjectModal project={selected} onClose={() => setSelected(null)} />
-    </section>
+      <CaseStudy project={selected} onClose={() => setSelected(null)} />
+    </>
   );
 }
