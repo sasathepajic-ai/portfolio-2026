@@ -1,7 +1,8 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { MapPin } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 
 interface ContactProps {
   title: string;
@@ -10,6 +11,62 @@ interface ContactProps {
   email: string;
   location?: string;
   phone?: string;
+}
+
+function TypewriterEmail({ email }: { email: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [displayed, setDisplayed] = useState("");
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (!inView || startedRef.current) return;
+    startedRef.current = true;
+    let i = 0;
+
+    const typeNext = () => {
+      i++;
+      setDisplayed(email.slice(0, i));
+      if (i >= email.length) return;
+
+      const ch = email[i] ?? "";
+      // Pause longer after @ and . to mimic hesitation
+      const isPause = ch === "@" || ch === "." || ch === "_";
+      // Slight slowdown mid-word occasionally
+      const jitter = Math.random() * 60;
+      const base = isPause ? 180 : 70;
+      // Occasional burst of fast typing
+      const burst = Math.random() < 0.15 ? -40 : 0;
+      setTimeout(typeNext, Math.max(25, base + jitter + burst));
+    };
+
+    const startDelay = setTimeout(typeNext, 900);
+    return () => clearTimeout(startDelay);
+  }, [inView, email]);
+
+  return (
+    <div ref={ref}>
+      <a
+        href={`mailto:${email}`}
+        className="group inline-flex items-baseline gap-3 hover:text-primary transition-colors duration-200 max-w-full min-w-0"
+      >
+        <span
+          className="font-display font-bold text-foreground/80 group-hover:text-primary transition-colors tracking-wide uppercase break-all"
+          style={{ fontSize: "clamp(0.85rem, 3.5vw, 3.5rem)" }}
+        >
+          {displayed}
+          {displayed.length < email.length && (
+            <span className="inline-block w-[0.5em] h-[0.85em] bg-primary/70 align-middle ml-0.5 cursor-blink" />
+          )}
+        </span>
+        {displayed === email && (
+          <span className="hidden sm:inline text-[10px] font-mono text-secondary/55 group-hover:text-primary/50 transition-colors">
+            &lt;ENTER&gt;
+          </span>
+        )}
+      </a>
+    </div>
+  );
 }
 
 export default function ContactScroll({ title, subtitle, sectionLabel = "05", email, location }: ContactProps) {
@@ -21,20 +78,7 @@ export default function ContactScroll({ title, subtitle, sectionLabel = "05", em
     { prompt: "$", cmd: `echo "${subtitle ?? "remote & relocation"}"`, delay: 0.3,
       output: <span className="text-primary/60">{subtitle ?? "Open to remote & relocation"}</span> },
     { prompt: "$", cmd: `mail -s "Hello" ${email}`, delay: 0.5,
-      output: (
-        <a
-          href={`mailto:${email}`}
-          className="group inline-flex items-baseline gap-3 hover:text-primary transition-colors duration-200"
-        >
-          <span className="font-display font-bold text-foreground/80 group-hover:text-primary transition-colors tracking-wide uppercase"
-                style={{ fontSize: "clamp(1.4rem, 3.5vw, 3.5rem)" }}>
-            {email}
-          </span>
-          <span className="text-[10px] font-mono text-secondary/55 group-hover:text-primary/50 transition-colors">
-            &lt;ENTER&gt;
-          </span>
-        </a>
-      )
+      output: <TypewriterEmail email={email} />
     },
   ];
 

@@ -77,7 +77,7 @@ function ExperienceEntry({
           {/* Name + role */}
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 min-w-0">
             <span className={`font-display font-bold uppercase tracking-wide leading-none text-2xl sm:text-3xl lg:text-[2rem] transition-colors ${
-              isOpen ? "text-primary glow-dim" : "text-foreground/80 group-hover:text-foreground"
+              isOpen ? "text-primary glow-flicker" : "text-foreground/80 group-hover:text-foreground"
             }`}>
               {item.company}
             </span>

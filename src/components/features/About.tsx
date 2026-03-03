@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Linkedin, Github } from "lucide-react";
 import { type SectionType } from "@/core/config/schema";
+import OXOGame from "./OXOGame";
 
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {
   linkedin: <Linkedin className="w-3 h-3" style={{ color: "#0A66C2" }} />,
@@ -81,47 +82,63 @@ export default function About({ data, socials = [] }: AboutProps) {
             )}
           </motion.div>
 
-          {/* Right column — bio */}
+          {/* Right column — bio + game */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Bio text — split into paragraphs */}
-            <div className="space-y-5">
-              {content.bio.split("\n\n").map((para, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.55, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-secondary text-lg leading-relaxed"
-                >
-                  {para}
-                </motion.p>
-              ))}
-            </div>
+            <div className="flex flex-col lg:flex-row gap-10 items-start">
+              {/* Bio text */}
+              <div className="flex-1 min-w-0">
+                {/* Bio text — split into paragraphs */}
+                <div className="space-y-5">
+                  {content.bio.split("\n\n").map((para, i) => (
+                    <motion.p
+                      key={i}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.55, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-secondary text-lg leading-relaxed"
+                    >
+                      {para}
+                    </motion.p>
+                  ))}
+                </div>
 
-            {/* Resume CTA */}
-            {content.resumeUrl && (
-              <motion.a
-                href={content.resumeUrl}
-                target="_blank"
-                rel="noreferrer"
-                initial={{ opacity: 0, y: 12 }}
+                {/* Resume CTA */}
+                {content.resumeUrl && (
+                  <motion.a
+                    href={content.resumeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: 0.4 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="inline-flex items-center gap-2.5 mt-8 px-6 py-3 bg-linear-to-br from-primary/12 to-primary/5 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:from-primary/20 hover:border-primary/50 transition-all duration-300"
+                  >
+                    <span className="font-mono text-primary/60">↓</span>
+                    Download Resume
+                  </motion.a>
+                )}
+              </div>
+
+              {/* OXO game */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: 0.4 }}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 mt-8 px-6 py-3 bg-linear-to-br from-primary/12 to-primary/5 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:from-primary/20 hover:border-primary/50 transition-all duration-300"
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="shrink-0 lg:pt-1"
               >
-                <span className="font-mono text-primary/60">↓</span>
-                Download Resume
-              </motion.a>
-            )}
+                <OXOGame />
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

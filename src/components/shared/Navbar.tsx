@@ -63,13 +63,15 @@ export default function Navbar({
 
   return (
     <>
-      {/* MOBILE TOGGLE — top-0 + py-3 mirrors the titlebar's own padding so text baselines match */}
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="fixed top-0 left-6 z-9999 lg:hidden flex items-center text-[10px] font-mono text-primary/60 hover:text-primary transition-colors px-0 py-3"
-      >
-        <span>{mobileOpen ? "[ CLOSE ]" : "[ MENU ]"}</span>
-      </button>
+      {/* MOBILE OPEN BUTTON — hidden while sidebar is open */}
+      {!mobileOpen && (
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="fixed top-4 left-5 z-9999 lg:hidden flex items-center text-[10px] font-mono text-primary/60 hover:text-primary transition-colors px-2.5 py-1 border border-primary/30 bg-background/90 backdrop-blur-sm"
+        >
+          <span>[ MENU ]</span>
+        </button>
+      )}
 
       {/* SIDEBAR */}
       <aside className={`
@@ -79,9 +81,18 @@ export default function Navbar({
         transition-transform duration-300
         ${mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
       `}>
+        {/* MOBILE CLOSE BUTTON — full-width row at very top of sidebar */}
+        <div className="lg:hidden flex justify-start px-5 py-4 shrink-0">
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="text-[10px] font-mono text-primary/60 hover:text-primary transition-colors px-2.5 py-1 border border-primary/30 bg-background/90"
+          >
+            [ CLOSE ]
+          </button>
+        </div>
 
         {/* TOP: session header */}
-        <div className="border-b border-primary/15 px-5 py-4 shrink-0">
+        <div className="border-b border-primary/15 px-5 py-4 lg:pt-4 shrink-0">
           <div className="text-[9px] font-mono text-secondary/50 mb-2 tracking-widest uppercase">
             SSH session :: {new Date().toISOString().slice(0, 10)}
           </div>

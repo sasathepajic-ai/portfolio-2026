@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import OXOGame from "./OXOGame";
 
 const BOOT_LINES = [
   "BIOS v2.26.0  Copyright (C) 1997-2026 Portfolio Systems Inc.",
@@ -68,10 +69,10 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
       <section id="about" className="min-h-screen flex flex-col border-b border-primary/10">
 
         {/* Terminal titlebar */}
-        <div className="flex items-center gap-3 px-6 py-3 border-b border-primary/10 bg-surface shrink-0">
+        <div className="flex items-center gap-3 p-5 lg:px-6 lg:py-3 border-b border-primary/10 bg-surface shrink-0">
           {/* On mobile the fixed [ MENU ] button sits here; spacer keeps title clear of it */}
-          <div className="lg:hidden w-16 shrink-0" />
-          <span className="text-[10px] font-mono text-secondary/55 tracking-[0.15em] uppercase">
+          <div className="lg:hidden w-20 shrink-0" />
+          <span className="text-[10px] font-mono text-secondary/55 tracking-[0.15em] uppercase truncate">
             portfolio.exe &#x2014; bash &#x2014; 80&#xD7;24
           </span>
         </div>
@@ -105,7 +106,7 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
             </div>
             <div className="border-l-2 border-primary/30 pl-6 sm:pl-10 mb-10">
               <h1 className="font-display font-bold leading-none tracking-wide uppercase text-foreground/85"
-                  style={{ fontSize: "clamp(3rem, 9vw, 8rem)" }}>
+                  style={{ fontSize: "clamp(1.75rem, 9vw, 8rem)" }}>
                 {h.headline}
               </h1>
               <div className="flex items-center gap-3 mt-4 flex-wrap">
@@ -158,8 +159,11 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="px-6 sm:px-12 lg:px-16 py-10 sm:py-14"
         >
+          {/* Flex row: bio grid + OXO game */}
+          <div className="flex flex-col xl:flex-row gap-12 items-start">
+
           {/* Grid: line numbers + content */}
-          <div className="grid grid-cols-[2rem_1fr] sm:grid-cols-[3rem_1fr] gap-0 max-w-3xl">
+          <div className="grid grid-cols-[2rem_1fr] sm:grid-cols-[3rem_1fr] gap-0 max-w-3xl flex-1">
             {a.bio.split('\n\n').filter(Boolean).map((para, i) => (
               <div key={i} className="contents">
                 <div className="text-[10px] font-mono text-secondary/40 tabular-nums text-right pr-4 sm:pr-6 pt-1 select-none leading-relaxed">
@@ -178,7 +182,18 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
             ))}
           </div>
 
-          {/* Socials as file permissions line */}
+            {/* OXO game */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="w-full xl:w-64 shrink-0 xl:pt-1"
+            >
+              <OXOGame />
+            </motion.div>
+
+          </div>{/* end flex row */}
           {socials.length > 0 && (
             <div className="mt-8 border-t border-primary/8 pt-6 flex items-center gap-2 flex-wrap">
               <span className="text-[9px] font-mono text-secondary/50 mr-2">$ ls -la ./links/</span>

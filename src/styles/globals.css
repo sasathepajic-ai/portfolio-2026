@@ -64,6 +64,223 @@ body {
 .glow-dim {
   text-shadow: 0 0 5px var(--primary);
 }
+
+/* ─── Flicker glow (old LED / phosphor effect) ────────── */
+@keyframes flicker-glow {
+  0% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  4% {
+    text-shadow:
+      0 0 3px var(--primary),
+      0 0 6px var(--primary);
+    opacity: 0.88;
+  }
+  6% {
+    text-shadow:
+      0 0 5px var(--primary),
+      0 0 12px var(--primary);
+    opacity: 1;
+  }
+  19% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  21% {
+    text-shadow: 0 0 2px var(--primary);
+    opacity: 0.75;
+  }
+  23% {
+    text-shadow:
+      0 0 6px var(--primary),
+      0 0 13px var(--primary);
+    opacity: 1;
+  }
+  40% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  42% {
+    text-shadow:
+      0 0 3px var(--primary),
+      0 0 7px var(--primary);
+    opacity: 0.92;
+  }
+  43% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  57% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  58% {
+    text-shadow:
+      0 0 2px var(--primary),
+      0 0 5px var(--primary);
+    opacity: 0.83;
+  }
+  59% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  65% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  66% {
+    text-shadow: 0 0 1px var(--primary);
+    opacity: 0.68;
+  }
+  67% {
+    text-shadow:
+      0 0 3px var(--primary),
+      0 0 7px var(--primary);
+    opacity: 0.9;
+  }
+  68% {
+    text-shadow:
+      0 0 5px var(--primary),
+      0 0 12px var(--primary);
+    opacity: 1;
+  }
+  78% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  79% {
+    text-shadow:
+      0 0 3px var(--primary),
+      0 0 6px var(--primary);
+    opacity: 0.86;
+  }
+  80% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  87% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  89% {
+    text-shadow: 0 0 2px var(--primary);
+    opacity: 0.79;
+  }
+  90% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 9px var(--primary);
+    opacity: 0.95;
+  }
+  91% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+  100% {
+    text-shadow:
+      0 0 4px var(--primary),
+      0 0 10px var(--primary);
+    opacity: 1;
+  }
+}
+.glow-flicker {
+  animation: flicker-glow 3.4s infinite;
+  animation-timing-function: steps(1, end);
+}
+
+/* ─── CRT monitor power-on ──────────────────────────────── */
+@keyframes crt-power-on {
+  0% {
+    transform: scaleY(0.005);
+    filter: brightness(12) contrast(4) saturate(0);
+  }
+  9% {
+    transform: scaleY(0.005);
+    filter: brightness(16) contrast(5) saturate(0);
+  }
+  28% {
+    transform: scaleY(0.86);
+    filter: brightness(3.5) contrast(1.6) saturate(0.1);
+  }
+  50% {
+    transform: scaleY(1.04);
+    filter: brightness(1.8) contrast(1.2) saturate(0.55);
+  }
+  64% {
+    transform: scaleY(0.99);
+    filter: brightness(1.35) contrast(1.08) saturate(0.82);
+  }
+  79% {
+    transform: scaleY(1.01);
+    filter: brightness(1.15) contrast(1.03) saturate(0.93);
+  }
+  91% {
+    transform: scaleY(1);
+    filter: brightness(1.05) contrast(1) saturate(0.98);
+  }
+  100% {
+    transform: scaleY(1);
+    filter: brightness(1) contrast(1) saturate(1);
+  }
+}
+
+@keyframes crt-scanlines-out {
+  0% {
+    opacity: 0.6;
+  }
+  55% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.crt-screen {
+  transform-origin: center center;
+  animation: crt-power-on 1.6s cubic-bezier(0.11, 0.8, 0.25, 1) both;
+  animation-delay: 0.35s;
+}
+
+.crt-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.14) 3px,
+    rgba(0, 0, 0, 0.14) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+  animation: crt-scanlines-out 2.8s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0.6;
+}
 .glow-red {
   text-shadow:
     0 0 10px var(--accent),

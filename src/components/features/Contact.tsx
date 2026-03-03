@@ -64,11 +64,11 @@ export default function Contact({ title, subtitle, email, location }: ContactPro
           transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 border border-primary/30 hover:border-primary/60 hover:bg-primary/18 transition-all duration-300 overflow-hidden mb-12"
+          className="group relative flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 border border-primary/30 hover:border-primary/60 hover:bg-primary/18 transition-all duration-300 overflow-hidden mb-12 max-w-full min-w-0"
         >
           <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-full" />
           <Mail className="w-4 h-4 text-primary/70 group-hover:text-primary transition-colors shrink-0" />
-          <span className="text-foreground/90 font-mono text-sm">{email}</span>
+          <span className="text-foreground/90 font-mono text-[0.65rem] sm:text-sm break-all">{email}</span>
           <ArrowUpRight className="w-3.5 h-3.5 text-primary/50 group-hover:text-primary transition-colors shrink-0" />
         </motion.a>
 

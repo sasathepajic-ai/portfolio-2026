@@ -27,7 +27,7 @@ function DesktopMockup({ src, alt }: { src: string; alt?: string }) {
           <span className="text-[8px] text-white/25 font-mono truncate">ablsafety.com</span>
         </div>
       </div>
-      <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+      <div className="relative w-full crt-screen" style={{ aspectRatio: "16/9" }}>
         <Image
           src={src}
           alt={alt ?? "Desktop screenshot"}
@@ -35,6 +35,7 @@ function DesktopMockup({ src, alt }: { src: string; alt?: string }) {
           className="object-cover object-top"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
+        <div className="crt-scanlines" />
       </div>
     </div>
   );
