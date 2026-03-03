@@ -96,7 +96,7 @@ export default function Contact({ title, subtitle, email, location }: ContactPro
         >
           <span>&#123;</span>
           <div className="w-12 h-px bg-white/6" />
-          <span className="text-primary/15">EOF</span>
+          <span className="text-primary/40">EOF</span>
           <div className="w-12 h-px bg-white/6" />
           <span>&#125;</span>
         </motion.div>

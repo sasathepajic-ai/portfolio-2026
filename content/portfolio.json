@@ -50,12 +50,12 @@
     ],
     "theme": {
         "colors": {
-            "background": "#010102",
-            "foreground": "#E8E8ED",
-            "primary": "#059669",
-            "secondary": "#9CA3AF",
-            "accent": "#1447e6",
-            "surface": "#020204"
+            "background": "#000200",
+            "foreground": "#c8ffc8",
+            "primary": "#00ee55",
+            "secondary": "#5a9060",
+            "accent": "#cc2200",
+            "surface": "#010601"
         }
     },
     "sections": [
@@ -78,7 +78,7 @@
             "id": "about",
             "visible": true,
             "content": {
-                "bio": "Most of my work starts with something that doesn't quite make sense yet. A half-formed idea, a system that's grown in strange directions, or a product that works but feels heavier than it should. I like sitting with that mess for a while and figuring out what's actually going on underneath it.\n\nI'm patient with complexity, but I get uncomfortable with confusion. When something feels off, I usually want to trace it back to the decision that caused it and fix it there, instead of adding another layer on top. A lot of my time goes into small choices that won't show up in screenshots, but quietly shape how everything behaves later.\n\nWhat keeps me interested is work where the outcome has weight. Not just shipping for the sake of shipping, but making something that holds together over time and doesn't treat the person using it like an afterthought. I like when a product has a clear direction, even if that means saying no to things.\n\nI'm based in Valencia, Spain. Open to remote and B2B work.",
+                "bio": "Most of my work starts with something that doesn't quite make sense yet. A half-formed idea, a system that's grown in strange directions, or a product that works but feels heavier than it should. I like sitting with that mess for a while and figuring out what's actually going on underneath it.\n\nI'm patient with complexity, but I get uncomfortable with confusion. When something feels off, I usually want to trace it back to the decision that caused it and fix it there, instead of adding another layer on top. A lot of my time goes into small choices that won't show up in screenshots, but quietly shape how everything behaves later.\n\nWhat keeps me interested is work where the outcome has weight. Not just shipping for the sake of shipping, but making something that holds together over time and doesn't treat the person using it like an afterthought. I like when a product has a clear direction, even if that means saying no to things.\n\nCode I write with my head. Design I do with something less rational. When a layout clicks, it's not because I reasoned my way there — it's because something uncomfortable went quiet. I've learned to trust that feeling more than most rules.\n\nI'm based in Valencia, Spain. Open to remote and B2B work.",
                 "values": [
                     "Clean Architecture",
                     "Performance-First",
@@ -307,8 +307,10 @@
                     {
                         "jobTitle": "Full Stack & AI Engineer",
                         "type": "Contract",
-                        "company": "The Academy of Brain-based Leadership (ABL)",
-                        "location": "Remote",
+                        "company": "S.A.F.E.T.Y.™ Platform",
+                        "client": "ABL — Academy of Brain-based Leadership",
+                        "contractor": "Pragmatic Labs",
+                        "location": "Australia",
                         "dateRange": "Mar 2025 — Present",
                         "highlights": [
                             "Migrated ~18,000 users and thousands of S.A.F.E.T.Y.™ assessment records from a legacy PHP system to a FastAPI/React platform with zero downtime",
@@ -333,8 +335,9 @@
                     {
                         "jobTitle": "Full Stack & AI Engineer",
                         "type": "Contract",
-                        "company": "Totema",
-                        "location": "Remote",
+                        "company": "RecOne AI",
+                        "client": "Totema",
+                        "location": "Serbia",
                         "dateRange": "May 2024 — Feb 2025",
                         "highlights": [
                             "Delivered a full-stack AI recruitment platform combining a production-ready FastAPI backend with a multi-page Streamlit UI — solo project",
@@ -353,10 +356,11 @@
                         ]
                     },
                     {
-                        "jobTitle": "Web Designer & Developer",
+                        "jobTitle": "Frontend Engineer",
                         "type": "Freelance",
-                        "company": "Freelance",
-                        "location": "Remote",
+                        "company": "GitWorks",
+                        "client": "Perpetual Labs",
+                        "location": "UK",
                         "dateRange": "Feb 2023 — Jan 2024",
                         "highlights": [],
                         "responsibilities": [
@@ -377,9 +381,10 @@
                 "subtitle": "Product interfaces I designed — from visual identity to interaction patterns.",
                 "items": [
                     {
-                        "jobTitle": "Pragmatic Labs — Product UI Design",
-                        "company": "Pragmatic Labs",
-                        "location": "Remote",
+                        "jobTitle": "AI Product Design",
+                        "company": "Pragmatic Labs AI",
+                        "client": "Pragmatic Labs",
+                        "location": "US",
                         "dateRange": "Jan 2026 — Present",
                         "type": "Project",
                         "highlights": [],
@@ -390,10 +395,11 @@
                         ]
                     },
                     {
-                        "jobTitle": "CIMBA SAIGE — Student AI Interface",
-                        "company": "Pragmatic Labs",
+                        "jobTitle": "Student AI Guidance Engine",
+                        "company": "CIMBA SAIGE",
+                        "contractor": "Pragmatic Labs",
                         "client": "CIMBA Italy",
-                        "location": "Remote",
+                        "location": "Italy",
                         "dateRange": "Sep 2025 — Oct 2025",
                         "type": "Project",
                         "highlights": [],
@@ -490,7 +496,7 @@
             "visible": true,
             "content": {
                 "title": "Let's work together.",
-                "subtitle": "Open to remote opportunities. Based in Valencia, Spain.",
+                "subtitle": "Open to remote and B2B opportunities. Based in Valencia, Spain.",
                 "email": "sasathepajic.ai@gmail.com",
                 "location": "Valencia, Spain"
             }

@@ -4,31 +4,29 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const cursorX = useMotionValue(-200);
-  const cursorY = useMotionValue(-200);
+  const cursorX = useMotionValue(-300);
+  const cursorY = useMotionValue(-300);
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const ringX = useSpring(cursorX, { damping: 32, stiffness: 600, mass: 0.3 });
-  const ringY = useSpring(cursorY, { damping: 32, stiffness: 600, mass: 0.3 });
+  // Detect coarse-pointer (touch) devices — skip the custom cursor entirely
+  const [isTouch] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(pointer: coarse)").matches : true
+  );
+  const lagX = useSpring(cursorX, { damping: 30, stiffness: 450, mass: 0.4 });
+  const lagY = useSpring(cursorY, { damping: 30, stiffness: 450, mass: 0.4 });
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
-      const target = e.target as Element;
-      const interactive = target.closest(
-        "a, button, [role='button'], label, select, input, textarea, [tabindex]:not([tabindex='-1'])"
-      );
-      setIsPointer(!!interactive);
+      const el = e.target as Element;
+      setIsPointer(!!el.closest('a, button, [role=button], input, textarea, select, label, [tabindex]:not([tabindex="-1"])'));
     };
-
     const show = () => setIsVisible(true);
     const hide = () => setIsVisible(false);
-
     window.addEventListener("mousemove", move, { passive: true });
     document.addEventListener("mouseenter", show);
     document.addEventListener("mouseleave", hide);
-
     return () => {
       window.removeEventListener("mousemove", move);
       document.removeEventListener("mouseenter", show);
@@ -36,40 +34,40 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
+  const color = isPointer ? "rgba(0,204,68,0.9)" : "rgba(0,204,68,0.5)";
+  const size  = isPointer ? 32 : 24;
+
+  if (isTouch) return null;
+
   return (
     <>
-      {/* Outer ring — lags slightly for elegance */}
+      {/* Lagging crosshair outer */}
       <motion.div
-        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%", zIndex: 10000 }}
-        animate={{
-          scale: isPointer ? 1.6 : 1,
-          opacity: isVisible ? 1 : 0,
-          borderColor: isPointer ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.32)",
-          backgroundColor: isPointer ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0)",
-        }}
-        transition={{
-          scale: { type: "spring", damping: 22, stiffness: 280 },
-          opacity: { duration: 0.18 },
-          borderColor: { duration: 0.22 },
-          backgroundColor: { duration: 0.22 },
-        }}
-        className="fixed top-0 left-0 w-7 h-7 rounded-full border pointer-events-none"
+        style={{ x: lagX, y: lagY, translateX: "-50%", translateY: "-50%", zIndex: 10000 }}
+        animate={{ opacity: isVisible ? 1 : 0, width: size, height: size }}
+        transition={{ opacity: { duration: 0.18 }, width: { type: "spring", damping: 20, stiffness: 280 }, height: { type: "spring", damping: 20, stiffness: 280 } }}
+        className="fixed top-0 left-0 pointer-events-none"
         aria-hidden
-      />
-      {/* Inner dot — locked to cursor, zero lag */}
+      >
+        {/* horizontal arm */}
+        <div className="absolute top-1/2 left-0 right-0 h-px" style={{ backgroundColor: color, transform: "translateY(-50%)" }} />
+        {/* vertical arm */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-px" style={{ backgroundColor: color, transform: "translateX(-50%)" }} />
+        {/* corner brackets */}
+        {isPointer && (<>
+          <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l" style={{ borderColor: color }} />
+          <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r" style={{ borderColor: color }} />
+          <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l" style={{ borderColor: color }} />
+          <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r" style={{ borderColor: color }} />
+        </>)}
+      </motion.div>
+
+      {/* Exact-position center dot */}
       <motion.div
-        style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%", zIndex: 10000 }}
-        animate={{
-          scale: isPointer ? 0.35 : 1,
-          opacity: isVisible ? 1 : 0,
-          backgroundColor: isPointer ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,1)",
-        }}
-        transition={{
-          scale: { type: "spring", damping: 32, stiffness: 600 },
-          opacity: { duration: 0.18 },
-          backgroundColor: { duration: 0.2 },
-        }}
-        className="fixed top-0 left-0 w-1 h-1 rounded-full pointer-events-none"
+        style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%", zIndex: 10001 }}
+        animate={{ opacity: isVisible ? 1 : 0, backgroundColor: color }}
+        transition={{ opacity: { duration: 0.15 }, backgroundColor: { duration: 0.2 } }}
+        className="fixed top-0 left-0 w-1 h-1 pointer-events-none"
         aria-hidden
       />
     </>

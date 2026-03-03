@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { type ProjectType } from "@/core/config/schema";
@@ -38,6 +38,31 @@ const TECH_ICONS: Record<string, IconType> = {
   "aws bedrock":      SiAmazonwebservices,
 };
 
+const TECH_VERSIONS: Record<string, string> = {
+  "fastapi":          "0.110.x",
+  "react":            "18.x",
+  "typescript":       "5.x",
+  "mysql":            "8.x",
+  "mysql 8":          "8.x",
+  "docker":           "26.x",
+  "nginx":            "1.26.x",
+  "streamlit":        "1.x",
+  "langchain":        "0.2.x",
+  "langgraph":        "0.2.x",
+  "openai":           "gpt-4o",
+  "openai gpt":       "gpt-4o",
+  "anthropic":        "claude-3.5",
+  "anthropic claude": "claude-3.5",
+  "claude":           "claude-3.5",
+  "python":           "3.12.x",
+  "next.js":          "15.x",
+  "git":              "2.x",
+  "postgresql":       "16.x",
+  "tailwind css":     "4.x",
+  "aws rds":          "—",
+  "aws bedrock":      "—",
+};
+
 const TECH_COLORS: Record<string, string> = {
   "fastapi":          "#009688",
   "react":            "#61DAFB",
@@ -63,13 +88,6 @@ const TECH_COLORS: Record<string, string> = {
   "aws bedrock":      "#FF9900",
 };
 
-function TechIcon({ name }: { name: string }) {
-  const Icon = TECH_ICONS[name.toLowerCase()];
-  if (!Icon) return null;
-  const color = TECH_COLORS[name.toLowerCase()];
-  return <Icon className="w-3 h-3 shrink-0" style={color ? { color } : { opacity: 0.6 }} />;
-}
-
 interface CaseStudyProps {
   project: ProjectType | null;
   onClose: () => void;
@@ -77,15 +95,13 @@ interface CaseStudyProps {
 
 function BrowserMockup({ src, alt, url = "ablsafety.com", onExpand }: { src: string; alt?: string; url?: string; onExpand?: () => void }) {
   return (
-    <div className="w-full overflow-hidden rounded-xl group/mockup"
-         style={{ boxShadow: "0 40px 120px -20px rgba(0,0,0,0.95)" }}>
-      <div className="flex items-center gap-1.5 px-4 py-2.5 bg-[#111114] border-b border-white/5">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-        <div className="flex-1 mx-3 h-5 rounded-full bg-white/4 border border-white/5 flex items-center px-3 gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-white/20 shrink-0" />
-          <span className="text-[9px] text-white/25 font-mono">{url}</span>
+    <div className="w-full overflow-hidden group/mockup border border-primary/15 hover:border-primary/25 transition-colors">
+      <div className="flex items-center gap-1.5 px-4 py-2.5 bg-surface border-b border-primary/12">
+        <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
+        <span className="w-2.5 h-2.5 rounded-full bg-primary/20" />
+        <span className="w-2.5 h-2.5 rounded-full bg-primary/45" />
+        <div className="flex-1 mx-3 h-5 border border-primary/10 bg-primary/3 flex items-center px-3 gap-2">
+          <span className="text-[9px] text-primary/45 font-mono">&gt; {url}</span>
         </div>
         {onExpand && (
           <button
@@ -114,7 +130,7 @@ function BrowserMockup({ src, alt, url = "ablsafety.com", onExpand }: { src: str
 function PhoneMockup({ src, alt, statusBar = true, onExpand }: { src: string; alt?: string; statusBar?: boolean | string; onExpand?: () => void }) {
   return (
     <div
-      className="relative rounded-[20px] overflow-hidden border-[3px] border-white/10 bg-[#0a0a0c] w-full group/phone"
+      className="relative overflow-hidden border border-primary/20 bg-surface w-full group/phone"
       style={{
         aspectRatio: "9/19.5",
         boxShadow: "0 24px 60px -8px rgba(0,0,0,0.95), inset 0 0 0 1px rgba(255,255,255,0.05)",
@@ -176,48 +192,38 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
 
-  // Build flat gallery from hero + all section images in order
   const gallery: { src: string; label: string; mobile?: boolean; statusBarColor?: string }[] = [];
   if (project) {
     const heroDesktop = project.images?.find((i) => i.type === "desktop");
-    const heroMobile = project.images?.find((i) => i.type === "mobile");
+    const heroMobile  = project.images?.find((i) => i.type === "mobile");
     if (heroDesktop) gallery.push({ src: heroDesktop.src, label: "Hero" });
-    if (heroMobile) gallery.push({ src: heroMobile.src, label: "Hero mobile", mobile: true, statusBarColor: "rgb(248, 249, 250)" });
+    if (heroMobile)  gallery.push({ src: heroMobile.src, label: "Hero mobile", mobile: true, statusBarColor: "rgb(248, 249, 250)" });
     project.sections?.forEach((s) => {
-      if (s.image) gallery.push({ src: s.image, label: s.title });
+      if (s.image)       gallery.push({ src: s.image,       label: s.title });
       if (s.mobileImage) gallery.push({ src: s.mobileImage, label: `${s.title} mobile`, mobile: true });
     });
   }
 
-  const openLightbox = (src: string) => {
-    const idx = gallery.findIndex((g) => g.src === src);
-    setLightboxIndex(idx >= 0 ? idx : 0);
-  };
+  const openLightbox  = (src: string) => { const idx = gallery.findIndex((g) => g.src === src); setLightboxIndex(idx >= 0 ? idx : 0); };
   const closeLightbox = () => setLightboxIndex(null);
-  const prevImage = () => setLightboxIndex((i) => (i === null ? null : (i - 1 + gallery.length) % gallery.length));
-  const nextImage = () => setLightboxIndex((i) => (i === null ? null : (i + 1) % gallery.length));
+  const prevImage     = useCallback(() => setLightboxIndex((i) => i === null ? null : (i - 1 + gallery.length) % gallery.length), [gallery.length]);
+  const nextImage     = useCallback(() => setLightboxIndex((i) => i === null ? null : (i + 1) % gallery.length), [gallery.length]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (lightboxIndex !== null) closeLightbox();
-        else onClose();
-      }
+      if (e.key === "Escape") { if (lightboxIndex !== null) closeLightbox(); else onClose(); }
       if (lightboxIndex !== null) {
-        if (e.key === "ArrowLeft") prevImage();
+        if (e.key === "ArrowLeft")  prevImage();
         if (e.key === "ArrowRight") nextImage();
       }
     };
     document.addEventListener("keydown", handleKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", handleKey);
-      document.body.style.overflow = prev;
-    };
-  }, [onClose, lightboxIndex]);
+    return () => { document.removeEventListener("keydown", handleKey); document.body.style.overflow = prev; };
+  }, [onClose, lightboxIndex, nextImage, prevImage]);
 
-  const desktops = project?.images?.filter((i) => i.type === "desktop") ?? [];
+  const desktops   = project?.images?.filter((i) => i.type === "desktop") ?? [];
   const mobileHero = project?.images?.find((i) => i.type === "mobile");
   const [hero] = desktops;
   const currentLightbox = lightboxIndex !== null ? gallery[lightboxIndex] : null;
@@ -231,115 +237,151 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-9999 bg-[#030304] overflow-y-auto overscroll-contain"
+          transition={{ duration: 0.22 }}
+          className="fixed inset-0 z-9999 bg-background overflow-y-auto overscroll-contain"
           onWheel={(e) => e.stopPropagation()}
         >
-          {/*  Nav bar  */}
-          <div className="sticky top-0 z-20 flex items-center justify-between px-6 sm:px-12 lg:px-20 h-14 bg-[#030304]/95 backdrop-blur-md border-b border-white/4">
-            <div />
-            <span className="text-[10px] font-mono text-secondary/25 uppercase tracking-[0.2em]">Case Study</span>
+
+          {/* ── Terminal title bar ── */}
+          <div className="sticky top-0 z-20 flex items-center gap-4 px-6 sm:px-12 lg:px-20 h-11 bg-surface border-b border-primary/15 backdrop-blur-md">
+            {/* traffic lights */}
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button onClick={onClose} aria-label="Close" className="w-3 h-3 rounded-full bg-accent/55 hover:bg-accent transition-colors" />
+              <span className="w-3 h-3 rounded-full bg-primary/15" />
+              <span className="w-3 h-3 rounded-full bg-primary/30" />
+            </div>
+            {/* filename */}
+            <span className="text-[10px] font-mono text-foreground/45 tracking-[0.12em] truncate">
+              ~/projects/{project.title.toLowerCase().replace(/ /g, "-")}/README.md
+            </span>
+            <span className="ml-auto text-[9px] font-mono text-primary/35 tracking-widest uppercase shrink-0">
+              less +G
+            </span>
             <button
               onClick={onClose}
               aria-label="Close"
-              className="text-secondary/40 hover:text-foreground transition-colors"
+              className="shrink-0 text-secondary/35 hover:text-foreground/70 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          {/*  Content  */}
-          <div className="max-w-5xl mx-auto px-6 sm:px-12 lg:px-20">
+          {/* ── Page content ── */}
+          <div className="max-w-4xl mx-auto px-6 sm:px-12 lg:px-20 pb-24">
 
-            {/* Title block */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="pt-14 pb-10"
-            >
-              <div className="flex flex-wrap items-center gap-3 mb-5">
-                {project.dateRange && (
-                  <span className="text-[11px] font-mono text-secondary/35 uppercase tracking-widest">{project.dateRange}</span>
-                )}
-                {project.client && (
-                  <>
-                    <span className="text-white/10">·</span>
-                    <span className="text-[11px] font-mono text-accent/55 uppercase tracking-widest">{project.client}</span>
-                  </>
-                )}
+            {/* File header bannerline */}
+            <div className="pt-10 pb-2 border-b border-primary/8 mb-10">
+              <div className="text-[9px] font-mono text-secondary/35 tracking-widest mb-6">
+                {`# ${project.title.toUpperCase().replace(/ /g, "_")} — README.md`}
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-[1.05] mb-3">
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.07, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display font-bold uppercase tracking-wide leading-none text-foreground/90 mb-4"
+                style={{ fontSize: "clamp(2.2rem, 5.5vw, 4.2rem)" }}
+              >
                 {project.title}
-              </h1>
-              <p className="text-primary/60 font-mono text-sm mb-8">{project.subtitle}</p>
+              </motion.h1>
 
-              <p className="text-secondary/85 leading-relaxed text-base max-w-2xl mb-6">
-                {project.description}
-              </p>
-              {project.demoUrl && (
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-mono text-secondary/40 uppercase tracking-[0.15em]">Live site</span>
-                  <span className="text-secondary/20">—</span>
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-primary/80 hover:text-primary text-sm font-mono underline underline-offset-4 decoration-primary/30 hover:decoration-primary/70 transition-all duration-200"
-                  >
-                    <Globe className="w-3.5 h-3.5 shrink-0" />
-                    {new URL(project.demoUrl!).hostname.replace(/^www\./, "")}
-                  </a>
-                </div>
+              {/* Subtitle */}
+              {project.subtitle && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.12, duration: 0.4 }}
+                  className="flex items-start gap-2 mb-6"
+                >
+                  <span className="font-mono text-primary/40 text-sm mt-0.5 shrink-0">›</span>
+                  <p className="text-xs font-mono text-primary/55 tracking-[0.08em] leading-relaxed">{project.subtitle}</p>
+                </motion.div>
               )}
-            </motion.div>
 
-          </div>
+              {/* Metadata table */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.18, duration: 0.4 }}
+                className="border border-primary/12 divide-y divide-primary/8 mb-8 max-w-sm"
+              >
+                {project.dateRange && (
+                  <div className="grid grid-cols-[6rem_1fr] text-[10px] font-mono">
+                    <span className="px-3 py-2 text-secondary/50 border-r border-primary/10 bg-primary/2 shrink-0">DATE</span>
+                    <span className="px-3 py-2 text-foreground/60">{project.dateRange}</span>
+                  </div>
+                )}
+                {project.client && (
+                  <div className="grid grid-cols-[6rem_1fr] text-[10px] font-mono">
+                    <span className="px-3 py-2 text-secondary/50 border-r border-primary/10 bg-primary/2 shrink-0">CLIENT</span>
+                    <span className="px-3 py-2 text-foreground/60">{project.client}</span>
+                  </div>
+                )}
+                {project.demoUrl && (
+                  <div className="grid grid-cols-[6rem_1fr] text-[10px] font-mono">
+                    <span className="px-3 py-2 text-secondary/50 border-r border-primary/10 bg-primary/2 shrink-0">URL</span>
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-2 text-primary/65 hover:text-primary underline underline-offset-4 decoration-primary/20 hover:decoration-primary/60 transition-all inline-flex items-center gap-1.5"
+                    >
+                      <Globe className="w-3 h-3 shrink-0" />
+                      {new URL(project.demoUrl).hostname.replace(/^www\./, "")}
+                    </a>
+                  </div>
+                )}
+              </motion.div>
+            </div>
 
-          <div className="max-w-5xl mx-auto px-6 sm:px-12 lg:px-20">
-
-          {/*  Hero screenshot + optional phone  */}
-          {hero && (
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className={`pb-4 relative${mobileHero ? " pr-[15%] pb-[7%]" : ""}`}
-            >
-              <BrowserMockup src={hero.src} alt={hero.alt} onExpand={() => openLightbox(hero.src)} />
-              {mobileHero && (
-                <div className="absolute bottom-4 right-0 w-[22%]">
-                  <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} statusBar="rgb(248, 249, 250)" onExpand={() => openLightbox(mobileHero.src)} />
-                </div>
-              )}
-            </motion.div>
-          )}
-
-            {/*  Challenge / Solution  */}
-            {(project.challenge || project.solution) && (
+            {/* Hero screenshot */}
+            {hero && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="py-14 border-t border-white/4 space-y-12"
+                transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className={`mb-14 relative${mobileHero ? " pr-[14%] pb-[7%]" : ""}`}
+              >
+                <BrowserMockup src={hero.src} alt={hero.alt} url={project.demoUrl ? new URL(project.demoUrl).hostname.replace(/^www\./, "") : project.title.toLowerCase().replace(/ /g, "-") + ".io"} onExpand={() => openLightbox(hero.src)} />
+                {mobileHero && (
+                  <div className="absolute bottom-4 right-0 w-[20%]">
+                    <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} statusBar="rgb(248, 249, 250)" onExpand={() => openLightbox(mobileHero.src)} />
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {/* ## CHALLENGE / ## SOLUTION */}
+            {(project.challenge || project.solution) && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-14 space-y-10"
               >
                 {project.challenge && (
-                  <div>
-                    <p className="text-[11px] font-mono text-accent/80 uppercase tracking-[0.2em] mb-4">The Challenge</p>
-                    <div className="space-y-4 max-w-2xl">
+                  <div className="border-l-2 border-accent/30 pl-5">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-[10px] font-mono text-accent/60 tracking-widest">##</span>
+                      <span className="text-[10px] font-mono text-accent/60 tracking-[0.2em] uppercase">CHALLENGE</span>
+                    </div>
+                    <div className="space-y-4">
                       {splitParagraphs(project.challenge).map((para, i) => (
-                        <p key={i} className="text-secondary/85 leading-relaxed text-[15px]" dangerouslySetInnerHTML={{ __html: enrich(para) }} />
+                        <p key={i} className="text-foreground/60 leading-relaxed text-sm font-mono" dangerouslySetInnerHTML={{ __html: enrich(para) }} />
                       ))}
                     </div>
                   </div>
                 )}
                 {project.solution && (
-                  <div>
-                    <p className="text-[11px] font-mono text-primary/80 uppercase tracking-[0.2em] mb-4">The Solution</p>
-                    <div className="space-y-4 max-w-2xl">
+                  <div className="border-l-2 border-primary/30 pl-5">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-[10px] font-mono text-primary/60 tracking-widest">##</span>
+                      <span className="text-[10px] font-mono text-primary/60 tracking-[0.2em] uppercase">SOLUTION</span>
+                    </div>
+                    <div className="space-y-4">
                       {splitParagraphs(project.solution).map((para, i) => (
-                        <p key={i} className="text-secondary/85 leading-relaxed text-[15px]" dangerouslySetInnerHTML={{ __html: enrich(para) }} />
+                        <p key={i} className="text-foreground/60 leading-relaxed text-sm font-mono" dangerouslySetInnerHTML={{ __html: enrich(para) }} />
                       ))}
                     </div>
                   </div>
@@ -347,178 +389,167 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               </motion.div>
             )}
 
-            {/*  Narrative sections  */}
+            {/* Narrative sections */}
             {project.sections && project.sections.length > 0 && (
-              <div className="border-t border-white/4 pt-14 space-y-10 pb-4">
+              <div className="space-y-16 mb-14">
                 {project.sections.map((section, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.32 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="space-y-6"
+                    transition={{ delay: 0.3 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="border-l-2 border-primary/15 pl-5"
                   >
-                    {/* text + title annotation */}
-                    <div className="grid sm:grid-cols-[1fr_140px] gap-6 sm:gap-12">
-                      <div className="space-y-4">
-                        {splitParagraphs(section.body).map((para, j) => (
-                          <p key={j} className="text-secondary/80 leading-relaxed text-[15px]" dangerouslySetInnerHTML={{ __html: enrich(para) }} />
-                        ))}
-                      </div>
-                      <div className="sm:text-right order-first sm:order-last">
-                        <h3 className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.15em] leading-snug">{section.title}</h3>
-                      </div>
+                    {/* Section label */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-[10px] font-mono text-primary/45 tracking-widest">##</span>
+                      <span className="text-[10px] font-mono text-foreground/50 tracking-[0.18em] uppercase">
+                        {section.title.replace(/ /g, "_")}
+                      </span>
                     </div>
-                    {/* mockup — full width, outside the grid */}
+
+                    {/* Body */}
+                    <div className="space-y-4 mb-8">
+                      {splitParagraphs(section.body).map((para, j) => (
+                        <p key={j} className="text-secondary/80 leading-relaxed text-[15px]" dangerouslySetInnerHTML={{ __html: enrich(para) }} />
+                      ))}
+                    </div>
+
+                    {/* Mockup */}
                     {(section.image || section.mobileImage) && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <div className={`relative${section.mobileImage ? " pr-[15%] pb-[7%]" : ""}`}>
-                          {section.image && (
-                            <BrowserMockup src={section.image} alt={section.title} onExpand={() => openLightbox(section.image!)} />
-                          )}
-                          {section.mobileImage && (
-                            <div className="absolute bottom-4 right-0 w-[22%]">
-                              <PhoneMockup src={section.mobileImage} alt={`${section.title} mobile`} onExpand={() => openLightbox(section.mobileImage!)} />
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
+                      <div className={`relative${section.mobileImage ? " pr-[14%] pb-[7%]" : ""}`}>
+                        {section.image && (
+                          <BrowserMockup src={section.image} alt={section.title} onExpand={() => openLightbox(section.image!)} />
+                        )}
+                        {section.mobileImage && (
+                          <div className="absolute bottom-4 right-0 w-[20%]">
+                            <PhoneMockup src={section.mobileImage} alt={`${section.title} mobile`} onExpand={() => openLightbox(section.mobileImage!)} />
+                          </div>
+                        )}
+                      </div>
                     )}
                   </motion.div>
                 ))}
               </div>
             )}
 
-          </div>
-
-          <div className="max-w-5xl mx-auto px-6 sm:px-12 lg:px-20">
-
-            {/*  Stack  */}
-            <div className="py-14 border-t border-white/4 mb-8">
-              <p className="text-[10px] font-mono text-primary/50 uppercase tracking-[0.22em] mb-6">Stack</p>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/3 border border-white/8 text-xs text-secondary/55 font-mono hover:text-secondary/85 hover:border-white/16 transition-all duration-200"
-                  >
-                    <TechIcon name={tech} />
-                    {tech}
-                  </span>
-                ))}
+            {/* ## TECH_STACK */}
+            <div className="pt-10 border-t border-primary/10 mb-16">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
+                <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">TECH_STACK</span>
+              </div>
+              {/* requirements.txt filename */}
+              <div className="text-[9px] font-mono text-secondary/35 mb-4 tracking-widest">requirements.txt</div>
+              <div className="border border-primary/10 bg-surface/40 divide-y divide-primary/6">
+                {project.techStack.map((tech, i) => {
+                  const key = tech.toLowerCase();
+                  const Icon = TECH_ICONS[key];
+                  const color = TECH_COLORS[key];
+                  const ver = TECH_VERSIONS[key] ?? "latest";
+                  const pkg = tech.toLowerCase().replace(/ /g, "-");
+                  return (
+                    <div key={tech} className="flex items-center gap-0 font-mono text-[11px] group hover:bg-primary/2.5 transition-colors">
+                      {/* line number */}
+                      <span className="w-8 text-right pr-3 text-secondary/25 text-[9px] tabular-nums shrink-0 select-none border-r border-primary/6 py-2">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {/* icon */}
+                      <span className="px-3 py-2 shrink-0">
+                        {Icon
+                          ? <Icon className="w-3 h-3" style={{ color, opacity: 0.65 }} />
+                          : <span className="w-3 h-3 inline-block" />
+                        }
+                      </span>
+                      {/* package==version */}
+                      <span className="py-2 flex-1 min-w-0">
+                        <span className="text-foreground/70 group-hover:text-foreground/90 transition-colors">{pkg}</span>
+                        <span className="text-primary/30">{ver !== "—" ? "==" : ""}</span>
+                        <span className="text-primary/55">{ver !== "—" ? ver : ""}</span>
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
           </div>
+
+          {/* ── vim-style status bar at bottom ── */}
+          <div className="fixed bottom-0 left-0 right-0 z-20 flex items-center gap-6 px-6 sm:px-12 lg:px-20 h-8 bg-primary/10 border-t border-primary/20">
+            <span className="text-[9px] font-mono text-primary/60 tracking-widest">README.md</span>
+            <span className="text-[9px] font-mono text-secondary/40 tracking-widest ml-auto">{project.techStack.length} dependencies</span>
+            <span className="text-[9px] font-mono text-secondary/35 tracking-widest">q :quit</span>
+          </div>
+
         </motion.div>
       )}
     </AnimatePresence>
 
-      {/* Lightbox / Gallery */}
-      <AnimatePresence>
-        {currentLightbox && (
+    {/* Lightbox / Gallery */}
+    <AnimatePresence>
+      {currentLightbox && (
+        <motion.div
+          key="lightbox"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-99999 bg-background/98 flex items-center justify-center p-4 sm:p-6 cursor-none"
+          onClick={closeLightbox}
+          onMouseMove={(e) => { if (cursorRef.current) cursorRef.current.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`; }}
+        >
+          <div ref={cursorRef} className="pointer-events-none fixed z-99999 w-6 h-6 rounded-full bg-white top-0 left-0" style={{ mixBlendMode: "difference", willChange: "transform" }} />
           <motion.div
-            key="lightbox"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-99999 bg-black/98 flex items-center justify-center p-4 sm:p-6 cursor-none"
-            onClick={closeLightbox}
-            onMouseMove={(e) => {
-              if (cursorRef.current) {
-                cursorRef.current.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
-              }
-            }}
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full max-w-7xl"
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Inverted cursor */}
-            <div
-              ref={cursorRef}
-              className="pointer-events-none fixed z-99999 w-6 h-6 rounded-full bg-white top-0 left-0"
-              style={{ mixBlendMode: "difference", willChange: "transform" }}
-            />
-
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-7xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close + label */}
-              <div className="absolute -top-10 left-0 right-0 flex items-center justify-between">
-                <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">
-                  {currentLightbox.label} · {(lightboxIndex ?? 0) + 1} / {gallery.length}
-                </span>
-                <button onClick={closeLightbox} className="text-white/40 hover:text-white transition-colors cursor-none" aria-label="Close">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Image */}
-              <div className={`flex justify-center${currentLightbox.mobile ? " items-center" : ""}`}>
-                <div
-                  className="relative rounded-xl overflow-hidden"
-                  style={{
-                    aspectRatio: currentLightbox.mobile ? "9/19.5" : "16/9",
-                    width: currentLightbox.mobile ? "min(380px, 60vh)" : "100%",
-                  }}
-                >
-                <Image
-                  src={currentLightbox.src}
-                  alt={currentLightbox.label}
-                  fill
-                  className="object-cover object-top"
-                  sizes="100vw"
-                  priority
-                />
+            <div className="absolute -top-10 left-0 right-0 flex items-center justify-between">
+              <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">
+                {currentLightbox.label} · {(lightboxIndex ?? 0) + 1} / {gallery.length}
+              </span>
+              <button onClick={closeLightbox} className="text-foreground/40 hover:text-foreground transition-colors cursor-none" aria-label="Close">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className={`flex justify-center${currentLightbox.mobile ? " items-center" : ""}`}>
+              <div
+                className="relative overflow-hidden border border-primary/15"
+                style={{ aspectRatio: currentLightbox.mobile ? "9/19.5" : "16/9", width: currentLightbox.mobile ? "min(380px, 60vh)" : "100%" }}
+              >
+                <Image src={currentLightbox.src} alt={currentLightbox.label} fill className="object-cover object-top" sizes="100vw" priority />
                 {currentLightbox.mobile && (
                   <div className="absolute top-0 left-0 right-0 h-[7%] z-10" style={{ backgroundColor: currentLightbox.statusBarColor ?? "#f1f3f5" }} />
                 )}
-                </div>
               </div>
-              {gallery.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 p-2 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-none"
-                    aria-label="Previous"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 p-2 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-none"
-                    aria-label="Next"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </>
-              )}
-
-              {/* Dot indicators */}
-              {gallery.length > 1 && (
-                <div className="flex justify-center gap-1.5 mt-5">
-                  {gallery.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
-                      className={`w-1.5 h-1.5 rounded-full transition-all cursor-none ${
-                        i === lightboxIndex ? "bg-white/70 scale-125" : "bg-white/20 hover:bg-white/40"
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
-            </motion.div>
+            </div>
+            {gallery.length > 1 && (
+              <>
+                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 p-2 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-none" aria-label="Previous">
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 p-2 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-none" aria-label="Next">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+            {gallery.length > 1 && (
+              <div className="flex justify-center gap-1.5 mt-5">
+                {gallery.map((_, i) => (
+                  <button key={i} onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
+                    className={`w-1.5 h-1.5 rounded-full transition-all cursor-none ${i === lightboxIndex ? "bg-white/70 scale-125" : "bg-white/20 hover:bg-white/40"}`}
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
-        )}
-      </AnimatePresence>
+        </motion.div>
+      )}
+    </AnimatePresence>
     </>
   );
 }

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Space_Grotesk, Rubik_Glitch } from "next/font/google";
 import "@/styles/globals.css";
 import { getPortfolioConfig } from "@/core/utils/config-loader";
 import CustomCursor from "@/components/shared/CustomCursor";
 
-const geistSans = Geist({ variable: "--font-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-mono", subsets: ["latin"] });
+const geistMono    = Geist_Mono({ variable: "--font-mono",    subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({ variable: "--font-major-mono", subsets: ["latin"], weight: ["400","500","600","700"] });
+const rubikGlitch  = Rubik_Glitch({ variable: "--font-glitch",  subsets: ["latin"], weight: "400" });
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getPortfolioConfig();
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const c = config.theme.colors;
 
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistMono.variable} ${spaceGrotesk.variable} ${rubikGlitch.variable}`}>
       <head>
         <style
           dangerouslySetInnerHTML={{
@@ -57,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="antialiased overflow-x-hidden dot-grid">
+        <body className="antialiased overflow-x-hidden scanlines">
         <CustomCursor />
         {children}
       </body>

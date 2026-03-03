@@ -120,6 +120,7 @@ const ExperienceItemSchema = z.object({
   jobTitle: z.string(),
   company: z.string(),
   client: z.string().optional(),
+  contractor: z.string().optional(),
   location: z.string(),
   dateRange: z.string(),
   type: z.string().optional(),

@@ -1,10 +1,9 @@
 import { type SectionType } from "@/core/config/schema";
-import Hero from "@/components/features/Hero";
-import About from "@/components/features/About";
-import Projects from "@/components/features/Projects";
-import Experience from "@/components/features/Experience";
-import Skills from "@/components/features/Skills";
-import Contact from "@/components/features/Contact";
+import HeroAbout from "@/components/features/HeroAbout";
+import ProjectsScroll from "@/components/features/ProjectsScroll";
+import ExperienceScroll from "@/components/features/ExperienceScroll";
+import SkillsScroll from "@/components/features/SkillsScroll";
+import ContactScroll from "@/components/features/ContactScroll";
 
 interface SectionRendererProps {
   sections: SectionType[];
@@ -12,66 +11,74 @@ interface SectionRendererProps {
 }
 
 export default function SectionRenderer({ sections, socials = [] }: SectionRendererProps) {
+  const visible = sections.filter((s) => s.visible !== false);
+
+  // Find hero and about for merging
+  const hero = visible.find((s) => s.type === "hero") as
+    | Extract<SectionType, { type: "hero" }>
+    | undefined;
+  const about = visible.find((s) => s.type === "about") as
+    | Extract<SectionType, { type: "about" }>
+    | undefined;
+
   return (
     <>
-      {sections
-        .filter((s) => s.visible !== false)
+      {/* Merged hero + about */}
+      {hero && about && (
+        <HeroAbout hero={hero} about={about} socials={socials} />
+      )}
+
+      {/* Remaining sections */}
+      {visible
+        .filter((s) => s.type !== "hero" && s.type !== "about")
         .map((section) => {
           switch (section.type) {
-            case "hero":
-              return <Hero key={section.id} data={section} />;
-
-            case "about":
-              return (
-                <div key={section.id} id={section.id}>
-                  <About data={section} socials={socials} />
-                </div>
-              );
-
             case "projects":
               return (
-                <div key={section.id} id={section.id}>
-                  <Projects
-                    title={section.content.title}
-                    subtitle={section.content.subtitle}
-                    items={section.content.items}
-                  />
-                </div>
+                <ProjectsScroll
+                  key={section.id}
+                  title={section.content.title}
+                  subtitle={section.content.subtitle}
+                  items={section.content.items}
+                />
               );
 
-            case "experience":
+            case "experience": {
+              const experienceSections = visible.filter((s) => s.type === "experience");
+              const expIdx = experienceSections.indexOf(section);
+              const hasMultiple = experienceSections.length > 1;
+              const sectionLabel = hasMultiple ? `03.${expIdx + 1}` : "03";
               return (
-                <div key={section.id} id={section.id}>
-                  <Experience
-                    title={section.content.title}
-                    subtitle={section.content.subtitle}
-                    items={section.content.items}
-                  />
-                </div>
+                <ExperienceScroll
+                  key={section.id}
+                  title={section.content.title}
+                  subtitle={section.content.subtitle}
+                  sectionLabel={sectionLabel}
+                  items={section.content.items}
+                />
               );
+            }
 
             case "skills":
               return (
-                <div key={section.id} id={section.id}>
-                  <Skills
-                    title={section.content.title}
-                    subtitle={section.content.subtitle}
-                    categories={section.content.categories}
-                  />
-                </div>
+                <SkillsScroll
+                  key={section.id}
+                  title={section.content.title}
+                  subtitle={section.content.subtitle}
+                  categories={section.content.categories}
+                />
               );
 
             case "contact":
               return (
-                <div key={section.id} id={section.id}>
-                  <Contact
-                    title={section.content.title}
-                    subtitle={section.content.subtitle}
-                    email={section.content.email}
-                    location={section.content.location}
-                    phone={section.content.phone}
-                  />
-                </div>
+                <ContactScroll
+                  key={section.id}
+                  title={section.content.title}
+                  subtitle={section.content.subtitle}
+                  email={section.content.email}
+                  location={section.content.location}
+                  phone={section.content.phone}
+                />
               );
 
             default:

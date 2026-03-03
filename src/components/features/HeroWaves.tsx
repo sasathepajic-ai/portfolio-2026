@@ -24,11 +24,11 @@ const WORD_POOL = [
 ];
 
 const PALETTES = [
-  { r: 5,   g: 150, b: 105 }, // --primary green
-  { r: 5,   g: 150, b: 105 },
-  { r: 5,   g: 150, b: 105 },
-  { r: 20,  g: 71,  b: 230 }, // --accent blue
-  { r: 100, g: 180, b: 140 }, // muted green
+  { r: 0,   g: 204, b: 68  }, // bright primary #00cc44
+  { r: 0,   g: 255, b: 65  }, // matrix green #00ff41
+  { r: 0,   g: 172, b: 32  }, // medium green
+  { r: 0,   g: 120, b: 22  }, // dim green
+  { r: 140, g: 255, b: 160 }, // pale phosphor
 ];
 
 const FONT_SIZE  = 13;
