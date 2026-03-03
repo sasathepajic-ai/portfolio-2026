@@ -14,7 +14,10 @@ export function useScrollReveal(
   offset: [string, string] = ["start end", "end start"],
 ) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: offset as ["start end", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: offset as ["start end", "end start"],
+  });
 
   return { ref, scrollYProgress };
 }
@@ -28,10 +31,17 @@ export function useScrollFade(
   offset: [string, string] = ["start end", "end start"],
 ) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: offset as ["start end", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: offset as ["start end", "end start"],
+  });
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [yDistance, 0, 0, -yDistance]);
+  const y = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [yDistance, 0, 0, -yDistance],
+  );
 
   return { ref, opacity, y };
 }
@@ -42,7 +52,10 @@ export function useScrollFade(
  */
 export function useParallax(speed = 0.3) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
 
   const y = useTransform(scrollYProgress, [0, 1], [100 * speed, -100 * speed]);
 
@@ -56,7 +69,10 @@ export function useTextReveal(
   offset: [string, string] = ["start 0.85", "start 0.35"],
 ) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: offset as ["start end", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: offset as ["start end", "end start"],
+  });
 
   return { ref, scrollYProgress };
 }
