@@ -84,7 +84,7 @@ export default function SkillsScroll({ title, sectionLabel = "04", categories }:
     return "pending";
   };
 
-  const COL = "grid grid-cols-[1fr_120px_120px] sm:grid-cols-[1fr_160px_160px] gap-2 px-6 sm:px-12 lg:px-16";
+  const COL = "grid grid-cols-[1fr_100px] sm:grid-cols-[1fr_160px_160px] gap-2 px-6 sm:px-12 lg:px-16";
 
   return (
     <section ref={sectionRef} id="skills" className="border-b border-primary/10">
