@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { type ProjectType } from "@/core/config/schema";
-import { X, Globe, Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, Globe, Maximize2, ChevronLeft, ChevronRight, Images } from "lucide-react";
 import {
   SiFastapi, SiReact, SiTypescript, SiMysql, SiDocker,
   SiNginx, SiStreamlit, SiLangchain, SiOpenai, SiAnthropic,
@@ -191,6 +191,8 @@ function splitParagraphs(text: string): string[] {
 export default function CaseStudy({ project, onClose }: CaseStudyProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
+  const isTouch = typeof window !== "undefined" ? window.matchMedia("(pointer: coarse)").matches : true;
 
   const gallery: { src: string; label: string; mobile?: boolean; statusBarColor?: string }[] = [];
   if (project) {
@@ -341,14 +343,41 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className={`mb-14 relative${mobileHero ? " pr-[14%] pb-[7%]" : ""}`}
+                className="mb-14"
               >
-                <BrowserMockup src={hero.src} alt={hero.alt} url={project.demoUrl ? new URL(project.demoUrl).hostname.replace(/^www\./, "") : project.title.toLowerCase().replace(/ /g, "-") + ".io"} onExpand={() => openLightbox(hero.src)} />
-                {mobileHero && (
-                  <div className="absolute bottom-4 right-0 w-[20%]">
-                    <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} statusBar="rgb(248, 249, 250)" onExpand={() => openLightbox(mobileHero.src)} />
+                {/* Desktop: full browser + phone mockup */}
+                <div className={`hidden lg:block relative${mobileHero ? " pr-[14%] pb-[7%]" : ""}`}>
+                  <BrowserMockup src={hero.src} alt={hero.alt} url={project.demoUrl ? new URL(project.demoUrl).hostname.replace(/^www\./,"") : project.title.toLowerCase().replace(/ /g,"-")+".io"} onExpand={() => openLightbox(hero.src)} />
+                  {mobileHero && (
+                    <div className="absolute bottom-4 right-0 w-[20%]">
+                      <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} statusBar="rgb(248, 249, 250)" onExpand={() => openLightbox(mobileHero.src)} />
+                    </div>
+                  )}
+                </div>
+
+                {/* Mobile: flat image + open gallery button */}
+                <div className="lg:hidden">
+                  <button
+                    onClick={() => openLightbox(hero.src)}
+                    className="relative w-full block overflow-hidden border border-primary/15 active:opacity-75 transition-opacity"
+                    aria-label="Open gallery"
+                  >
+                    <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+                      <Image src={hero.src} alt={hero.alt ?? "Hero"} fill className="object-cover object-top" sizes="100vw" priority />
+                    </div>
+                    <div className="absolute inset-0 bg-black/0 active:bg-black/10 transition-colors" />
+                  </button>
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-[10px] font-mono text-secondary/35 tracking-widest">{gallery.length} screenshot{gallery.length !== 1 ? "s" : ""}</span>
+                    <button
+                      onClick={() => openLightbox(hero.src)}
+                      className="flex items-center gap-1.5 text-[11px] font-mono text-primary/60 hover:text-primary/90 border border-primary/20 hover:border-primary/40 px-3 py-1.5 transition-all active:scale-95"
+                    >
+                      <Images className="w-3 h-3" />
+                      Open gallery
+                    </button>
                   </div>
-                )}
+                </div>
               </motion.div>
             )}
 
@@ -417,7 +446,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
 
                     {/* Mockup */}
                     {(section.image || section.mobileImage) && (
-                      <div className={`relative${section.mobileImage ? " pr-[14%] pb-[7%]" : ""}`}>
+                      <div className={`hidden lg:block relative${section.mobileImage ? " pr-[14%] pb-[7%]" : ""}`}>
                         {section.image && (
                           <BrowserMockup src={section.image} alt={section.title} onExpand={() => openLightbox(section.image!)} />
                         )}
@@ -495,11 +524,11 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-99999 bg-background/98 flex items-center justify-center p-4 sm:p-6 cursor-none"
+          className={`fixed inset-0 z-99999 bg-background/98 flex items-center justify-center p-4 sm:p-6${isTouch ? "" : " cursor-none"}`}
           onClick={closeLightbox}
-          onMouseMove={(e) => { if (cursorRef.current) cursorRef.current.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`; }}
+          onMouseMove={(e) => { if (!isTouch && cursorRef.current) cursorRef.current.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`; }}
         >
-          <div ref={cursorRef} className="pointer-events-none fixed z-99999 w-6 h-6 rounded-full bg-white top-0 left-0" style={{ mixBlendMode: "difference", willChange: "transform" }} />
+          {!isTouch && <div ref={cursorRef} className="pointer-events-none fixed z-99999 w-6 h-6 rounded-full bg-white top-0 left-0" style={{ mixBlendMode: "difference", willChange: "transform" }} />}
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -507,12 +536,19 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full max-w-7xl"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => {
+              if (touchStartX.current === null) return;
+              const diff = touchStartX.current - e.changedTouches[0].clientX;
+              if (Math.abs(diff) > 40) { diff > 0 ? nextImage() : prevImage(); }
+              touchStartX.current = null;
+            }}
           >
             <div className="absolute -top-10 left-0 right-0 flex items-center justify-between">
               <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">
                 {currentLightbox.label} · {(lightboxIndex ?? 0) + 1} / {gallery.length}
               </span>
-              <button onClick={closeLightbox} className="text-foreground/40 hover:text-foreground transition-colors cursor-none" aria-label="Close">
+              <button onClick={closeLightbox} className={`text-foreground/40 hover:text-foreground transition-colors${isTouch ? "" : " cursor-none"}`} aria-label="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -529,10 +565,10 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
             </div>
             {gallery.length > 1 && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 p-2 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-none" aria-label="Previous">
+                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className={`absolute left-2 xl:left-0 top-1/2 -translate-y-1/2 xl:-translate-x-14 p-2.5 xl:p-2 rounded-full bg-black/50 xl:bg-white/5 border border-white/15 text-white/70 hover:text-white hover:bg-black/70 xl:hover:bg-white/10 transition-all z-10${isTouch ? "" : " cursor-none"}`} aria-label="Previous">
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 p-2 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-none" aria-label="Next">
+                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className={`absolute right-2 xl:right-0 top-1/2 -translate-y-1/2 xl:translate-x-14 p-2.5 xl:p-2 rounded-full bg-black/50 xl:bg-white/5 border border-white/15 text-white/70 hover:text-white hover:bg-black/70 xl:hover:bg-white/10 transition-all z-10${isTouch ? "" : " cursor-none"}`} aria-label="Next">
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </>
@@ -541,7 +577,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               <div className="flex justify-center gap-1.5 mt-5">
                 {gallery.map((_, i) => (
                   <button key={i} onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
-                    className={`w-1.5 h-1.5 rounded-full transition-all cursor-none ${i === lightboxIndex ? "bg-white/70 scale-125" : "bg-white/20 hover:bg-white/40"}`}
+                    className={`w-1.5 h-1.5 rounded-full transition-all ${isTouch ? "" : "cursor-none "}${i === lightboxIndex ? "bg-white/70 scale-125" : "bg-white/20 hover:bg-white/40"}`}
                   />
                 ))}
               </div>
