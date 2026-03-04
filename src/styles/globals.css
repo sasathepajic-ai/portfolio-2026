@@ -26,9 +26,74 @@
   --surface: #010601;
   --glow: #00ee55;
   /* Mondrian control-panel accents */
-  --mondrian-blue: #1a44cc;
-  --mondrian-yellow: #d4aa00;
+  --mondrian-blue: #2563eb;
+  --mondrian-yellow: #f59e0b;
   --mondrian-white: #e8e8e8;
+  /* About nav indicator — stays green in both themes */
+  --nav-about: #00ee55;
+  /* Text selection */
+  --selection-bg: var(--primary);
+  --selection-color: #000200;
+}
+
+/* ─── Light theme ─────────────────────────────────────── */
+html[data-theme="light"] {
+  --background: #f4f1eb;
+  --foreground: #050504;
+  --primary: #1a1917;
+  --secondary: #1a1917;
+  --accent: #cc2200;
+  --surface: #ece9e3;
+  --glow: #1a1917;
+  /* Mondrian — white swapped to black for contrast */
+  --mondrian-blue: #2563eb;
+  --mondrian-yellow: #d97706;
+  --mondrian-white: #1a1917;
+  /* About nav indicator — stays green in light theme */
+  --nav-about: #16a34a;
+  /* Red more vivid on light bg */
+  --accent: #e02020;
+  /* Text selection */
+  --selection-bg: #16a34a;
+  --selection-color: #fff;
+}
+
+/* Boost font weight + smoothing for small mono text in light theme */
+html[data-theme="light"] body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 500;
+}
+
+html[data-theme="light"] .glow,
+html[data-theme="light"] .glow-dim,
+html[data-theme="light"] .glow-flicker {
+  text-shadow: none;
+}
+
+html[data-theme="light"] .glow-red {
+  text-shadow: none;
+}
+
+html[data-theme="light"] .scanlines::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.012) 3px,
+    rgba(0, 0, 0, 0.012) 4px
+  );
+}
+
+html[data-theme="light"] .scanlines::after {
+  background: none;
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(26, 68, 204, 0.25);
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 68, 204, 0.5);
 }
 
 * {
@@ -51,8 +116,8 @@ body {
 
 /* Selection */
 ::selection {
-  background: var(--primary);
-  color: #000;
+  background: var(--selection-bg);
+  color: var(--selection-color);
 }
 
 /* ─── Phosphor glow ───────────────────────────────────── */
@@ -299,8 +364,8 @@ body {
     0deg,
     transparent,
     transparent 3px,
-    rgba(0, 0, 0, 0.14) 3px,
-    rgba(0, 0, 0, 0.14) 4px
+    rgba(0, 0, 0, 0.055) 3px,
+    rgba(0, 0, 0, 0.055) 4px
   );
   pointer-events: none;
   z-index: 9997;
@@ -399,8 +464,8 @@ body {
     0deg,
     transparent,
     transparent 1px,
-    rgba(0, 0, 0, 0.06) 1px,
-    rgba(0, 0, 0, 0.06) 2px
+    rgba(0, 0, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0.03) 2px
   );
   background-clip: text;
 }

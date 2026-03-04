@@ -106,7 +106,7 @@ function BrowserMockup({ src, alt, url = "ablsafety.com", onExpand }: { src: str
         {onExpand && (
           <button
             onClick={onExpand}
-            className="ml-1 p-1 rounded text-white/20 hover:text-white/60 hover:bg-white/6 transition-all duration-150"
+            className="ml-1 p-1 rounded text-foreground/25 hover:text-foreground/65 hover:bg-foreground/8 transition-all duration-150"
             aria-label="Expand image"
           >
             <Maximize2 className="w-3 h-3" />
@@ -151,7 +151,7 @@ function PhoneMockup({ src, alt, statusBar = true, onExpand }: { src: string; al
       {onExpand && (
         <button
           onClick={onExpand}
-          className="absolute bottom-2 right-2 z-20 p-1 rounded bg-black/40 text-white/30 opacity-0 group-hover/phone:opacity-100 hover:text-white/80 hover:bg-black/60 transition-all duration-150"
+          className="absolute bottom-2 right-2 z-20 p-1 rounded bg-background/50 text-foreground/35 opacity-0 group-hover/phone:opacity-100 hover:text-foreground/80 hover:bg-background/70 transition-all duration-150"
           aria-label="Expand image"
         >
           <Maximize2 className="w-2.5 h-2.5" />
@@ -163,7 +163,7 @@ function PhoneMockup({ src, alt, statusBar = true, onExpand }: { src: string; al
 
 const NUM_RE = /(\d[\d,.]*(?:\s*[x]\s*\d+)?(?:\s*(?:ms|s|K|M|%|,000))*\+?)/g;
 function highlight(str: string) {
-  return str.replace(NUM_RE, '<strong class="text-white/85 font-semibold">$1</strong>');
+  return str.replace(NUM_RE, '<strong class="text-foreground/95 font-semibold">$1</strong>');
 }
 
 const KEYWORDS = [
@@ -178,7 +178,7 @@ const KW_RE = new RegExp(
   "g"
 );
 function highlightKeywords(str: string) {
-  return str.replace(KW_RE, '<span class="text-white/85 font-medium">$&</span>');
+  return str.replace(KW_RE, '<span class="text-foreground/95 font-medium">$&</span>');
 }
 
 function enrich(str: string) {
@@ -192,7 +192,9 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
-  const isTouch = typeof window !== "undefined" ? window.matchMedia("(pointer: coarse)").matches : true;
+  const [isTouch] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(pointer: coarse)").matches : true
+  );
 
   const gallery: { src: string; label: string; mobile?: boolean; statusBarColor?: string }[] = [];
   if (project) {
@@ -283,7 +285,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.07, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 className="font-display font-bold uppercase tracking-wide leading-none text-foreground/90 mb-4"
-                style={{ fontSize: "clamp(2.2rem, 5.5vw, 4.2rem)" }}
+                style={{ fontSize: "clamp(1.7rem, 3.8vw, 3.2rem)" }}
               >
                 {project.title}
               </motion.h1>
@@ -296,7 +298,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                   transition={{ delay: 0.12, duration: 0.4 }}
                   className="flex items-start gap-2 mb-6"
                 >
-                  <span className="font-mono text-primary/40 text-sm mt-0.5 shrink-0">›</span>
+                  <span className="font-mono text-primary/40 text-sm -mt-0.5 shrink-0">›</span>
                   <p className="text-xs font-mono text-primary/55 tracking-[0.08em] leading-relaxed">{project.subtitle}</p>
                 </motion.div>
               )}
@@ -540,12 +542,12 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
             onTouchEnd={(e) => {
               if (touchStartX.current === null) return;
               const diff = touchStartX.current - e.changedTouches[0].clientX;
-              if (Math.abs(diff) > 40) { diff > 0 ? nextImage() : prevImage(); }
+              if (Math.abs(diff) > 40) { if (diff > 0) nextImage(); else prevImage(); }
               touchStartX.current = null;
             }}
           >
             <div className="absolute -top-10 left-0 right-0 flex items-center justify-between">
-              <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">
+              <span className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.2em]">
                 {currentLightbox.label} · {(lightboxIndex ?? 0) + 1} / {gallery.length}
               </span>
               <button onClick={closeLightbox} className={`text-foreground/40 hover:text-foreground transition-colors${isTouch ? "" : " cursor-none"}`} aria-label="Close">
@@ -565,10 +567,10 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
             </div>
             {gallery.length > 1 && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className={`absolute left-2 xl:left-0 top-1/2 -translate-y-1/2 xl:-translate-x-14 p-2.5 xl:p-2 rounded-full bg-black/50 xl:bg-white/5 border border-white/15 text-white/70 hover:text-white hover:bg-black/70 xl:hover:bg-white/10 transition-all z-10${isTouch ? "" : " cursor-none"}`} aria-label="Previous">
+                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className={`absolute left-2 xl:left-0 top-1/2 -translate-y-1/2 xl:-translate-x-14 p-2.5 xl:p-2 rounded-full bg-background/60 border border-foreground/15 text-foreground/60 hover:text-foreground hover:bg-background/80 transition-all z-10${isTouch ? "" : " cursor-none"}`} aria-label="Previous">
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className={`absolute right-2 xl:right-0 top-1/2 -translate-y-1/2 xl:translate-x-14 p-2.5 xl:p-2 rounded-full bg-black/50 xl:bg-white/5 border border-white/15 text-white/70 hover:text-white hover:bg-black/70 xl:hover:bg-white/10 transition-all z-10${isTouch ? "" : " cursor-none"}`} aria-label="Next">
+                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className={`absolute right-2 xl:right-0 top-1/2 -translate-y-1/2 xl:translate-x-14 p-2.5 xl:p-2 rounded-full bg-background/60 border border-foreground/15 text-foreground/60 hover:text-foreground hover:bg-background/80 transition-all z-10${isTouch ? "" : " cursor-none"}`} aria-label="Next">
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </>
@@ -577,7 +579,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               <div className="flex justify-center gap-1.5 mt-5">
                 {gallery.map((_, i) => (
                   <button key={i} onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
-                    className={`w-1.5 h-1.5 rounded-full transition-all ${isTouch ? "" : "cursor-none "}${i === lightboxIndex ? "bg-white/70 scale-125" : "bg-white/20 hover:bg-white/40"}`}
+                    className={`w-1.5 h-1.5 rounded-full transition-all ${isTouch ? "" : "cursor-none "}${i === lightboxIndex ? "bg-foreground/70 scale-125" : "bg-foreground/20 hover:bg-foreground/45"}`}
                   />
                 ))}
               </div>

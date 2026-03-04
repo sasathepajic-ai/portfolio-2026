@@ -3,6 +3,7 @@ import { Geist_Mono, Space_Grotesk, Rubik_Glitch } from "next/font/google";
 import "@/styles/globals.css";
 import { getPortfolioConfig } from "@/core/utils/config-loader";
 import CustomCursor from "@/components/shared/CustomCursor";
+import ThemeProvider from "@/components/shared/ThemeProvider";
 
 const geistMono    = Geist_Mono({ variable: "--font-mono",    subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({ variable: "--font-major-mono", subsets: ["latin"], weight: ["400","500","600","700"] });
@@ -43,8 +44,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const c = config.theme.colors;
 
   return (
-    <html lang="en" className={`${geistMono.variable} ${spaceGrotesk.variable} ${rubikGlitch.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${geistMono.variable} ${spaceGrotesk.variable} ${rubikGlitch.variable}`}>
       <head>
+        {/* Anti-flash: apply saved theme before paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}`,
+          }}
+        />
         <style
           dangerouslySetInnerHTML={{
             __html: `:root {
@@ -58,9 +65,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-        <body className="antialiased overflow-x-hidden scanlines">
-        <CustomCursor />
-        {children}
+      <body className="antialiased overflow-x-hidden scanlines">
+        <ThemeProvider>
+          <CustomCursor />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

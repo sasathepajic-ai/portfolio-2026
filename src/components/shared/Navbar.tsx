@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTheme } from "./ThemeProvider";
 
 interface NavItem { label: string; href: string; }
 interface Social  { platform: string; url: string; label?: string; }
@@ -14,13 +15,13 @@ const CMD_MAP: Record<string, string> = {
   Contact:    "mail -s contact",
 };
 
-// Mondrian control-panel color per section â€” mirrors the image's button row
+// Mondrian control-panel color per section — mirrors the image's button row
 const MONDRIAN: string[] = [
-  "var(--primary)",          // 01 â€” phosphor green
-  "var(--mondrian-blue)",    // 02 â€” cobalt blue
-  "var(--mondrian-yellow)",  // 03 â€” golden yellow
-  "var(--accent)",           // 04 â€” signal red
-  "var(--mondrian-white)",   // 05 â€” panel white
+  "var(--nav-about)",        // 01 — green (About only, stays green in light theme)
+  "var(--mondrian-blue)",    // 02 — cobalt blue
+  "var(--mondrian-yellow)",  // 03 — golden yellow
+  "var(--accent)",           // 04 — signal red
+  "var(--mondrian-white)",   // 05 — panel white / black in light
 ];
 
 export default function Navbar({
@@ -37,6 +38,7 @@ export default function Navbar({
   const [time, setTime] = useState("");
   const [active, setActive] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const tick = () => setTime(new Date().toISOString().slice(11, 19) + " UTC");
@@ -109,6 +111,29 @@ export default function Navbar({
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse shrink-0" style={{ marginTop: '-1px' }} />
             <span className="text-[9px] font-mono text-primary/55 tracking-widest uppercase" style={{ lineHeight: 1 }}>ONLINE</span>
           </div>
+          {/* Theme toggle */}
+          <button
+            onClick={toggle}
+            aria-label="Toggle theme"
+            className="mt-2 self-start relative flex items-center gap-1 px-1 py-0.5 border border-primary/20 hover:border-primary/50 transition-all duration-200 group"
+            title={theme === 'dark' ? 'Switch to light' : 'Switch to dark'}
+          >
+            <span className={`text-[10px] transition-all duration-200 ${
+              theme === 'dark' ? 'opacity-100' : 'opacity-30'
+            }`}>☾</span>
+            <span className={`relative inline-block w-6 h-3 mx-0.5 transition-colors duration-300 ${
+              theme === 'light' ? 'bg-primary/25' : 'bg-primary/15'
+            }`}>
+              <span className={`absolute top-0.5 w-2 h-2 transition-all duration-300 ${
+                theme === 'light'
+                  ? 'left-[calc(100%-10px)] bg-primary'
+                  : 'left-0.5 bg-primary/60'
+              }`} />
+            </span>
+            <span className={`text-[10px] transition-all duration-200 ${
+              theme === 'light' ? 'opacity-100' : 'opacity-30'
+            }`}>☀</span>
+          </button>
         </div>
 
         {/* MID: navigation */}
@@ -137,7 +162,11 @@ export default function Navbar({
                         backgroundColor: isActive ? color : "transparent",
                         border: `1px solid ${color}`,
                         opacity: isActive ? 1 : 0.4,
-                        boxShadow: isActive ? `0 0 8px ${color}55` : "none",
+                        boxShadow: isActive
+                          ? theme === "light"
+                            ? `0 0 3px ${color}33`
+                            : `0 0 8px ${color}55`
+                          : "none",
                       }}
                     />
                     {/* Number + label */}
@@ -180,7 +209,7 @@ export default function Navbar({
               <span
                 key={i}
                 className="flex-1 h-1.5"
-                style={{ backgroundColor: color, opacity: 0.55 }}
+                style={{ backgroundColor: color, opacity: theme === "light" ? 0.9 : 0.8 }}
               />
             ))}
           </div>

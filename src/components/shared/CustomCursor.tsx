@@ -8,10 +8,17 @@ export default function CustomCursor() {
   const cursorY = useMotionValue(-300);
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  // Detect coarse-pointer (touch) devices — skip the custom cursor entirely
-  const [isTouch] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(pointer: coarse)").matches : true
-  );
+  // Detect coarse-pointer (touch) devices — skip the custom cursor entirely.
+  // Must start false on both server and client to avoid hydration mismatch;
+  // the effect updates it after mount via a subscription (avoids setState-in-effect lint rule).
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(pointer: coarse)");
+    const update = () => setIsTouch(mql.matches);
+    mql.addEventListener("change", update);
+    update();
+    return () => mql.removeEventListener("change", update);
+  }, []);
   const lagX = useSpring(cursorX, { damping: 30, stiffness: 450, mass: 0.4 });
   const lagY = useSpring(cursorY, { damping: 30, stiffness: 450, mass: 0.4 });
 
@@ -34,7 +41,8 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  const color = isPointer ? "rgba(0,204,68,0.9)" : "rgba(0,204,68,0.5)";
+  const color = "var(--primary)";
+  const cursorOpacity = isVisible ? (isPointer ? 1 : 0.55) : 0;
   const size  = isPointer ? 32 : 24;
 
   if (isTouch) return null;
@@ -44,7 +52,7 @@ export default function CustomCursor() {
       {/* Lagging crosshair outer */}
       <motion.div
         style={{ x: lagX, y: lagY, translateX: "-50%", translateY: "-50%", zIndex: 10000 }}
-        animate={{ opacity: isVisible ? 1 : 0, width: size, height: size }}
+        animate={{ opacity: cursorOpacity, width: size, height: size }}
         transition={{ opacity: { duration: 0.18 }, width: { type: "spring", damping: 20, stiffness: 280 }, height: { type: "spring", damping: 20, stiffness: 280 } }}
         className="fixed top-0 left-0 pointer-events-none"
         aria-hidden
@@ -64,9 +72,9 @@ export default function CustomCursor() {
 
       {/* Exact-position center dot */}
       <motion.div
-        style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%", zIndex: 10001 }}
-        animate={{ opacity: isVisible ? 1 : 0, backgroundColor: color }}
-        transition={{ opacity: { duration: 0.15 }, backgroundColor: { duration: 0.2 } }}
+        style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%", zIndex: 10001, backgroundColor: color }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+        transition={{ opacity: { duration: 0.15 } }}
         className="fixed top-0 left-0 w-1 h-1 pointer-events-none"
         aria-hidden
       />
