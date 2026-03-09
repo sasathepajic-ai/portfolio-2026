@@ -85,7 +85,7 @@ export default function ContactScroll({ title, subtitle, sectionLabel = "05", em
   return (
     <section id="contact" className="min-h-[80vh] flex flex-col">
       {/* Command header */}
-      <div className="flex items-center gap-3 px-6 sm:px-12 lg:px-16 py-5 border-y border-primary/10 bg-surface/50">
+      <div className="flex items-center gap-3 px-6 sm:px-12 lg:px-16 py-5 border-b border-primary/8 bg-surface/50">
         <span className="text-primary/50 font-mono text-[11px]">$</span>
         <span className="text-[11px] font-mono text-foreground/65 tracking-widest">./contact.sh</span>
         <span className="ml-auto text-[9px] font-mono text-secondary/45 uppercase tracking-[0.15em]">
@@ -93,7 +93,7 @@ export default function ContactScroll({ title, subtitle, sectionLabel = "05", em
         </span>
       </div>
 
-      <div className="flex-1 flex flex-col px-6 sm:px-12 lg:px-16 py-12 sm:py-16 space-y-8">
+      <div className="flex-1 flex flex-col px-6 sm:px-12 lg:px-16 py-14 sm:py-20 space-y-10">
         {lines.map((line, i) => (
           <motion.div
             key={i}

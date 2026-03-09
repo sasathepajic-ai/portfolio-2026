@@ -127,7 +127,7 @@ export default function SkillsScroll({ title, sectionLabel = "04", categories }:
       )}
 
       {/* Table header */}
-      <div className={`${COL} py-2.5 border-b border-primary/6 bg-primary/2`}>
+      <div className={`${COL} py-3 border-b border-primary/6 bg-primary/2`}>
         <span className="text-[9px] font-mono text-secondary/45 tracking-[0.15em] uppercase">Package</span>
         <span className="text-[9px] font-mono text-secondary/45 tracking-[0.15em] uppercase hidden sm:block">Version</span>
         <span className="text-[9px] font-mono text-secondary/45 tracking-[0.15em] uppercase">Category</span>
@@ -142,7 +142,7 @@ export default function SkillsScroll({ title, sectionLabel = "04", categories }:
           /* ── PENDING: dim placeholder ── */
           if (rowPhase === "pending") {
             return (
-              <div key={skill.name} className={`${COL} py-2.5 select-none`}>
+              <div key={skill.name} className={`${COL} py-3 select-none`}>
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-3 h-3 shrink-0 rounded-sm bg-secondary/10" />
         <span className="text-[11px] font-mono text-secondary/20 truncate">{skill.name}</span>
@@ -158,7 +158,7 @@ export default function SkillsScroll({ title, sectionLabel = "04", categories }:
             return (
               <div
                 key={skill.name}
-                className={`${COL} py-2.5 bg-primary/4 border-l border-primary/50`}
+                className={`${COL} py-3 bg-primary/4 border-l border-primary/50`}
               >
                 <div className="flex items-center gap-2 min-w-0">
                   {info && (
@@ -182,7 +182,7 @@ export default function SkillsScroll({ title, sectionLabel = "04", categories }:
           return (
             <div
               key={skill.name}
-              className={`${COL} py-2.5 hover:bg-primary/2 transition-colors group cursor-default`}
+              className={`${COL} py-3 hover:bg-primary/2 transition-colors group cursor-default`}
             >
               <div className="flex items-center gap-2 min-w-0">
                 {info && (

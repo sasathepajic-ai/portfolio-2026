@@ -37,6 +37,7 @@ export default function SectionRenderer({ sections, socials = [] }: SectionRende
               return (
                 <ProjectsScroll
                   key={section.id}
+                  sectionId={section.id}
                   title={section.content.title}
                   subtitle={section.content.subtitle}
                   items={section.content.items}

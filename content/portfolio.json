@@ -381,6 +381,28 @@
                 "subtitle": "Product interfaces I designed — from visual identity to interaction patterns.",
                 "items": [
                     {
+                        "jobTitle": "Website Design & Development",
+                        "company": "Pragmatic Labs AI",
+                        "client": "Pragmatic Labs",
+                        "location": "US",
+                        "dateRange": "2025 — 2026",
+                        "type": "Project",
+                        "highlights": [
+                            "Custom 3D atom visualization rendered on raw Canvas 2D — no WebGL, no external libraries, full scroll-reactive spin with exponential decay",
+                            "Full design system via CSS custom properties and Tailwind v4 @theme inline — one token change propagates everywhere",
+                            "Dark mode via .dark class strategy — components never branch on theme, tokens do all the work",
+                            "Statically generated solution detail pages from a typed data record — no database, no API, no runtime fetching"
+                        ],
+                        "responsibilities": [
+                            "Designed the full visual identity: warm off-white/charcoal palette with a terracotta accent — deliberately avoiding the cold 'tech blue' SaaS look",
+                            "Built the marketing site end-to-end with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and Framer Motion",
+                            "Implemented a custom 3D atom hero animation on HTML Canvas — six orbital rings in 3D space with per-segment alpha fading and scroll-speed interaction",
+                            "Architected a single design-tokens.css file bridged into Tailwind v4 utility classes — no hardcoded values in any component",
+                            "Integrated dark mode via MutationObserver in the canvas renderer — theme switches instantly with no rerenders",
+                            "Used Next.js App Router with server-rendered metadata and statically generated solution pages from a typed SOLUTION_DETAILS record"
+                        ]
+                    },
+                    {
                         "jobTitle": "AI Product Design",
                         "company": "Pragmatic Labs AI",
                         "client": "Pragmatic Labs",
@@ -407,6 +429,43 @@
                             "Designed the full UI and component system with a focus on simple navigation and fast access to common student questions.",
                             "Created a chat-centered layout optimized for clarity and low cognitive load, making AI interactions easy to follow for non-technical users."
                         ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "projects",
+            "id": "design",
+            "visible": true,
+            "content": {
+                "title": "Website Design",
+                "subtitle": "Full-stack websites I designed and built end-to-end.",
+                "items": [
+                    {
+                        "id": "pragmatic-labs-ai-website",
+                        "title": "Pragmatic Labs AI",
+                        "subtitle": "Marketing Website — Full Stack Design & Development",
+                        "description": "Marketing website for Pragmatic Labs AI — an AI consulting firm offering assistants, workflow automation, business intelligence, and strategy services to mid-sized businesses. Built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and Framer Motion. The site features a custom 3D atom canvas animation, warm off-white/charcoal design system, scroll-reactive motion, and full dark mode via CSS custom properties.",
+                        "gradient": "from-orange-500 via-red-500 to-red-700",
+                        "techStack": [
+                            "Next.js",
+                            "React",
+                            "TypeScript",
+                            "Tailwind CSS",
+                            "Framer Motion"
+                        ],
+                        "dateRange": "In Development",
+                        "demoUrl": "https://pragmatic-labs-ai-website.vercel.app/",
+                        "highlights": [
+                            "Custom 3D atom visualization rendered on raw Canvas 2D — no WebGL, no external libraries",
+                            "Full design system via CSS custom properties — one token change propagates everywhere",
+                            "Dark mode implemented as a .dark class strategy — components never branch on theme",
+                            "Scroll-reactive animation: page scrolling spins up the atom with exponential decay back to 1×",
+                            "Statically generated solution detail pages from a typed data record — zero runtime fetching"
+                        ],
+                        "caseStudyType": "design",
+                        "lightImage": "/assets/pragmatic-labs-main-light.png",
+                        "darkImage": "/assets/pragmatic-labs-main-dark.png"
                     }
                 ]
             }

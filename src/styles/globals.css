@@ -378,8 +378,8 @@ body {
   inset: 0;
   background: radial-gradient(
     ellipse at 50% 50%,
-    transparent 55%,
-    rgba(0, 0, 0, 0.7) 100%
+    transparent 60%,
+    rgba(0, 0, 0, 0.5) 100%
   );
   pointer-events: none;
   z-index: 9996;

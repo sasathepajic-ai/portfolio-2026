@@ -79,7 +79,7 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
 
         {/* Boot log */}
         <div className="flex-1 flex flex-col p-6 sm:p-10 lg:p-16">
-          <div className="font-mono text-[11px] sm:text-xs text-secondary/65 leading-relaxed space-y-0.5 mb-10">
+          <div className="font-mono text-[11px] sm:text-xs text-secondary/65 leading-relaxed space-y-0.5 mb-14">
             {BOOT_LINES.slice(0, visibleLines).map((line, i) => (
               <div key={i} className={line === "" ? "h-2" : ""}>
                 {line && (
@@ -104,19 +104,18 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
             <div className="flex items-baseline gap-3 mb-4">
               <span className="text-[10px] font-mono text-primary/55 tracking-[0.2em]">$ whoami</span>
             </div>
-            <div className="border-l-2 border-primary/30 pl-6 sm:pl-10 mb-10">
-              <h1 className="font-display font-bold leading-none tracking-wide uppercase text-foreground/85"
+            <div className="border-l-2 border-primary/30 pl-6 sm:pl-10 mb-12">
+              <h1 className="font-display font-bold leading-none tracking-wide uppercase text-foreground/90 text-balance"
                   style={{ fontSize: "clamp(1.75rem, 9vw, 8rem)" }}>
                 {h.headline}
               </h1>
-              <div className="flex items-center gap-3 mt-4 flex-wrap">
-                <span className="text-[11px] font-mono text-primary/50 tracking-[0.15em] uppercase">
+              <div className="mt-5 space-y-3">
+                <span className="text-[11px] font-mono text-primary/50 tracking-[0.15em] uppercase block">
                   {h.greeting}
                 </span>
-                <span className="text-primary/30 font-mono">{"\u2500\u2500"}</span>
-                <span className="text-[11px] font-mono text-secondary/60 tracking-widest">
+                <p className="text-[13px] sm:text-sm font-mono text-secondary/55 leading-relaxed max-w-xl">
                   {h.subheadline}
-                </span>
+                </p>
               </div>
             </div>
 
@@ -174,7 +173,7 @@ export default function HeroAbout({ hero, about, socials }: HeroProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="text-sm sm:text-base font-mono text-foreground/70 leading-relaxed pb-5"
+                  className="text-sm sm:text-base font-mono text-foreground/75 leading-relaxed pb-6"
                 >
                   {para}
                 </motion.p>

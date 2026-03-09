@@ -21,13 +21,13 @@ export default function HomePage() {
         </main>
 
         {/* Footer */}
-        <footer className="border-t border-primary/10 py-8 px-8 sm:px-16">
+        <footer className="border-t border-primary/10 py-10 px-8 sm:px-16">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="text-[10px] font-mono text-secondary/35 tracking-[0.15em]">
+            <div className="space-y-1.5">
+              <div className="text-[11px] font-mono text-secondary/40 tracking-[0.15em]">
                 $ echo &quot;© 2026 {config.personal.name}&quot;
               </div>
-              <div className="text-[9px] font-mono text-secondary/20">
+              <div className="text-[10px] font-mono text-secondary/25">
                 Built with Next.js 15 · Deployed on Vercel
               </div>
             </div>
@@ -38,7 +38,7 @@ export default function HomePage() {
                   href={social.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[9px] font-mono text-secondary/30 hover:text-primary/60 transition-colors uppercase tracking-[0.12em] border border-primary/10 px-2 py-1 hover:border-primary/25"
+                  className="text-[10px] font-mono text-secondary/35 hover:text-primary/60 transition-colors uppercase tracking-[0.12em] border border-primary/12 px-2.5 py-1 hover:border-primary/30"
                 >
                   {social.label ?? social.platform}
                 </a>

@@ -141,7 +141,7 @@ export default function Navbar({
           <div className="text-[8px] font-mono text-secondary/40 tracking-[0.25em] uppercase mb-5 px-1">
             {`// NAVIGATION`}
           </div>
-          <ul className="space-y-0.5">
+          <ul className="space-y-1">
             {items.map((item, i) => {
               const isActive = active === i;
               const cmd = CMD_MAP[item.label] ?? `cd ${item.label.toLowerCase()}`;

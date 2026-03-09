@@ -64,9 +64,9 @@ function ExperienceEntry({
       {/* ls row */}
       <button
         onClick={hasDetails ? onToggle : undefined}
-        className={`w-full text-left px-6 sm:px-12 lg:px-16 py-5 group transition-colors duration-150 ${
+        className={`w-full text-left px-6 sm:px-12 lg:px-16 py-6 group transition-colors duration-150 ${
           isOpen ? "bg-primary/5" :
-          hasDetails ? "hover:bg-primary/2.5 cursor-pointer" : "cursor-default"
+          hasDetails ? "hover:bg-primary/3 cursor-pointer" : "cursor-default"
         }`}
       >
         <div className="grid grid-cols-1 sm:grid-cols-[3rem_1fr_auto] gap-1 sm:gap-4 items-center">
@@ -141,7 +141,7 @@ function ExperienceEntry({
                             {(hi + 1).toString(16).padStart(2, "0").toUpperCase()}
                           </span>
                           <span
-                            className="text-[11px] sm:text-xs font-mono text-foreground/65 leading-relaxed"
+                            className="text-xs font-mono text-foreground/65 leading-relaxed"
                             dangerouslySetInnerHTML={{
                               __html: h.replace(
                                 /(\d[\d,.]+%?(?:\s*x\s*\d+)?(?:\s*(?:ms|s|K|M|\+))?)/g,
@@ -166,7 +166,7 @@ function ExperienceEntry({
                           <span className="text-[10px] font-mono text-secondary/40 tabular-nums text-right">
                             {(ri + 1).toString(16).padStart(2, "0").toUpperCase()}
                           </span>
-                          <span className="text-[11px] sm:text-xs font-mono text-secondary/65 leading-relaxed">{r}</span>
+                          <span className="text-xs font-mono text-secondary/65 leading-relaxed">{r}</span>
                         </div>
                       ))}
                     </div>

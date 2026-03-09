@@ -392,7 +392,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                 className="mb-14 space-y-10"
               >
                 {project.challenge && (
-                  <div className="border-l-2 border-accent/30 pl-5">
+                  <div className="border-l-2 border-accent/30 pl-6">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-[10px] font-mono text-accent/60 tracking-widest">##</span>
                       <span className="text-[10px] font-mono text-accent/60 tracking-[0.2em] uppercase">CHALLENGE</span>
@@ -405,7 +405,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                   </div>
                 )}
                 {project.solution && (
-                  <div className="border-l-2 border-primary/30 pl-5">
+                  <div className="border-l-2 border-primary/30 pl-6">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-[10px] font-mono text-primary/60 tracking-widest">##</span>
                       <span className="text-[10px] font-mono text-primary/60 tracking-[0.2em] uppercase">SOLUTION</span>
@@ -429,7 +429,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="border-l-2 border-primary/15 pl-5"
+                    className="border-l-2 border-primary/15 pl-6"
                   >
                     {/* Section label */}
                     <div className="flex items-center gap-2 mb-4">

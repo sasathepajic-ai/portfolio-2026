@@ -88,6 +88,10 @@ export const ProjectSchema = z.object({
   client: z.string().optional(),
   demoUrl: z.string().optional(),
   repoUrl: z.string().optional(),
+  // Design case study extras
+  caseStudyType: z.enum(["design"]).optional(),
+  lightImage: z.string().optional(),
+  darkImage: z.string().optional(),
 });
 
 const ProjectsSectionSchema = BaseSectionSchema.extend({
