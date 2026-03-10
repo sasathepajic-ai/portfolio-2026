@@ -382,10 +382,10 @@
                 "items": [
                     {
                         "jobTitle": "Website Design & Development",
-                        "company": "Pragmatic Labs AI",
+                        "company": "Pragmatic Labs AI - Website",
                         "client": "Pragmatic Labs",
                         "location": "US",
-                        "dateRange": "2025 — 2026",
+                        "dateRange": "In Development",
                         "type": "Project",
                         "highlights": [
                             "Custom 3D atom visualization rendered on raw Canvas 2D — no WebGL, no external libraries, full scroll-reactive spin with exponential decay",
@@ -407,7 +407,7 @@
                         "company": "Pragmatic Labs AI",
                         "client": "Pragmatic Labs",
                         "location": "US",
-                        "dateRange": "Jan 2026 — Present",
+                        "dateRange": "In Development",
                         "type": "Project",
                         "highlights": [],
                         "responsibilities": [
