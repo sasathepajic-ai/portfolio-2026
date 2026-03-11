@@ -1,6 +1,7 @@
 ﻿"use client";
 import { motion } from "framer-motion";
 import PixelComputer from "./PixelComputer";
+import RetroBackground from "./RetroBackground";
 import { useTheme } from "../shared/ThemeProvider";
 
 const TAB_COLORS = [
@@ -44,8 +45,10 @@ export default function HeroAbout({ hero, about, socials, skills }: HeroProps) {
   return (
     <>
       {/*  HERO  */}
-      <section id="about" className="flex flex-col justify-center px-6 sm:px-12 lg:px-16 pt-20 pb-16 sm:pt-28 sm:pb-20 border-b border-primary/10">
-        <div className="flex flex-col xl:flex-row xl:items-center gap-12 xl:gap-16">
+      <section id="about" className="relative flex flex-col justify-center px-6 sm:px-12 lg:px-16 pt-20 pb-16 sm:pt-28 sm:pb-20 border-b border-primary/10 overflow-hidden">
+        {/* Retro animated background — sits behind all content */}
+        <RetroBackground />
+        <div className="relative z-10 flex flex-col xl:flex-row xl:items-center gap-12 xl:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

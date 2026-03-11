@@ -26,6 +26,7 @@ export default function CustomCursor() {
     const move = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      setIsVisible(true);
       const el = e.target as Element;
       setIsPointer(!!el.closest('a, button, [role=button], input, textarea, select, label, [tabindex]:not([tabindex="-1"])'));
     };

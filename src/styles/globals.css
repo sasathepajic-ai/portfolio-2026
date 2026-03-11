@@ -292,3 +292,13 @@ html.lenis body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   RETRO BACKGROUND — near-layer CRT glow behind computer
+   ═══════════════════════════════════════════════════════ */
+
+/* Canvas: ensure it renders crisply without blurring */
+.retro-bg-canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}

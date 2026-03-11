@@ -251,6 +251,44 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               </motion.div>
             </div>
 
+            {/* ## GALLERY — visible only on mobile, right after the metadata block */}
+            {gallery.length > 0 && (
+              <div className="lg:hidden mb-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
+                  <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">GALLERY</span>
+                </div>
+                <div className="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1 snap-x snap-mandatory">
+                  {gallery.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setLightboxIndex(idx)}
+                      className="shrink-0 snap-start border border-primary/15 overflow-hidden hover:border-primary/35 transition-colors"
+                      style={item.mobile ? { width: 72, aspectRatio: "9/19.5" } : { width: 278 }}
+                    >
+                      {item.mobile ? (
+                        <Image
+                          src={item.src}
+                          alt={item.label}
+                          width={72}
+                          height={156}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      ) : (
+                        <Image
+                          src={item.src}
+                          alt={item.label}
+                          width={1920}
+                          height={1080}
+                          className="w-full h-auto block"
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Problem → Insight → Solution → Outcome grid */}
             {(project.problem || project.outcome) && (
               <motion.div
@@ -365,43 +403,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               </div>
             )}
 
-            {/* ## GALLERY — visible only on mobile (no right panel on small screens) */}
-            {gallery.length > 0 && (
-              <div className="lg:hidden mb-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
-                  <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">GALLERY</span>
-                </div>
-                <div className="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1 snap-x snap-mandatory">
-                  {gallery.map((item, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setLightboxIndex(idx)}
-                      className="shrink-0 snap-start border border-primary/15 overflow-hidden hover:border-primary/35 transition-colors"
-                      style={item.mobile ? { width: 72, aspectRatio: "9/19.5" } : { width: 278 }}
-                    >
-                      {item.mobile ? (
-                        <Image
-                          src={item.src}
-                          alt={item.label}
-                          width={72}
-                          height={156}
-                          className="w-full h-full object-cover object-top"
-                        />
-                      ) : (
-                        <Image
-                          src={item.src}
-                          alt={item.label}
-                          width={1920}
-                          height={1080}
-                          className="w-full h-auto block"
-                        />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* ## GALLERY — removed from bottom, moved to top */}
 
               </div>{/* end left inner */}
             </div>{/* end left column */}
@@ -468,7 +470,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
           onClick={closeLightbox}
           onMouseMove={(e) => { if (!isTouch && cursorRef.current) cursorRef.current.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`; }}
         >
-          {!isTouch && <div ref={cursorRef} className="pointer-events-none fixed z-99999 w-6 h-6 rounded-full bg-white top-0 left-0" style={{ mixBlendMode: "difference", willChange: "transform" }} />}
+          {!isTouch && <div ref={cursorRef} className="pointer-events-none fixed z-99999 w-6 h-6 rounded-full bg-white top-0 left-0" style={{ mixBlendMode: "difference", willChange: "transform", transform: "translate(-9999px,-9999px)" }} />}
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}

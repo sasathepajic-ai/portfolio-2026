@@ -587,7 +587,15 @@ function MobileImagePreview({
   return (
     <div className="lg:hidden mb-8">
       {/* Cropped preview — cross-fades between dark/light without remounting */}
-      <div className="relative w-full overflow-hidden border border-primary/15" style={{ aspectRatio: "1440 / 1080" }}>
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={onExpand}
+        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onExpand()}
+        aria-label="View full screenshot"
+        className="relative w-full overflow-hidden border border-primary/15 cursor-pointer group"
+        style={{ aspectRatio: "1440 / 1080" }}
+      >
         {darkSrc && (
           // eslint-disable-next-line @next/next/no-img-element
           <img

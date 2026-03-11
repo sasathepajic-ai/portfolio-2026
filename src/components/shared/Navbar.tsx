@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -76,13 +76,13 @@ export default function Navbar({
           onClick={() => setMobileOpen(true)}
           className="fixed top-4 left-5 z-9999 lg:hidden flex items-center text-[10px] font-mono bg-background/90 backdrop-blur-sm px-2.5 py-1"
           style={{
-            background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, #2563eb, #d97706, #e02020, #16a34a) border-box",
+            background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020) border-box",
             border: "1px solid transparent",
           }}
         >
           <span
             style={{
-              backgroundImage: "linear-gradient(135deg, #2563eb, #d97706, #e02020, #16a34a)",
+              backgroundImage: "linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
