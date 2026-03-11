@@ -28,7 +28,7 @@ export default function ProjectsScroll({ title, subtitle, sectionId, items }: Pr
           {subtitle && <span className="text-[9px] font-mono text-secondary/35 hidden sm:inline"> {subtitle}</span>}
         </div>
 
-        <div className="divide-y divide-primary/6">
+        <div className="flex flex-col gap-3 p-3 sm:p-4">
           {items.map((item, i) => (
             <CaseStudyCard
               key={item.id}
@@ -63,9 +63,12 @@ function CaseStudyCard({ item, index, onSelect }: { item: ProjectType; index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="hover:bg-primary/2 transition-colors"
+      style={{
+        background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, #2563eb, #f59e0b, #cc2200, #00ee55) border-box",
+        border: "1px solid transparent",
+      }}
     >
-      <div className="flex flex-col lg:flex-row lg:items-stretch">
+      <div className="flex flex-col lg:flex-row lg:items-stretch hover:bg-primary/2 transition-colors">
         {/* Left: content */}
         <div className={`min-w-0 px-6 sm:px-10 lg:px-14 py-10 sm:py-12 flex flex-col gap-5 ${hasThumb ? "lg:w-1/2" : "w-full"}`}>
           {/* Index + title */}

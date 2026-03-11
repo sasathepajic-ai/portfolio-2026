@@ -5,88 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { type ProjectType } from "@/core/config/schema";
 import { X, Globe, Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
-import {
-  SiFastapi, SiReact, SiTypescript, SiMysql, SiDocker,
-  SiNginx, SiStreamlit, SiLangchain, SiOpenai, SiAnthropic,
-  SiPython, SiNextdotjs, SiGit, SiPostgresql, SiTailwindcss,
-  SiAmazonwebservices,
-} from "react-icons/si";
-import type { IconType } from "react-icons";
-
-const TECH_ICONS: Record<string, IconType> = {
-  "fastapi":          SiFastapi,
-  "react":            SiReact,
-  "typescript":       SiTypescript,
-  "mysql":            SiMysql,
-  "mysql 8":          SiMysql,
-  "docker":           SiDocker,
-  "nginx":            SiNginx,
-  "streamlit":        SiStreamlit,
-  "langchain":        SiLangchain,
-  "langgraph":        SiLangchain,
-  "openai":           SiOpenai,
-  "openai gpt":       SiOpenai,
-  "anthropic":        SiAnthropic,
-  "anthropic claude": SiAnthropic,
-  "claude":           SiAnthropic,
-  "python":           SiPython,
-  "next.js":          SiNextdotjs,
-  "git":              SiGit,
-  "postgresql":       SiPostgresql,
-  "tailwind css":     SiTailwindcss,
-  "aws rds":          SiAmazonwebservices,
-  "aws bedrock":      SiAmazonwebservices,
-};
-
-const TECH_VERSIONS: Record<string, string> = {
-  "fastapi":          "0.110.x",
-  "react":            "18.x",
-  "typescript":       "5.x",
-  "mysql":            "8.x",
-  "mysql 8":          "8.x",
-  "docker":           "26.x",
-  "nginx":            "1.26.x",
-  "streamlit":        "1.x",
-  "langchain":        "0.2.x",
-  "langgraph":        "0.2.x",
-  "openai":           "gpt-4o",
-  "openai gpt":       "gpt-4o",
-  "anthropic":        "claude-3.5",
-  "anthropic claude": "claude-3.5",
-  "claude":           "claude-3.5",
-  "python":           "3.12.x",
-  "next.js":          "15.x",
-  "git":              "2.x",
-  "postgresql":       "16.x",
-  "tailwind css":     "4.x",
-  "aws rds":          "—",
-  "aws bedrock":      "—",
-};
-
-const TECH_COLORS: Record<string, string> = {
-  "fastapi":          "#009688",
-  "react":            "#61DAFB",
-  "typescript":       "#3178C6",
-  "mysql":            "#4479A1",
-  "mysql 8":          "#4479A1",
-  "docker":           "#2496ED",
-  "nginx":            "#009639",
-  "streamlit":        "#FF4B4B",
-  "langchain":        "#1C3C3C",
-  "langgraph":        "#1C3C3C",
-  "openai":           "#74AA9C",
-  "openai gpt":       "#74AA9C",
-  "anthropic":        "#CC785C",
-  "anthropic claude": "#CC785C",
-  "claude":           "#CC785C",
-  "python":           "#3776AB",
-  "next.js":          "#E8E8ED",
-  "git":              "#F05032",
-  "postgresql":       "#4169E1",
-  "tailwind css":     "#06B6D4",
-  "aws rds":          "#FF9900",
-  "aws bedrock":      "#FF9900",
-};
 
 interface CaseStudyProps {
   project: ProjectType | null;
@@ -387,10 +305,10 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                 className="mb-14 space-y-10"
               >
                 {project.challenge && (
-                  <div className="border-l-2 border-accent/30 pl-6">
+                  <div className="sm:border-l-2 sm:border-accent/30 sm:pl-6">
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[10px] font-mono text-accent/60 tracking-widest">##</span>
-                      <span className="text-[10px] font-mono text-accent/60 tracking-[0.2em] uppercase">CHALLENGE</span>
+                      <span className="hidden sm:inline text-[10px] font-mono text-accent/60 tracking-widest">##</span>
+                      <span className="text-[10px] font-mono sm:text-accent/60 sm:font-normal text-foreground/80 font-semibold tracking-[0.2em] uppercase">CHALLENGE</span>
                     </div>
                     <div className="space-y-4">
                       {splitParagraphs(project.challenge).map((para, i) => (
@@ -400,10 +318,10 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                   </div>
                 )}
                 {project.solution && (
-                  <div className="border-l-2 border-primary/30 pl-6">
+                  <div className="sm:border-l-2 sm:border-primary/30 sm:pl-6">
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[10px] font-mono text-primary/60 tracking-widest">##</span>
-                      <span className="text-[10px] font-mono text-primary/60 tracking-[0.2em] uppercase">SOLUTION</span>
+                      <span className="hidden sm:inline text-[10px] font-mono text-primary/60 tracking-widest">##</span>
+                      <span className="text-[10px] font-mono sm:text-primary/60 sm:font-normal text-foreground/80 font-semibold tracking-[0.2em] uppercase">SOLUTION</span>
                     </div>
                     <div className="space-y-4">
                       {splitParagraphs(project.solution).map((para, i) => (
@@ -424,12 +342,12 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="border-l-2 border-primary/15 pl-6"
+                    className="sm:border-l-2 sm:border-primary/15 sm:pl-6"
                   >
                     {/* Section label */}
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[10px] font-mono text-primary/45 tracking-widest">##</span>
-                      <span className="text-[10px] font-mono text-foreground/50 tracking-[0.18em] uppercase">
+                      <span className="hidden sm:inline text-[10px] font-mono text-primary/45 tracking-widest">##</span>
+                      <span className="text-[10px] font-mono sm:text-foreground/50 sm:font-normal text-foreground/80 font-semibold tracking-[0.18em] uppercase">
                         {section.title.replace(/ /g, "_")}
                       </span>
                     </div>
@@ -460,63 +378,30 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                       key={idx}
                       onClick={() => setLightboxIndex(idx)}
                       className="shrink-0 snap-start border border-primary/15 overflow-hidden hover:border-primary/35 transition-colors"
-                      style={{
-                        width: item.mobile ? 72 : 160,
-                        aspectRatio: item.mobile ? "9/19.5" : "16/9",
-                      }}
+                      style={item.mobile ? { width: 72, aspectRatio: "9/19.5" } : { width: 278 }}
                     >
-                      <Image
-                        src={item.src}
-                        alt={item.label}
-                        width={item.mobile ? 72 : 160}
-                        height={item.mobile ? 156 : 90}
-                        className="w-full h-full object-cover object-top"
-                      />
+                      {item.mobile ? (
+                        <Image
+                          src={item.src}
+                          alt={item.label}
+                          width={72}
+                          height={156}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      ) : (
+                        <Image
+                          src={item.src}
+                          alt={item.label}
+                          width={1920}
+                          height={1080}
+                          className="w-full h-auto block"
+                        />
+                      )}
                     </button>
                   ))}
                 </div>
               </div>
             )}
-
-            {/* ## TECH_STACK */}
-            <div className="pt-10 border-t border-primary/10 mb-16">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
-                <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">TECH_STACK</span>
-              </div>
-              {/* requirements.txt filename */}
-              <div className="text-[9px] font-mono text-secondary/35 mb-4 tracking-widest">requirements.txt</div>
-              <div className="border border-primary/10 bg-surface/40 divide-y divide-primary/6">
-                {project.techStack.map((tech, i) => {
-                  const key = tech.toLowerCase();
-                  const Icon = TECH_ICONS[key];
-                  const color = TECH_COLORS[key];
-                  const ver = TECH_VERSIONS[key] ?? "latest";
-                  const pkg = tech.toLowerCase().replace(/ /g, "-");
-                  return (
-                    <div key={tech} className="flex items-center gap-0 font-mono text-[11px] group hover:bg-primary/2.5 transition-colors">
-                      {/* line number */}
-                      <span className="w-8 text-right pr-3 text-secondary/25 text-[9px] tabular-nums shrink-0 select-none border-r border-primary/6 py-2">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {/* icon */}
-                      <span className="px-3 py-2 shrink-0">
-                        {Icon
-                          ? <Icon className="w-3 h-3" style={{ color, opacity: 0.65 }} />
-                          : <span className="w-3 h-3 inline-block" />
-                        }
-                      </span>
-                      {/* package==version */}
-                      <span className="py-2 flex-1 min-w-0">
-                        <span className="text-foreground/70 group-hover:text-foreground/90 transition-colors">{pkg}</span>
-                        <span className="text-primary/30">{ver !== "—" ? "==" : ""}</span>
-                        <span className="text-primary/55">{ver !== "—" ? ver : ""}</span>
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
 
               </div>{/* end left inner */}
             </div>{/* end left column */}
@@ -608,15 +493,19 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               </button>
             </div>
             <div className={`flex justify-center${currentLightbox.mobile ? " items-center" : ""}`}>
-              <div
-                className="relative overflow-hidden border border-primary/15"
-                style={{ aspectRatio: currentLightbox.mobile ? "9/19.5" : "16/9", width: currentLightbox.mobile ? "min(380px, 60vh)" : "100%" }}
-              >
-                <Image src={currentLightbox.src} alt={currentLightbox.label} fill className="object-cover object-top" sizes="100vw" priority />
-                {currentLightbox.mobile && (
+              {currentLightbox.mobile ? (
+                <div
+                  className="relative overflow-hidden border border-primary/15"
+                  style={{ aspectRatio: "9/19.5", width: "min(380px, 60vh)" }}
+                >
+                  <Image src={currentLightbox.src} alt={currentLightbox.label} fill className="object-cover object-top" sizes="400px" priority />
                   <div className="absolute top-0 left-0 right-0 h-[7%] z-10" style={{ backgroundColor: currentLightbox.statusBarColor ?? "#f1f3f5" }} />
-                )}
-              </div>
+                </div>
+              ) : (
+                <div className="border border-primary/15 inline-block">
+                  <Image src={currentLightbox.src} alt={currentLightbox.label} width={1440} height={1080} className="block w-auto h-auto max-h-[80vh]" sizes="(max-width: 768px) 100vw, 80vw" priority />
+                </div>
+              )}
             </div>
             {gallery.length > 1 && (
               <>

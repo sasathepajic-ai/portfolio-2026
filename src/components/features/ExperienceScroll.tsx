@@ -146,7 +146,7 @@ function ExperienceEntry({
                   </div>
                   <div className="space-y-2.5">
                     {item.highlights.map((h2, hi) => (
-                      <div key={hi} className="flex items-baseline gap-3 ml-7">
+                      <div key={hi} className="flex items-baseline gap-3 sm:ml-7">
                         <span className="text-primary/35 text-[10px] shrink-0">&middot;</span>
                         <span
                           className="text-xs text-foreground/60 leading-relaxed"
@@ -170,7 +170,7 @@ function ExperienceEntry({
                   </div>
                   <div className="space-y-2">
                     {item.responsibilities.map((r, ri) => (
-                      <div key={ri} className="flex items-baseline gap-3 ml-7">
+                      <div key={ri} className="flex items-baseline gap-3 sm:ml-7">
                         <span className="text-secondary/35 text-[10px] shrink-0">&middot;</span>
                         <span className="text-xs text-secondary/60 leading-relaxed">{r}</span>
                       </div>

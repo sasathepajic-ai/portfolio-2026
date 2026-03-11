@@ -1,6 +1,7 @@
 ﻿"use client";
 import { motion } from "framer-motion";
 import PixelComputer from "./PixelComputer";
+import { useTheme } from "../shared/ThemeProvider";
 
 const TAB_COLORS = [
   { tab: "var(--nav-about)",       text: "#001a06" },
@@ -37,6 +38,8 @@ interface HeroProps {
 export default function HeroAbout({ hero, about, socials, skills }: HeroProps) {
   const h = hero.content;
   const a = about.content;
+  const { theme } = useTheme();
+  const pillColor = theme === "light" ? "#2563eb" : "#cc2200";
 
   return (
     <>
@@ -64,7 +67,10 @@ export default function HeroAbout({ hero, about, socials, skills }: HeroProps) {
               <span className="text-[11px] font-mono text-primary/60 tracking-[0.15em] uppercase">{h.greeting}</span>
             </div>
             {a.availableForWork && (
-              <span className="text-[10px] font-mono text-secondary/50 border border-primary/15 px-2 py-0.5 self-start">Available for work</span>
+              <span
+                className="text-[10px] font-mono px-2 py-0.5 self-start"
+                style={{ color: pillColor, border: `1px solid ${pillColor}50` }}
+              >Available for work</span>
             )}
           </motion.div>
 

@@ -5,72 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { type ProjectType } from "@/core/config/schema";
 import { X, Globe, Sun, Moon, Expand } from "lucide-react";
 import { useTheme } from "../shared/ThemeProvider";
-import {
-  SiFastapi, SiReact, SiTypescript, SiMysql, SiDocker,
-  SiNginx, SiStreamlit, SiLangchain, SiOpenai, SiAnthropic,
-  SiPython, SiNextdotjs, SiGit, SiPostgresql, SiTailwindcss,
-  SiAmazonwebservices, SiFramer, SiAngular,
-} from "react-icons/si";
-import type { IconType } from "react-icons";
-
-const DS_TECH_ICONS: Record<string, IconType> = {
-  "fastapi":          SiFastapi,
-  "react":            SiReact,
-  "typescript":       SiTypescript,
-  "mysql":            SiMysql,
-  "mysql 8":          SiMysql,
-  "docker":           SiDocker,
-  "nginx":            SiNginx,
-  "streamlit":        SiStreamlit,
-  "langchain":        SiLangchain,
-  "openai":           SiOpenai,
-  "openai gpt":       SiOpenai,
-  "anthropic":        SiAnthropic,
-  "anthropic claude": SiAnthropic,
-  "python":           SiPython,
-  "next.js":          SiNextdotjs,
-  "git":              SiGit,
-  "postgresql":       SiPostgresql,
-  "tailwind css":     SiTailwindcss,
-  "aws rds":          SiAmazonwebservices,
-  "aws bedrock":      SiAmazonwebservices,
-  "framer motion":    SiFramer,
-  "angular":          SiAngular,
-};
-
-const DS_TECH_COLORS: Record<string, string> = {
-  "fastapi":          "#009688",
-  "react":            "#61DAFB",
-  "typescript":       "#3178C6",
-  "mysql":            "#4479A1",
-  "mysql 8":          "#4479A1",
-  "docker":           "#2496ED",
-  "nginx":            "#009639",
-  "streamlit":        "#FF4B4B",
-  "langchain":        "#1C3C3C",
-  "openai":           "#74AA9C",
-  "openai gpt":       "#74AA9C",
-  "anthropic":        "#CC785C",
-  "anthropic claude": "#CC785C",
-  "python":           "#3776AB",
-  "next.js":          "#ffffff",
-  "git":              "#F05032",
-  "postgresql":       "#336791",
-  "tailwind css":     "#06B6D4",
-  "aws rds":          "#FF9900",
-  "aws bedrock":      "#FF9900",
-  "framer motion":    "#BB4BFF",
-  "angular":          "#DD0031",
-};
-
-const DS_TECH_VERSIONS: Record<string, string> = {
-  "react":            "19.x",
-  "typescript":       "5.x",
-  "next.js":          "16.x",
-  "tailwind css":     "4.x",
-  "framer motion":    "11.x",
-  "git":              "2.x",
-};
 
 /* ──────────────────────────────────────────────────────
    Content — Pragmatic Labs AI Website Case Study
@@ -82,17 +16,16 @@ interface Section {
   body?: string;
 }
 
+const OVERVIEW_ITEMS: { label: string; value: string; href?: string }[] = [
+  { label: "Project", value: "Marketing website for Pragmatic Labs AI" },
+  { label: "URL", value: "pragmaticlabs.ai", href: "https://pragmatic-labs-ai-website.vercel.app/" },
+  { label: "Stack", value: "Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Framer Motion" },
+  { label: "Role", value: "Full-stack design & development" },
+];
+
 const CASE_STUDY_SECTIONS: Section[] = [
   {
     heading: "Overview",
-    subsections: [
-      {
-        body: `**Project:** Marketing website for Pragmatic Labs AI
-**URL:** [pragmaticlabs.ai](https://pragmatic-labs-ai-website.vercel.app/)
-**Stack:** Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Framer Motion
-**Role:** Full-stack design & development`,
-      },
-    ],
   },
   {
     heading: "The Challenge",
@@ -205,18 +138,43 @@ Device pixel ratio is capped at 2× to avoid excess pixel fill on high-DPI scree
    Helpers
 ────────────────────────────────────────────────────── */
 function renderBody(text: string) {
-  // Very lightweight inline markdown: **bold** and inline backticks
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+  // Very lightweight inline markdown: **bold**, `code`, and [text](url)
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**"))
       return <strong key={i} className="text-foreground/90 font-semibold">{part.slice(2, -2)}</strong>;
     if (part.startsWith("`") && part.endsWith("`"))
       return <code key={i} className="text-primary/80 bg-primary/8 px-1 py-0.5 text-[11px] font-mono rounded-sm">{part.slice(1, -1)}</code>;
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch)
+      return <a key={i} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="text-primary/80 underline underline-offset-2 hover:text-primary transition-colors">{linkMatch[1]}</a>;
     return <span key={i}>{part}</span>;
   });
 }
 
 function parseBody(text: string) {
+  // If the paragraph contains multiple lines with **Label:** value, treat as definition list
+  const lines = text.split("\n");
+  const defList = lines.every(l => /^\*\*[^*]+\*\*:\s/.test(l.trim()));
+  if (defList) {
+    return (
+      <dl className="border border-primary/12 divide-y divide-primary/10 rounded-sm overflow-hidden">
+        {lines.filter(Boolean).map((line, i) => {
+          const match = line.match(/^\*\*([^*]+)\*\*:\s*(.*)$/);
+          if (!match) return null;
+          return (
+            <div key={i} className="flex flex-row items-baseline">
+              <dt className="w-20 sm:w-24 shrink-0 px-3 py-2.5 text-[10px] font-mono text-foreground/45 tracking-widest uppercase border-r border-primary/10 bg-surface self-stretch flex items-center">
+                {match[1]}
+              </dt>
+              <dd className="flex-1 px-3 py-2.5 text-secondary/80 text-[13px] leading-relaxed">{renderBody(match[2])}</dd>
+            </div>
+          );
+        })}
+      </dl>
+    );
+  }
+  // Fallback to original logic
   return text.split("\n\n").filter(Boolean).map((para, i) => {
     // Numbered list
     if (/^\d+\.\s/.test(para)) {
@@ -351,11 +309,6 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
           >
             {/* ── Title bar ── */}
             <div className="flex items-center gap-4 px-6 sm:px-10 h-11 bg-surface border-b border-primary/15 shrink-0">
-              <div className="flex items-center gap-1.5 shrink-0">
-                <button onClick={onClose} aria-label="Close" className="w-3 h-3 rounded-full bg-accent/55 hover:bg-accent transition-colors" />
-                <span className="w-3 h-3 rounded-full bg-primary/15" />
-                <span className="w-3 h-3 rounded-full bg-primary/30" />
-              </div>
               <span className="text-[10px] font-mono text-foreground/40 tracking-[0.12em] truncate">
                 ~/design/{project.title.toLowerCase().replace(/ /g, "-")}/case-study.md
               </span>
@@ -443,93 +396,70 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 + si * 0.04, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                        className="border-l-2 border-primary/15 pl-5"
+                        className="sm:border-l-2 sm:border-primary/15 sm:pl-5"
                       >
                         {/* Section heading */}
                         <div className="flex items-center gap-2 mb-4">
-                          <span className="text-[10px] font-mono text-primary/45 tracking-widest select-none">##</span>
-                          <span className="text-[10px] font-mono text-foreground/50 tracking-[0.18em] uppercase">
+                          <span className="hidden sm:inline text-[10px] font-mono text-primary/45 tracking-widest select-none">##</span>
+                          <span className="text-[10px] font-mono sm:text-foreground/50 text-foreground/80 sm:font-normal font-semibold tracking-[0.18em] uppercase">
                             {section.heading.replace(/ /g, "_")}
                           </span>
                         </div>
 
                         {/* Optional top-level body */}
-                        {section.body && (
+                        {section.heading === "Overview" ? (
+                          <dl className="border border-primary/12 divide-y divide-primary/10 rounded-sm overflow-hidden mb-5">
+                            {OVERVIEW_ITEMS.map((item, i) => (
+                              <div key={i} className="flex flex-row">
+                                <dt className="w-20 sm:w-24 shrink-0 px-3 py-2.5 text-[10px] font-mono text-foreground/45 tracking-widest uppercase border-r border-primary/10 bg-surface flex items-center">
+                                  {item.label}
+                                </dt>
+                                <dd className="flex-1 px-3 py-2.5 text-secondary/80 text-[13px] leading-relaxed">
+                                  {item.href
+                                    ? <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-primary/80 underline underline-offset-2 hover:text-primary transition-colors">{item.value}</a>
+                                    : item.value
+                                  }
+                                </dd>
+                              </div>
+                            ))}
+                          </dl>
+                        ) : section.body ? (
                           <div className="space-y-3 mb-5">
                             {parseBody(section.body)}
                           </div>
-                        )}
+                        ) : null}
 
                         {/* Subsections */}
-                        {section.subsections && section.subsections.length > 0 && (
-                          <div className="space-y-6 mt-4">
-                            {section.subsections.map((sub, sj) => (
-                              <div key={sj} className="space-y-3">
-                                {sub.heading && (
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-[9px] font-mono text-secondary/40 tracking-widest select-none">###</span>
-                                    <span className="text-[10px] font-mono text-secondary/55 tracking-[0.14em] uppercase">
-                                      {sub.heading.replace(/ /g, "_")}
-                                    </span>
+                        {section.heading === "Overview"
+                          ? null
+                          : section.subsections && section.subsections.length > 0 && (
+                            <div className="space-y-6 mt-4">
+                              {section.subsections.map((sub, sj) => (
+                                <div key={sj} className="space-y-3">
+                                  {sub.heading && (
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-[9px] font-mono text-secondary/40 tracking-widest select-none">###</span>
+                                      <span className="text-[10px] font-mono text-secondary/55 tracking-[0.14em] uppercase">
+                                        {sub.heading.replace(/ /g, "_")}
+                                      </span>
+                                    </div>
+                                  )}
+                                  <div className="space-y-2.5">
+                                    {parseBody(sub.body)}
                                   </div>
-                                )}
-                                <div className="space-y-2.5">
-                                  {parseBody(sub.body)}
+                                  {sub.code && (
+                                    <pre className="overflow-x-auto bg-surface border border-primary/15 p-4 text-[11px] font-mono text-primary/65 leading-relaxed mt-3">
+                                      <code>{sub.code}</code>
+                                    </pre>
+                                  )}
                                 </div>
-                                {sub.code && (
-                                  <pre className="overflow-x-auto bg-surface border border-primary/15 p-4 text-[11px] font-mono text-primary/65 leading-relaxed mt-3">
-                                    <code>{sub.code}</code>
-                                  </pre>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                              ))}
+                            </div>
+                          )}
                       </motion.div>
                     ))}
                   </div>
-
-                  {/* Highlights footer */}
-                  {project.highlights && project.highlights.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.6, duration: 0.4 }}
-                      className="mt-14 pt-10 border-t border-primary/10"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
-                        <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">TECH_STACK</span>
-                      </div>
-                      <div className="text-[9px] font-mono text-secondary/35 mb-4 tracking-widest">requirements.txt</div>
-                      <div className="border border-primary/10 bg-surface/40 divide-y divide-primary/6">
-                        {project.techStack.map((tech, ti) => {
-                          const key = tech.toLowerCase();
-                          const Icon = DS_TECH_ICONS[key];
-                          const color = DS_TECH_COLORS[key];
-                          const ver = DS_TECH_VERSIONS[key] ?? "latest";
-                          const pkg = tech.toLowerCase().replace(/ /g, "-");
-                          return (
-                            <div key={tech} className="flex items-center gap-0 font-mono text-[11px] group hover:bg-primary/2.5 transition-colors">
-                              <span className="w-8 text-right pr-3 text-secondary/25 text-[9px] tabular-nums shrink-0 select-none border-r border-primary/6 py-2">
-                                {String(ti + 1).padStart(2, "0")}
-                              </span>
-                              <span className="px-3 py-2 shrink-0">
-                                {Icon
-                                  ? <Icon className="w-3 h-3" style={{ color, opacity: 0.65 }} />
-                                  : <span className="w-3 h-3 inline-block" />}
-                              </span>
-                              <span className="py-2 flex-1 min-w-0">
-                                <span className="text-foreground/70 group-hover:text-foreground/90 transition-colors">{pkg}</span>
-                                <span className="text-primary/30">{ver !== "—" ? "==" : ""}</span>
-                                <span className="text-primary/55">{ver !== "—" ? ver : ""}</span>
-                              </span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </motion.div>
-                  )}
+                 
                 </div>
               </div>
 
@@ -680,9 +610,7 @@ function MobileImagePreview({
             }`}
           />
         )}
-        {/* Fade-out gradient at bottom */}
-        <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, var(--color-background, #000200))" }} />
+
       </div>
       {/* Controls row */}
       <div className="mt-2 flex items-center gap-2">

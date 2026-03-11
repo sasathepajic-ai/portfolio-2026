@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Terminal, ArrowDown } from "lucide-react";
 import { type SectionType } from "@/core/config/schema";
 import HeroWaves from "./HeroWaves";
+import { useTheme } from "../shared/ThemeProvider";
 
 interface HeroProps {
   data: Extract<SectionType, { type: "hero" }>;
@@ -11,6 +12,9 @@ interface HeroProps {
 
 export default function Hero({ data }: HeroProps) {
   const { content } = data;
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+  const badgeColor = isLight ? "#2563eb" : "#cc2200";
 
   // Split headline: first word gets gradient, rest stays white
   const words = content.headline.split(" ");
@@ -40,13 +44,14 @@ export default function Hero({ data }: HeroProps) {
             transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.span
-              className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-surface/80 border border-primary/20 backdrop-blur-sm"
+              className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-surface/80 backdrop-blur-sm"
+              style={{ border: `1px solid ${badgeColor}40` }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inset-0 rounded-full bg-[#14532d] animate-ping opacity-30" />
-                <span className="relative rounded-full h-2 w-2 bg-[#14532d]" />
+                <span className="absolute inset-0 rounded-full animate-ping opacity-40" style={{ backgroundColor: badgeColor }} />
+                <span className="relative rounded-full h-2 w-2" style={{ backgroundColor: badgeColor }} />
               </span>
-              <Terminal className="w-3.5 h-3.5 text-primary/70" />
+              <Terminal className="w-3.5 h-3.5" style={{ color: `${badgeColor}b0` }} />
               <span className="text-secondary text-sm font-mono">{content.greeting}</span>
             </motion.span>
           </motion.div>
