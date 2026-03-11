@@ -4,6 +4,73 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { type ProjectType } from "@/core/config/schema";
 import { X, Globe, Sun, Moon, Expand } from "lucide-react";
+import { useTheme } from "../shared/ThemeProvider";
+import {
+  SiFastapi, SiReact, SiTypescript, SiMysql, SiDocker,
+  SiNginx, SiStreamlit, SiLangchain, SiOpenai, SiAnthropic,
+  SiPython, SiNextdotjs, SiGit, SiPostgresql, SiTailwindcss,
+  SiAmazonwebservices, SiFramer, SiAngular,
+} from "react-icons/si";
+import type { IconType } from "react-icons";
+
+const DS_TECH_ICONS: Record<string, IconType> = {
+  "fastapi":          SiFastapi,
+  "react":            SiReact,
+  "typescript":       SiTypescript,
+  "mysql":            SiMysql,
+  "mysql 8":          SiMysql,
+  "docker":           SiDocker,
+  "nginx":            SiNginx,
+  "streamlit":        SiStreamlit,
+  "langchain":        SiLangchain,
+  "openai":           SiOpenai,
+  "openai gpt":       SiOpenai,
+  "anthropic":        SiAnthropic,
+  "anthropic claude": SiAnthropic,
+  "python":           SiPython,
+  "next.js":          SiNextdotjs,
+  "git":              SiGit,
+  "postgresql":       SiPostgresql,
+  "tailwind css":     SiTailwindcss,
+  "aws rds":          SiAmazonwebservices,
+  "aws bedrock":      SiAmazonwebservices,
+  "framer motion":    SiFramer,
+  "angular":          SiAngular,
+};
+
+const DS_TECH_COLORS: Record<string, string> = {
+  "fastapi":          "#009688",
+  "react":            "#61DAFB",
+  "typescript":       "#3178C6",
+  "mysql":            "#4479A1",
+  "mysql 8":          "#4479A1",
+  "docker":           "#2496ED",
+  "nginx":            "#009639",
+  "streamlit":        "#FF4B4B",
+  "langchain":        "#1C3C3C",
+  "openai":           "#74AA9C",
+  "openai gpt":       "#74AA9C",
+  "anthropic":        "#CC785C",
+  "anthropic claude": "#CC785C",
+  "python":           "#3776AB",
+  "next.js":          "#ffffff",
+  "git":              "#F05032",
+  "postgresql":       "#336791",
+  "tailwind css":     "#06B6D4",
+  "aws rds":          "#FF9900",
+  "aws bedrock":      "#FF9900",
+  "framer motion":    "#BB4BFF",
+  "angular":          "#DD0031",
+};
+
+const DS_TECH_VERSIONS: Record<string, string> = {
+  "react":            "19.x",
+  "typescript":       "5.x",
+  "next.js":          "16.x",
+  "tailwind css":     "4.x",
+  "framer motion":    "11.x",
+  "git":              "2.x",
+};
 
 /* ──────────────────────────────────────────────────────
    Content — Pragmatic Labs AI Website Case Study
@@ -234,11 +301,22 @@ interface DesignCaseStudyProps {
 }
 
 export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyProps) {
-  const [darkTheme, setDarkTheme] = useState(true);
+  const { theme } = useTheme();
+  const [darkTheme, setDarkTheme] = useState(theme === "dark");
   const [fullImageOpen, setFullImageOpen] = useState(false);
   const rightPanelRef = useRef<HTMLDivElement>(null);
 
   const activeImage = darkTheme ? project?.darkImage : project?.lightImage;
+
+  // Preload both images as soon as the modal opens
+  useEffect(() => {
+    if (!project) return;
+    [project.darkImage, project.lightImage].forEach(src => {
+      if (!src) return;
+      const img = new window.Image();
+      img.src = src;
+    });
+  }, [project]);
 
   useEffect(() => {
     if (!project) return;
@@ -295,7 +373,7 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
                   LEFT: text content
               ──────────────────────────────── */}
               <div className="lg:w-[52%] overflow-y-auto overscroll-contain">
-                <div className="px-6 sm:px-10 py-10 pb-24 max-w-2xl">
+                <div className="px-6 sm:px-10 py-10 pb-24">
 
                   {/* Header */}
                   <motion.div
@@ -318,7 +396,7 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
                     )}
 
                     {/* Meta table */}
-                    <div className="border border-primary/12 divide-y divide-primary/8 max-w-xs">
+                    <div className="border border-primary/12 divide-y divide-primary/8">
                       {project.dateRange && (
                         <div className="grid grid-cols-[5.5rem_1fr] text-[10px] font-mono">
                           <span className="px-3 py-2 text-secondary/50 border-r border-primary/10 bg-primary/2 shrink-0">DATE</span>
@@ -348,7 +426,8 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
 
                   {/* Mobile-only image preview */}
                   <MobileImagePreview
-                    src={activeImage}
+                    darkSrc={project.darkImage}
+                    lightSrc={project.lightImage}
                     alt={`${project.title} screenshot`}
                     onExpand={() => setFullImageOpen(true)}
                     hasBothThemes={hasBothThemes}
@@ -418,19 +497,36 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
                       transition={{ delay: 0.6, duration: 0.4 }}
                       className="mt-14 pt-10 border-t border-primary/10"
                     >
-                      <div className="flex items-center gap-2 mb-5">
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
-                        <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">KEY_DETAILS</span>
+                        <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">TECH_STACK</span>
                       </div>
-                      <div className="space-y-3">
-                        {project.highlights.map((h, hi) => (
-                          <div key={hi} className="grid grid-cols-[2.5rem_1fr] gap-2 items-baseline">
-                            <span className="text-[10px] font-mono text-primary/40 tabular-nums text-right">
-                              {String(hi + 1).padStart(2, "0")}
-                            </span>
-                            <span className="text-xs font-mono text-foreground/65 leading-relaxed">{h}</span>
-                          </div>
-                        ))}
+                      <div className="text-[9px] font-mono text-secondary/35 mb-4 tracking-widest">requirements.txt</div>
+                      <div className="border border-primary/10 bg-surface/40 divide-y divide-primary/6">
+                        {project.techStack.map((tech, ti) => {
+                          const key = tech.toLowerCase();
+                          const Icon = DS_TECH_ICONS[key];
+                          const color = DS_TECH_COLORS[key];
+                          const ver = DS_TECH_VERSIONS[key] ?? "latest";
+                          const pkg = tech.toLowerCase().replace(/ /g, "-");
+                          return (
+                            <div key={tech} className="flex items-center gap-0 font-mono text-[11px] group hover:bg-primary/2.5 transition-colors">
+                              <span className="w-8 text-right pr-3 text-secondary/25 text-[9px] tabular-nums shrink-0 select-none border-r border-primary/6 py-2">
+                                {String(ti + 1).padStart(2, "0")}
+                              </span>
+                              <span className="px-3 py-2 shrink-0">
+                                {Icon
+                                  ? <Icon className="w-3 h-3" style={{ color, opacity: 0.65 }} />
+                                  : <span className="w-3 h-3 inline-block" />}
+                              </span>
+                              <span className="py-2 flex-1 min-w-0">
+                                <span className="text-foreground/70 group-hover:text-foreground/90 transition-colors">{pkg}</span>
+                                <span className="text-primary/30">{ver !== "—" ? "==" : ""}</span>
+                                <span className="text-primary/55">{ver !== "—" ? ver : ""}</span>
+                              </span>
+                            </div>
+                          );
+                        })}
                       </div>
                     </motion.div>
                   )}
@@ -464,24 +560,31 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
                   </div>
                 </div>
 
-                {/* Full-height screenshot */}
-                {activeImage && (
-                  <motion.div
-                    key={activeImage}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.35 }}
-                    className="w-full"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* Full-height screenshot — both images kept in DOM and cross-faded */}
+                <div className="relative w-full">
+                  {project.darkImage && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={activeImage}
-                      alt={`${project.title} — ${darkTheme ? "dark" : "light"} theme`}
-                      className="w-full h-auto block"
+                      src={project.darkImage}
+                      alt={`${project.title} — dark theme`}
                       loading="eager"
+                      className={`w-full h-auto block transition-opacity duration-300 ${
+                        darkTheme ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"
+                      }`}
                     />
-                  </motion.div>
-                )}
+                  )}
+                  {project.lightImage && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.lightImage}
+                      alt={`${project.title} — light theme`}
+                      loading="eager"
+                      className={`w-full h-auto block transition-opacity duration-300 ${
+                        !darkTheme ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"
+                      }`}
+                    />
+                  )}
+                </div>
 
                 {/* Thumbnail row for switching themes */}
                 {hasBothThemes && (
@@ -532,32 +635,51 @@ export default function DesignCaseStudy({ project, onClose }: DesignCaseStudyPro
    Mobile image preview (cropped to first 1080px of height)
 ────────────────────────────────────────────────────── */
 function MobileImagePreview({
-  src,
+  darkSrc,
+  lightSrc,
   alt,
   onExpand,
   hasBothThemes,
   darkTheme,
   onToggleTheme,
 }: {
-  src?: string;
+  darkSrc?: string;
+  lightSrc?: string;
   alt: string;
   onExpand: () => void;
   hasBothThemes?: boolean;
   darkTheme?: boolean;
   onToggleTheme?: () => void;
 }) {
-  if (!src) return null;
+  const anySrc = darkSrc || lightSrc;
+  if (!anySrc) return null;
 
   return (
     <div className="lg:hidden mb-8">
-      {/* Cropped preview — shows top portion at 1440×1080 (4:3) ratio */}
+      {/* Cropped preview — cross-fades between dark/light without remounting */}
       <div className="relative w-full overflow-hidden border border-primary/15" style={{ aspectRatio: "1440 / 1080" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt={alt}
-          className="absolute inset-0 w-full h-full object-cover object-top"
-        />
+        {darkSrc && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={darkSrc}
+            alt={alt}
+            loading="eager"
+            className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-300 ${
+              darkTheme ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
+        {lightSrc && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={lightSrc}
+            alt={alt}
+            loading="eager"
+            className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-300 ${
+              !darkTheme ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
         {/* Fade-out gradient at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
           style={{ background: "linear-gradient(to bottom, transparent, var(--color-background, #000200))" }} />

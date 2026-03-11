@@ -85,9 +85,9 @@ export default function Hero({ data }: HeroProps) {
                 href={content.ctaLink || "#"}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="group relative px-8 py-3.5 bg-linear-to-br from-primary/15 to-primary/5 backdrop-blur-md border border-primary/40 text-primary rounded-full font-semibold text-base transition-all hover:from-primary/25 hover:to-primary/10 hover:border-primary/70 flex items-center gap-2.5 overflow-hidden"
+                className="group relative px-8 py-3.5 bg-btn-cta hover:opacity-85 text-white rounded-full font-semibold text-base transition-all flex items-center gap-2.5"
               >
-                <span className="text-primary/60 font-mono" style={{ wordSpacing: "-4px" }}>&lt; / &gt;</span>
+                <span className="text-white/60 font-mono" style={{ wordSpacing: "-4px" }}>&lt; / &gt;</span>
                 {content.ctaText}
               </motion.a>
             )}

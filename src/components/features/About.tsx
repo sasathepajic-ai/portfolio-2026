@@ -120,9 +120,9 @@ export default function About({ data, socials = [] }: AboutProps) {
                     transition={{ duration: 0.45, delay: 0.4 }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2.5 mt-8 px-6 py-3 bg-linear-to-br from-primary/12 to-primary/5 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:from-primary/20 hover:border-primary/50 transition-all duration-300"
+                    className="inline-flex items-center gap-2.5 mt-8 px-6 py-3 bg-btn-cta hover:opacity-85 text-white rounded-full text-sm font-semibold transition-all duration-300"
                   >
-                    <span className="font-mono text-primary/60">↓</span>
+                    <span className="font-mono text-white/60">↓</span>
                     Download Resume
                   </motion.a>
                 )}

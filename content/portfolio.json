@@ -1,12 +1,12 @@
 ﻿{
     "metadata": {
-        "title": "Saša Pajić — Full Stack & AI Engineer",
-        "description": "Full Stack Engineer and AI Developer building systems and tools that make work easier and more efficient.",
+        "title": "Saša Pajić  Product Designer & Engineer",
+        "description": "Product designer and engineer crafting systems, interfaces, and experiences that balance clarity with capability.",
         "url": "https://sasathepajic.ai"
     },
     "personal": {
         "name": "Saša Pajić",
-        "role": "Full Stack & AI Engineer",
+        "role": "Product Designer & Engineer",
         "location": "Valencia, Spain (Open to remote)",
         "socials": [
             {
@@ -40,10 +40,6 @@
             "href": "#experience"
         },
         {
-            "label": "Skills",
-            "href": "#skills"
-        },
-        {
             "label": "Contact",
             "href": "#contact"
         }
@@ -64,10 +60,10 @@
             "id": "hero",
             "visible": true,
             "content": {
-                "greeting": "Full Stack & AI Engineer",
-                "headline": "Functionality doesn't have to be ugly.",
-                "subheadline": "I’m a Full Stack & AI Engineer who believes powerful backend logic deserves a beautiful frontend. It’s not enough for it to work—it has to feel right.",
-                "ctaText": "View My Work",
+                "greeting": "Product Designer & Engineer",
+                "headline": "I design systems that make complex things feel simple.",
+                "subheadline": "I'm a product designer who also builds what I design. I focus on information architecture, interaction patterns, and design systems  then bring them to life with code. The result is work where the design decisions and the implementation inform each other.",
+                "ctaText": "View Selected Work",
                 "ctaLink": "#work",
                 "secondaryCtaText": "Get in Touch",
                 "secondaryCtaLink": "#contact"
@@ -78,13 +74,13 @@
             "id": "about",
             "visible": true,
             "content": {
-                "bio": "Most of my work starts with something that doesn't quite make sense yet. A half-formed idea, a system that's grown in strange directions, or a product that works but feels heavier than it should. I like sitting with that mess for a while and figuring out what's actually going on underneath it.\n\nI'm patient with complexity, but I get uncomfortable with confusion. When something feels off, I usually want to trace it back to the decision that caused it and fix it there, instead of adding another layer on top. A lot of my time goes into small choices that won't show up in screenshots, but quietly shape how everything behaves later.\n\nWhat keeps me interested is work where the outcome has weight. Not just shipping for the sake of shipping, but making something that holds together over time and doesn't treat the person using it like an afterthought. I like when a product has a clear direction, even if that means saying no to things.\n\nCode I write with my head. Design I do with something less rational. When a layout clicks, it's not because I reasoned my way there — it's because something uncomfortable went quiet. I've learned to trust that feeling more than most rules.\n\nI'm based in Valencia, Spain. Open to remote and B2B work.",
+                "bio": "Most of my work starts with something that doesn't quite make sense yet. A product that works but feels heavier than it should, an interface where users hesitate instead of act, or a system that's grown in directions no one planned for. I like sitting with that ambiguity and figuring out what's actually going on underneath it.\n\nI approach design through the lens of systems thinking. Every interface is part of a larger whole  the data it depends on, the decisions it enables, the workflows it interrupts or supports. I try to understand those relationships before I touch a pixel.\n\nWhat keeps me interested is work where the outcome has weight. Not just shipping for the sake of shipping, but making something that holds together over time and doesn't treat the person using it like an afterthought. I care about clarity, consistency, and the small choices that shape how a product feels months after launch.\n\nI design with something less rational than logic. When a layout clicks, it's not because I reasoned my way there  it's because something uncomfortable went quiet. I've learned to trust that feeling more than most rules.\n\nI'm based in Valencia, Spain. Open to remote and B2B work.",
                 "values": [
-                    "Clean Architecture",
-                    "Performance-First",
-                    "Pixel-Precise UI",
-                    "Pragmatic AI",
-                    "Zero Downtime Deploys"
+                    "Systems Thinking",
+                    "Clarity Over Cleverness",
+                    "Design-Engineering Bridge",
+                    "Intentional Simplicity",
+                    "User-Centered Outcomes"
                 ],
                 "availableForWork": true
             }
@@ -94,15 +90,48 @@
             "id": "work",
             "visible": true,
             "content": {
-                "title": "Recent Work",
-                "subtitle": "What I'm building right now.",
+                "title": "Selected Work",
+                "subtitle": "Product design and engineering  from problem framing to production.",
                 "items": [
+                    {
+                        "id": "pragmatic-labs-ai-website",
+                        "title": "Pragmatic Labs AI",
+                        "subtitle": "Marketing Website  Design System & Development",
+                        "description": "Designed and built the marketing website for an AI consulting firm  from visual identity through design token system, custom 3D canvas animation, and dark mode implementation.",
+                        "gradient": "from-orange-500 via-red-500 to-red-700",
+                        "problem": "AI consulting firms default to cold, technical aesthetics. The site needed to signal expertise while feeling approachable.",
+                        "insight": "Color temperature and type weight establish trust more than any copy. Warm palette with precise typography signals competence and approachability.",
+                        "solution": "Designed visual identity around warm off-white/charcoal with terracotta accent. Built single design-tokens.css bridging into Tailwind v4.",
+                        "outcome": "Cohesive marketing site with unified design token system, custom 3D hero animation, and instant dark mode switching.",
+                        "techStack": [
+                            "Next.js",
+                            "React",
+                            "TypeScript",
+                            "Tailwind CSS",
+                            "Framer Motion"
+                        ],
+                        "dateRange": "In Development",
+                        "demoUrl": "https://pragmatic-labs-ai-website.vercel.app/",
+                        "highlights": [
+                            "Designed complete visual identity avoiding generic SaaS aesthetics",
+                            "Built single-file design token system bridged into Tailwind v4",
+                            "Created custom 3D atom canvas animation  no WebGL, no libraries",
+                            "Dark mode via CSS custom properties  components never branch on theme"
+                        ],
+                        "caseStudyType": "design",
+                        "lightImage": "/assets/pragmatic-labs-main-light.png",
+                        "darkImage": "/assets/pragmatic-labs-main-dark.png"
+                    },
                     {
                         "id": "safety-platform",
                         "title": "S.A.F.E.T.Y.™ Platform",
-                        "subtitle": "Full-Stack SaaS — Psychological Safety",
-                        "description": "A self-service platform built from scratch for The Academy of Brain-based Leadership — delivering two flagship products digitally: the S.A.F.E.T.Y.™ psychometric assessment and PS Pulse™ team survey tool. Handles onboarding, assessment delivery, real-time scoring, instant PDF reports, payment processing, CRM sync, and an AI coaching feature.",
+                        "subtitle": "Product Design & Full-Stack Engineering",
+                        "description": "Designed and built a self-service platform that replaced a manual, staff-dependent operation with an end-to-end digital product  handling psychometric assessments, real-time scoring, instant PDF reports, team surveys, payments, and AI coaching.",
                         "gradient": "from-purple-600 via-purple-400 to-fuchsia-400",
+                        "problem": "ABL's flagship psychometric products were delivered entirely by hand  coaches distributed access codes via email, results lived in a staff-only backend, and every new client meant more manual work. The team couldn't scale without scaling headcount.",
+                        "insight": "The bottleneck wasn't the assessment content  it was the delivery model. Users needed autonomy. The business needed zero-touch operations. The design challenge was making a complex psychometric instrument feel approachable enough for self-service.",
+                        "solution": "Designed an information architecture that separated three user journeys (individual assessment, team survey management, coaching) into clear navigation paths. Built a progressive disclosure pattern for the 50-question assessment that maintained focus without overwhelming. Created an instant browser-side PDF report system that eliminated server queues entirely.",
+                        "outcome": "Assessment completions increased 483% vs. prior year. Zero staff intervention required for the complete user journey. The platform handles onboarding, scoring, reports, payments, and CRM sync autonomously.",
                         "techStack": [
                             "FastAPI",
                             "React",
@@ -114,9 +143,9 @@
                             "Alembic",
                             "Git"
                         ],
-                        "dateRange": "Mar 2025 — Present",
+                        "dateRange": "Mar 2025 - Mar 2026",
                         "company": "Pragmatic Labs",
-                        "client": "ABL — Academy of Brain-based Leadership",
+                        "client": "ABL  Academy of Brain-based Leadership",
                         "demoUrl": "https://ablsafety.com/",
                         "images": [
                             {
@@ -141,157 +170,52 @@
                             }
                         ],
                         "highlights": [
-                            "Replaced a manual-first operation with a fully self-service product — onboarding, assessment, scoring, reports, and payment with no staff intervention required",
-                            "Assessment completions increased 483% vs. prior year average following the platform launch",
-                            "Instant client-side PDF report generation — full multi-page professional reports with no server queue or wait time",
-                            "Payment webhook integration with zero-touch code provisioning and automatic CRM sync on every user action",
-                            "Embedded AI coaching feature with real-time streaming and provider-agnostic model switching via environment variable"
+                            "Designed the end-to-end user journey for a complex psychometric assessment",
+                            "Assessment completions increased 483% vs. prior year average",
+                            "Created progressive disclosure pattern for 50-question assessments",
+                            "Designed instant client-side report generation  zero wait time",
+                            "Built scoring visualizations that make percentile data understandable"
                         ],
-                        "challenge": "ABL ran their two flagship products manually. There was no user-facing platform — coaches distributed access by hand, assessment results lived in a staff admin backend, and every new client meant more work for the same small team.\n\nThe brief was to build the product that didn't exist: a self-service platform where users could sign up, take the assessment, receive their report, and manage team surveys without anyone at ABL needing to get involved.",
-                        "solution": "I built the full platform from scratch — onboarding with email verification, two-tier assessment delivery with access code validation, real-time percentile scoring, instant browser-side PDF reports, team survey management, a payment webhook integration, outbound CRM sync, and an embedded AI coaching feature.\n\nThe existing database of 3,500+ legacy assessments was absorbed into the new schema and retroactively scored, so the historical data remained accurate and useful from day one.",
+                        "challenge": "ABL ran their two flagship products manually. There was no user-facing platform  coaches distributed access by hand, assessment results lived in a staff admin backend, and every new client meant more work for the same small team.\n\nThe brief was to build the product that didn't exist: a self-service platform where users could sign up, take the assessment, receive their report, and manage team surveys without anyone at ABL needing to get involved.",
                         "sections": [
                             {
                                 "title": "Design Direction",
                                 "image": "/assets/abl-desktop.png",
                                 "mobileImage": "/assets/abl-mobile.png",
-                                "body": "ABL was specific about how the platform should look and feel. They didn't want a generic internal tool — they wanted something that reflected the quality of the work they do, and that their users could actually navigate without friction.\n\nThe UI leans dark with deliberate use of color: accents that direct attention without demanding it, plenty of breathing room around data, and typography that keeps scores and analytics readable at a glance regardless of how much is on screen.\n\nBecause the platform deals with sensitive psychometric data, clarity mattered more than cleverness. Every layout decision was about making the right information visible at the right time — nothing more."
+                                "body": "ABL was specific about how the platform should look and feel. They didn't want a generic internal tool  they wanted something that reflected the quality of the work they do, and that their users could actually navigate without friction.\n\nThe UI leans dark with deliberate use of color: accents that direct attention without demanding it, plenty of breathing room around data, and typography that keeps scores and analytics readable at a glance regardless of how much is on screen.\n\nBecause the platform deals with sensitive psychometric data, clarity mattered more than cleverness. Every layout decision was about making the right information visible at the right time  nothing more."
                             },
                             {
                                 "title": "The Assessment",
                                 "image": "/assets/abl-safety-1.png",
                                 "mobileImage": "/assets/abl-mobile-safety-dashboard.png",
-                                "body": "The S.A.F.E.T.Y.™ model is a neuroscience-based framework that measures how strongly a person responds to six psychological domains: Security, Autonomy, Fairness, Esteem, Trust, and You. Users complete 50 questions in 10–15 minutes, and the platform returns scores that reflect not just their answers — but where they stand relative to everyone who has taken the assessment before them.\n\nThe platform delivers this in two tiers. The free assessment gives users a basic view of their domain scores. The professional tier — unlocked with a single-use access code — produces a full multi-page report with detailed domain impact analysis and a personalized narrative. Codes are purchased directly through the platform or provided by a coach.\n\nScoring runs in real time against the full population of prior responses. Every submission is ranked, and the system is built to hold that speed well past 100,000 assessments without changes."
+                                "body": "The S.A.F.E.T.Y. model is a neuroscience-based framework that measures how strongly a person responds to six psychological domains: Security, Autonomy, Fairness, Esteem, Trust, and You. Users complete 50 questions in 1015 minutes, and the platform returns scores that reflect not just their answers  but where they stand relative to everyone who has taken the assessment before them.\n\nThe platform delivers this in two tiers. The free assessment gives users a basic view of their domain scores. The professional tier  unlocked with a single-use access code  produces a full multi-page report with detailed domain impact analysis and a personalized narrative.\n\nScoring runs in real time against the full population of prior responses. Every submission is ranked, and the system is built to hold that speed well past 100,000 assessments without changes."
                             },
                             {
-                                "title": "PS Pulse™",
+                                "title": "PS Pulse",
                                 "image": "/assets/abl-pulse-1.png",
                                 "mobileImage": "/assets/abl-mobile-pulse.png",
-                                "body": "PS Pulse™ is the team-level complement to the individual assessment. Where S.A.F.E.T.Y.™ gives each person a deep look at their own psychological profile, PS Pulse™ gives team leaders a recurring read on how their team is doing collectively.\n\nTeam leaders create named teams, generate per-team access codes, distribute a survey link, and receive aggregated domain scores on a dedicated dashboard. Survey cycles can be repeated — the platform tracks trends over time so leaders can see whether things are improving, stalling, or shifting.\n\nReports can be downloaded, emailed, or compared side-by-side against previous cycles directly in the dashboard. Assessment completions increased 483% vs. the prior year average after the platform launched — a direct reflection of how much easier the new experience made it to complete a cycle."
+                                "body": "PS Pulse is the team-level complement to the individual assessment. Team leaders create named teams, generate per-team access codes, distribute a survey link, and receive aggregated domain scores on a dedicated dashboard. Survey cycles can be repeated  the platform tracks trends over time so leaders can see whether things are improving, stalling, or shifting.\n\nReports can be downloaded, emailed, or compared side-by-side against previous cycles directly in the dashboard."
                             },
                             {
                                 "title": "Reports",
                                 "image": "/assets/abl-desktop-safety-history.png",
                                 "mobileImage": "/assets/abl-mobile-safety-history.png",
-                                "body": "Every professional S.A.F.E.T.Y.™ assessment produces a full multi-page PDF report — cover page, table of contents, scoring overview, per-domain charts, impact analysis, and a personalized narrative — generated entirely in the browser, instantly, with no server involved.\n\nA user submits their assessment and the report is ready to download in the same moment. There's no queue, no wait, no backend infrastructure to maintain or scale. The report includes live data, so there's no lag between completing the assessment and receiving results.\n\nThe same applies to Pulse reports: team leaders can download or email a formatted PDF summary of any survey cycle directly from the dashboard."
+                                "body": "Every professional S.A.F.E.T.Y. assessment produces a full multi-page PDF report generated entirely in the browser, instantly, with no server involved. A user submits their assessment and the report is ready to download in the same moment."
                             },
                             {
                                 "title": "Payment & Integrations",
-                                "body": "Payments happen through ABL's existing CRM. When a purchase completes in Tekmatix, a webhook fires to the platform — which identifies the buyer, generates the correct access codes, saves them to the database, and emails a confirmation with the codes attached. No one at ABL touches anything. If the buyer doesn't have an account yet, the codes wait and link automatically on signup. Bundle purchases provision multiple codes in a single transaction.\n\nEvery significant user action — signup, assessment completion, Pulse activity — fires an outbound webhook to keep the CRM contact records current. ABL sees each user's full journey in their CRM timeline without any manual export step and without changing the way their team already works.\n\nThe platform also includes an AI coaching feature available to users as a preview: a streaming chat interface that responds in real time, with the underlying model swappable between providers via environment variable — no code change required."
+                                "body": "Payments happen through ABL's existing CRM. When a purchase completes, a webhook fires to the platform  which identifies the buyer, generates access codes, and emails confirmation. No one at ABL touches anything."
                             }
                         ],
                         "responsibilities": [
-                            "Built and launched the S.A.F.E.T.Y.™ platform to measure and improve psychological safety across organizations",
-                            "Developed PS Pulse™ as a continuous feedback and sentiment tracking system segmented by team and department",
-                            "Implemented S.A.F.E.T.Y.™ assessment scoring logic, converting statistical models into algorithms producing raw scores and percentile rankings across multiple domains",
-                            "Built client-side PDF report generation using @react-pdf/renderer for full multi-page professional reports",
-                            "Integrated Tekmatix payment webhook for zero-touch access code provisioning and CRM contact sync",
-                            "Built embedded AI coaching feature using LiteLLM with streaming SSE responses and provider-agnostic model switching",
-                            "Implemented two-step email verification signup, profile completion gates, and HMAC-signed admin bridge API",
-                            "Containerized frontend and backend with Docker Compose, Nginx reverse proxy with SSL termination on VPS",
-                            "Implemented GitHub-based CI/CD pipelines to automate testing, builds, and deployments",
-                            "Wrote automated tests for core business logic and data processing pipelines"
+                            "Led product design and full-stack engineering for the complete platform",
+                            "Designed information architecture for individual, team, and admin user journeys",
+                            "Created assessment flow UX with progressive disclosure",
+                            "Designed data visualization for percentile-based scoring",
+                            "Built instant browser-side PDF report generation",
+                            "Designed PS Pulse team survey dashboard with trend visualization",
+                            "Implemented responsive design system across all device sizes"
                         ]
-                    },
-                    {
-                        "id": "ai-assistant",
-                        "title": "ABL S.A.F.E.T.Y.™ AI Assistant",
-                        "subtitle": "AI/LLM Application — Content Generation",
-                        "description": "Built an AI-powered content platform enabling non-technical team members to generate blogs, email campaigns, social posts, and internal communications using guided prompts and persona-based controls.",
-                        "gradient": "from-emerald-500 via-green-400 to-emerald-600",
-                        "techStack": [
-                            "Streamlit",
-                            "LlamaIndex",
-                            "LangGraph",
-                            "OpenAI GPT",
-                            "AWS Bedrock",
-                            "Claude",
-                            "DeepSeek R1"
-                        ],
-                        "dateRange": "Mar 2025 — Jun 2025",
-                        "company": "Pragmatic Labs",
-                        "client": "ABL — Academy of Brain-based Leadership",
-                        "highlights": [
-                            "Enabled non-technical team members to generate and iterate on on-brand content using guided prompts and persona-based controls"
-                        ],
-                        "challenge": "Non-technical staff needed to produce on-brand content across multiple formats (blogs, emails, social), but had no way to leverage AI tools without engineering support.",
-                        "solution": "Built a Streamlit app with persona-based customization, PDF Q&A with streaming responses, and integrated three separate AI providers (OpenAI via LlamaIndex, AWS Bedrock for Claude/DeepSeek, and direct Anthropic API). Used LangGraph for multi-step reasoning workflows.",
-                        "responsibilities": [
-                            "Multi-provider AI integration (OpenAI, AWS Bedrock, Anthropic)",
-                            "Persona-based customization for role-specific outputs",
-                            "PDF assistant with conversation history + streaming",
-                            "LangGraph for complex multi-step AI workflows",
-                            "Debug mode for system monitoring and model selection"
-                        ]
-                    },
-                    {
-                        "id": "cv-intelligence",
-                        "title": "RecOneAI",
-                        "subtitle": "AI Recruitment Automation Platform",
-                        "description": "Full-stack AI recruitment platform built for Totema — combining a production-ready FastAPI backend with a multi-page Streamlit UI. The system automates CV parsing, job description analysis, voice transcript processing, and candidate search via a conversational AI agent.",
-                        "gradient": "from-purple-500 via-violet-400 to-purple-600",
-                        "techStack": [
-                            "FastAPI",
-                            "Python",
-                            "Streamlit",
-                            "OpenAI GPT-4o",
-                            "Claude 3.5 Sonnet",
-                            "LangChain"
-                        ],
-                        "dateRange": "May 2024 — Feb 2025",
-                        "company": "Totema",
-                        "highlights": [
-                            "Delivered a full-stack AI recruitment platform as a solo project — production API backend + multi-page Streamlit UI",
-                            "Applied multi-LLM routing: GPT-4o for classification, GPT-4o-mini for extraction, Claude Sonnet for vision, o3-mini for complex reasoning",
-                            "Built TARA — a stateful conversational search agent with iterative query refinement before surfacing candidate results"
-                        ],
-                        "challenge": "Recruiters were manually reading hundreds of resumes and had no scalable way to process CVs, job descriptions, and voice call transcripts consistently or quickly.",
-                        "solution": "Designed a modular FastAPI + Streamlit platform: CV-to-JSON pipeline, JD parser, voice transcript classifier, CV optimizer, and TARA — an AI chatbot for natural language candidate search. Multi-LLM routing assigned each task to the best-fit model.",
-                        "responsibilities": [
-                            "FastAPI REST API with token-based auth and multiple AI processing endpoints",
-                            "CV-to-structured-JSON extraction pipeline with prompt engineering and output validation",
-                            "Job Description parser converting raw text/PDF to structured filter criteria",
-                            "Voice transcript classifier for extracting candidate identity data",
-                            "CV Optimization module cross-analyzing CV vs. job description",
-                            "TARA — conversational AI recruitment assistant with session-state management"
-                        ]
-                    },
-                    {
-                        "id": "pragmatic-labs",
-                        "title": "Pragmatic Labs",
-                        "subtitle": "AI-First Enterprise Application",
-                        "description": "AI-first enterprise application focused on advanced prompt design and interaction workflows.",
-                        "dateRange": "Jan 2026 — Present",
-                        "company": "Pragmatic Labs",
-                        "techStack": [
-                            "AI",
-                            "Prompt Engineering",
-                            "Enterprise UI"
-                        ],
-                        "highlights": [
-                            "Building a “Deep Tech” visual style with a custom color scale and a geometric type system to make the product feel precise, trustworthy, and enterprise-ready.",
-                            "Designing a chat interface that shifts its layout depending on what the AI is returning, so plain text and structured data are both easy to read and use.",
-                            "Creating the Prompt Builder as a step-by-step flow with collapsible sections and example inputs to make complex configuration tasks easier to understand and complete."
-                        ],
-                        "gradient": "from-blue-600 via-blue-400 to-cyan-400"
-                    },
-                    {
-                        "id": "cimba-saige",
-                        "title": "CIMBA SAIGE",
-                        "subtitle": "Student AI Guidance Engine",
-                        "description": "Chat-based AI guidance tool designed to help university students navigate academic information and services.",
-                        "dateRange": "Sep 2025 — Oct 2025",
-                        "company": "Pragmatic Labs",
-                        "client": "CIMBA Italy",
-                        "techStack": [
-                            "AI Chat",
-                            "University Services",
-                            "Guidance Engine"
-                        ],
-                        "highlights": [
-                            "Designed the user interface and component system with a focus on simple navigation and fast access to common student questions.",
-                            "Created a chat-centered layout optimized for clarity and low cognitive load, making AI interactions easy to follow for non-technical users."
-                        ],
-                        "gradient": "from-emerald-500 via-teal-400 to-cyan-400"
                     }
                 ]
             }
@@ -302,170 +226,113 @@
             "visible": true,
             "content": {
                 "title": "Experience",
-                "subtitle": "Where I've been building.",
+                "subtitle": "Product design and engineering roles.",
                 "items": [
                     {
-                        "jobTitle": "Full Stack & AI Engineer",
+                        "jobTitle": "Designer & Frontend Developer",
                         "type": "Contract",
-                        "company": "S.A.F.E.T.Y.™ Platform",
-                        "client": "ABL — Academy of Brain-based Leadership",
-                        "contractor": "Pragmatic Labs",
-                        "location": "Australia",
-                        "dateRange": "Mar 2025 — Present",
+                        "company": "Pragmatic Labs AI Website",
+                        "location": "US",
+                        "dateRange": "In Development",
                         "highlights": [
-                            "Migrated ~18,000 users and thousands of S.A.F.E.T.Y.™ assessment records from a legacy PHP system to a FastAPI/React platform with zero downtime",
-                            "Assessment upgrades increased ~483% vs. prior year average following platform improvements",
-                            "Engineered percentile-based scoring algorithm reducing computation complexity from O(N²) to O(log N), achieving 10–30ms processing and designed to scale to 100,000+ assessments",
-                            "Optimized database operations via caching and indexing, reducing dashboard load times by 95% with sub-5ms query response times",
-                            "Designed LLM-powered tools used by non-technical teams to generate and iterate on on-brand content"
-                        ],
-                        "responsibilities": [
-                            "Built and launched the S.A.F.E.T.Y.™ platform to measure and improve psychological safety across organizations",
-                            "Developed PS Pulse™ as a continuous feedback and sentiment tracking system segmented by team and department",
-                            "Implemented S.A.F.E.T.Y.™ assessment scoring logic, converting statistical models into algorithms producing raw scores and percentile rankings across multiple domains",
-                            "Built a Streamlit-based AI content assistant supporting blogs, email campaigns, social media posts, and internal communications",
-                            "Built a RAG assistant allowing users to upload PDFs, ask questions, and maintain conversation history with real-time streaming responses",
-                            "Integrated multiple AI providers: OpenAI (via LlamaIndex), AWS Bedrock (Claude, DeepSeek R1), and Anthropic Claude",
-                            "Used LangGraph to support multi-step AI workflows and agentic reasoning",
-                            "Implemented async email delivery and automated PDF report generation for high-volume assessments",
-                            "Implemented GitHub-based CI/CD pipelines to automate testing, builds, and deployments",
-                            "Wrote automated tests for core business logic and data processing pipelines"
+                            "Designs complete visual identity avoiding generic SaaS aesthetics",
+                            "Builds single-file design token system bridged into Tailwind v4",
+                            "Creates custom 3D atom canvas animation — no WebGL, no libraries",
+                            "Uses CSS custom properties for dark mode — components never branch on theme"
                         ]
                     },
                     {
-                        "jobTitle": "Full Stack & AI Engineer",
+                        "jobTitle": "Product Designer",
+                        "type": "Contract",
+                        "company": "Pragmatic Labs AI",
+                        "location": "US",
+                        "dateRange": "In development",
+                        "highlights": [
+                            "Designing adaptive chat interface that shifts presentation based on AI response type",
+                            "Created step-by-step Prompt Builder with guided workflow for complex prompt configuration",
+                            "Building Deep Tech visual system with custom color scale and geometric type hierarchy"
+                        ]
+                    },
+                    {
+                        "jobTitle": "Product Designer & Full-Stack Engineer",
+                        "type": "Contract",
+                        "company": "S.A.F.E.T.Y.™ Platform",
+                        "client": "ABL  Academy of Brain-based Leadership",
+                        "contractor": "Pragmatic Labs",
+                        "location": "Australia",
+                        "dateRange": "Mar 2025 - Mar 2026",
+                        "highlights": [
+                            "Designed and built a self-service psychometric assessment platform from scratch",
+                            "Assessment completions increased 483% vs. prior year following UX redesign",
+                            "Created scoring visualizations that make statistical data immediately understandable",
+                            "Designed instant browser-side PDF report generation",
+                            "Built AI coaching interface and content generation tools"
+                        ],
+                        "responsibilities": [
+                            "Led product design and full-stack engineering",
+                            "Designed information architecture for assessments, surveys, and admin workflows",
+                            "Created assessment flow UX with progressive disclosure",
+                            "Designed data visualization for percentile scoring",
+                            "Built responsive design system across all devices",
+                            "Implemented payment integration and CRM sync"
+                        ]
+                    },
+                    {
+                        "jobTitle": "Product Designer",
+                        "type": "Contract",
+                        "company": "CIMBA SAIGE",
+                        "client": "CIMBA Italy",
+                        "contractor": "Pragmatic Labs",
+                        "location": "Italy",
+                        "dateRange": "Sep 2025 — Oct 2025",
+                        "highlights": [
+                            "Designed chat-centered layout optimised for low cognitive load and fast access",
+                            "Created component system for simple navigation with no technical barrier"
+                        ]
+                    },
+                    {
+                        "jobTitle": "AI Chat Interface Designer",
+                        "type": "Contract",
+                        "company": "ABL Assistant",
+                        "client": "ABL — Academy of Brain-based Leadership",
+                        "contractor": "Pragmatic Labs",
+                        "location": "Australia",
+                        "dateRange": "Mar 2025 — Jun 2025",
+                        "highlights": [
+                            "Designed persona-based content controls enabling format-specific AI outputs",
+                            "Created integrated PDF Q&A assistant for brand grounding and fact-checking"
+                        ],
+                        "responsibilities": [
+                            "Designed content generation workflow for non-technical team members",
+                            "Created interaction model for multi-format content iteration",
+                            "Built full application with multi-provider AI routing"
+                        ]
+                    },
+                    {
+                        "jobTitle": "AI Engineer",
                         "type": "Contract",
                         "company": "RecOne AI",
                         "client": "Totema",
                         "location": "Serbia",
-                        "dateRange": "May 2024 — Feb 2025",
+                        "dateRange": "May 2024  Feb 2025",
                         "highlights": [
-                            "Delivered a full-stack AI recruitment platform combining a production-ready FastAPI backend with a multi-page Streamlit UI — solo project",
-                            "Applied multi-LLM strategy: routed tasks to the best-fit model (GPT-4o for classification, GPT-4o-mini for extraction, Claude Sonnet for vision, o3-mini for complex reasoning)",
-                            "Built TARA — a stateful conversational search agent that handles iterative query refinement before surfacing candidate results"
-                        ],
-                        "responsibilities": [
-                            "Designed and developed RecOneAI, a multi-module AI-powered recruitment automation platform, from architecture through deployment",
-                            "Built a FastAPI REST API with token-based authentication serving multiple AI processing endpoints",
-                            "Integrated OpenAI GPT-4o and Anthropic Claude 3.5 Sonnet via LangChain for document extraction, classification, and analysis",
-                            "Implemented a CV-to-structured-JSON extraction pipeline with prompt engineering and programmatic output validation",
-                            "Developed a Job Description parser converting raw text/PDF into structured candidate filter criteria",
-                            "Built a voice transcript classifier extracting candidate identity data from unstructured call transcripts",
-                            "Developed a CV Optimization module that cross-analyzes a CV against a job description and generates improvement suggestions",
-                            "Built TARA — an AI-powered conversational recruitment assistant (Streamlit chatbot) with session-state management"
+                            "Designed task-focused recruitment interface with data continuity between workflows",
+                            "Created TARA  conversational AI search replacing traditional filter-based lookup",
+                            "Applied multi-LLM routing for optimal accuracy and cost"
                         ]
                     },
                     {
-                        "jobTitle": "Frontend Engineer",
+                        "jobTitle": "Frontend Engineer & UI Designer",
                         "type": "Freelance",
                         "company": "GitWorks",
                         "client": "Perpetual Labs",
                         "location": "UK",
-                        "dateRange": "Feb 2023 — Jan 2024",
-                        "highlights": [],
+                        "dateRange": "Feb 2023  Jan 2024",
                         "responsibilities": [
-                            "Designed and built user interfaces for collaboration platforms supporting Cyber-Physical Systems development",
-                            "Developed responsive, reusable UI components using HTML, CSS, TypeScript, and Angular",
-                            "Improved usability and consistency across desktop and mobile devices"
+                            "Designed and built interfaces for collaboration platforms",
+                            "Developed responsive, reusable component systems",
+                            "Improved usability across desktop and mobile"
                         ]
-                    }
-                ]
-            }
-        },
-        {
-            "type": "experience",
-            "id": "project-experience",
-            "visible": true,
-            "content": {
-                "title": "UI & Product Design",
-                "subtitle": "Product interfaces I designed — from visual identity to interaction patterns.",
-                "items": [
-                    {
-                        "jobTitle": "Website Design & Development",
-                        "company": "Pragmatic Labs AI - Website",
-                        "client": "Pragmatic Labs",
-                        "location": "US",
-                        "dateRange": "In Development",
-                        "type": "Project",
-                        "highlights": [
-                            "Custom 3D atom visualization rendered on raw Canvas 2D — no WebGL, no external libraries, full scroll-reactive spin with exponential decay",
-                            "Full design system via CSS custom properties and Tailwind v4 @theme inline — one token change propagates everywhere",
-                            "Dark mode via .dark class strategy — components never branch on theme, tokens do all the work",
-                            "Statically generated solution detail pages from a typed data record — no database, no API, no runtime fetching"
-                        ],
-                        "responsibilities": [
-                            "Designed the full visual identity: warm off-white/charcoal palette with a terracotta accent — deliberately avoiding the cold 'tech blue' SaaS look",
-                            "Built the marketing site end-to-end with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and Framer Motion",
-                            "Implemented a custom 3D atom hero animation on HTML Canvas — six orbital rings in 3D space with per-segment alpha fading and scroll-speed interaction",
-                            "Architected a single design-tokens.css file bridged into Tailwind v4 utility classes — no hardcoded values in any component",
-                            "Integrated dark mode via MutationObserver in the canvas renderer — theme switches instantly with no rerenders",
-                            "Used Next.js App Router with server-rendered metadata and statically generated solution pages from a typed SOLUTION_DETAILS record"
-                        ]
-                    },
-                    {
-                        "jobTitle": "AI Product Design",
-                        "company": "Pragmatic Labs AI",
-                        "client": "Pragmatic Labs",
-                        "location": "US",
-                        "dateRange": "In Development",
-                        "type": "Project",
-                        "highlights": [],
-                        "responsibilities": [
-                            "Built a \"Deep Tech\" visual style with a custom color scale and geometric type system to make the product feel precise, trustworthy, and enterprise-ready.",
-                            "Designed a chat interface that shifts its layout depending on what the AI is returning, so plain text and structured data are both easy to scan and act on.",
-                            "Created the Prompt Builder as a step-by-step flow with collapsible sections and contextual examples to make complex configuration feel approachable."
-                        ]
-                    },
-                    {
-                        "jobTitle": "Student AI Guidance Engine",
-                        "company": "CIMBA SAIGE",
-                        "contractor": "Pragmatic Labs",
-                        "client": "CIMBA Italy",
-                        "location": "Italy",
-                        "dateRange": "Sep 2025 — Oct 2025",
-                        "type": "Project",
-                        "highlights": [],
-                        "responsibilities": [
-                            "Designed the full UI and component system with a focus on simple navigation and fast access to common student questions.",
-                            "Created a chat-centered layout optimized for clarity and low cognitive load, making AI interactions easy to follow for non-technical users."
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            "type": "projects",
-            "id": "design",
-            "visible": true,
-            "content": {
-                "title": "Website Design",
-                "subtitle": "Full-stack websites I designed and built end-to-end.",
-                "items": [
-                    {
-                        "id": "pragmatic-labs-ai-website",
-                        "title": "Pragmatic Labs AI",
-                        "subtitle": "Marketing Website — Full Stack Design & Development",
-                        "description": "Marketing website for Pragmatic Labs AI — an AI consulting firm offering assistants, workflow automation, business intelligence, and strategy services to mid-sized businesses. Built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and Framer Motion. The site features a custom 3D atom canvas animation, warm off-white/charcoal design system, scroll-reactive motion, and full dark mode via CSS custom properties.",
-                        "gradient": "from-orange-500 via-red-500 to-red-700",
-                        "techStack": [
-                            "Next.js",
-                            "React",
-                            "TypeScript",
-                            "Tailwind CSS",
-                            "Framer Motion"
-                        ],
-                        "dateRange": "In Development",
-                        "demoUrl": "https://pragmatic-labs-ai-website.vercel.app/",
-                        "highlights": [
-                            "Custom 3D atom visualization rendered on raw Canvas 2D — no WebGL, no external libraries",
-                            "Full design system via CSS custom properties — one token change propagates everywhere",
-                            "Dark mode implemented as a .dark class strategy — components never branch on theme",
-                            "Scroll-reactive animation: page scrolling spins up the atom with exponential decay back to 1×",
-                            "Statically generated solution detail pages from a typed data record — zero runtime fetching"
-                        ],
-                        "caseStudyType": "design",
-                        "lightImage": "/assets/pragmatic-labs-main-light.png",
-                        "darkImage": "/assets/pragmatic-labs-main-dark.png"
                     }
                 ]
             }
@@ -475,75 +342,53 @@
             "id": "skills",
             "visible": true,
             "content": {
-                "title": "Technical Skills",
-                "subtitle": "What I work with daily.",
+                "title": "Capabilities",
+                "subtitle": "Design, engineering, and the space between them.",
                 "categories": [
                     {
-                        "name": "Backend",
+                        "name": "Product Design",
                         "items": [
-                            "Python",
-                            "FastAPI",
-                            "REST APIs",
-                            "SQLAlchemy",
-                            "Alembic",
-                            "Async/Background Processing"
+                            "Information Architecture",
+                            "Interaction Design",
+                            "Design Systems",
+                            "User Flow Design",
+                            "Visual Hierarchy",
+                            "Responsive Design",
+                            "Figma"
                         ]
                     },
                     {
-                        "name": "Frontend",
+                        "name": "Frontend Engineering",
                         "items": [
                             "React",
                             "Next.js",
                             "TypeScript",
                             "Tailwind CSS",
-                            "Responsive UI",
+                            "Framer Motion",
                             "HTML/CSS",
-                            "Angular",
-                            "Mobile-First Design"
+                            "Angular"
                         ]
                     },
                     {
-                        "name": "AI / LLM",
+                        "name": "Backend & Systems",
                         "items": [
-                            "RAG",
-                            "Prompt Engineering",
-                            "Agentic Workflows",
-                            "LlamaIndex",
-                            "LangChain",
-                            "Streamlit",
-                            "OpenAI GPT",
-                            "AWS Bedrock",
-                            "Anthropic Claude"
-                        ]
-                    },
-                    {
-                        "name": "Database",
-                        "items": [
-                            "MySQL 8",
-                            "SQL",
-                            "Relational Modeling",
-                            "SQLAlchemy ORM"
-                        ]
-                    },
-                    {
-                        "name": "DevOps & Cloud",
-                        "items": [
-                            "Git",
+                            "Python",
+                            "FastAPI",
+                            "REST APIs",
+                            "MySQL",
                             "Docker",
-                            "Nginx",
-                            "AWS EC2",
-                            "AWS RDS",
-                            "Deployment & Monitoring"
+                            "Git"
                         ]
                     },
                     {
-                        "name": "Design & UX",
+                        "name": "AI & LLM Integration",
                         "items": [
-                            "Figma",
-                            "Product Design",
-                            "User Flow Layouts",
-                            "Responsive Systems",
-                            "Visual Hierarchy"
+                            "Prompt Engineering",
+                            "RAG Workflows",
+                            "Agentic Design",
+                            "OpenAI GPT",
+                            "Anthropic Claude",
+                            "LangChain"
                         ]
                     }
                 ]
@@ -554,8 +399,8 @@
             "id": "contact",
             "visible": true,
             "content": {
-                "title": "Let's work together.",
-                "subtitle": "Open to remote and B2B opportunities. Based in Valencia, Spain.",
+                "title": "Let's build something together.",
+                "subtitle": "Open to remote product design and engineering roles. Based in Valencia, Spain.",
                 "email": "sasathepajic.ai@gmail.com",
                 "location": "Valencia, Spain"
             }

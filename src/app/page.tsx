@@ -25,24 +25,11 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
               <div className="text-[11px] font-mono text-secondary/40 tracking-[0.15em]">
-                $ echo &quot;© 2026 {config.personal.name}&quot;
+                © 2026 {config.personal.name}
               </div>
               <div className="text-[10px] font-mono text-secondary/25">
-                Built with Next.js 15 · Deployed on Vercel
+                Designed & built with Next.js · Deployed on Vercel
               </div>
-            </div>
-            <div className="flex gap-3">
-              {config.personal.socials.map((social) => (
-                <a
-                  key={social.url}
-                  href={social.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[10px] font-mono text-secondary/35 hover:text-primary/60 transition-colors uppercase tracking-[0.12em] border border-primary/12 px-2.5 py-1 hover:border-primary/30"
-                >
-                  {social.label ?? social.platform}
-                </a>
-              ))}
             </div>
           </div>
         </footer>

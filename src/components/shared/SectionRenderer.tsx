@@ -2,7 +2,6 @@ import { type SectionType } from "@/core/config/schema";
 import HeroAbout from "@/components/features/HeroAbout";
 import ProjectsScroll from "@/components/features/ProjectsScroll";
 import ExperienceScroll from "@/components/features/ExperienceScroll";
-import SkillsScroll from "@/components/features/SkillsScroll";
 import ContactScroll from "@/components/features/ContactScroll";
 
 interface SectionRendererProps {
@@ -20,18 +19,23 @@ export default function SectionRenderer({ sections, socials = [] }: SectionRende
   const about = visible.find((s) => s.type === "about") as
     | Extract<SectionType, { type: "about" }>
     | undefined;
+  const skillsSection = visible.find((s) => s.type === "skills") as
+    | Extract<SectionType, { type: "skills" }>
+    | undefined;
 
   return (
     <>
-      {/* Merged hero + about */}
+      {/* Merged hero + about + skills */}
       {hero && about && (
-        <HeroAbout hero={hero} about={about} socials={socials} />
+        <HeroAbout hero={hero} about={about} socials={socials} skills={skillsSection?.content.categories} />
       )}
 
       {/* Remaining sections */}
       {visible
-        .filter((s) => s.type !== "hero" && s.type !== "about")
-        .map((section) => {
+        .filter((s) => s.type !== "hero" && s.type !== "about" && s.type !== "skills")
+        .map((section, idx) => {
+          const sectionLabel = String(idx + 2).padStart(2, "0");
+
           switch (section.type) {
             case "projects":
               return (
@@ -45,10 +49,6 @@ export default function SectionRenderer({ sections, socials = [] }: SectionRende
               );
 
             case "experience": {
-              const experienceSections = visible.filter((s) => s.type === "experience");
-              const expIdx = experienceSections.indexOf(section);
-              const hasMultiple = experienceSections.length > 1;
-              const sectionLabel = hasMultiple ? `03.${expIdx + 1}` : "03";
               return (
                 <ExperienceScroll
                   key={section.id}
@@ -59,16 +59,6 @@ export default function SectionRenderer({ sections, socials = [] }: SectionRende
                 />
               );
             }
-
-            case "skills":
-              return (
-                <SkillsScroll
-                  key={section.id}
-                  title={section.content.title}
-                  subtitle={section.content.subtitle}
-                  categories={section.content.categories}
-                />
-              );
 
             case "contact":
               return (

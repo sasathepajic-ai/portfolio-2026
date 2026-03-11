@@ -89,10 +89,6 @@ export default function Experience({ title, subtitle, items }: ExperienceProps) 
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1.5">
-                            <span className="text-accent/60 font-mono text-[10px] font-semibold">
-                              {(index + 1).toString(2).padStart(4, "0")}
-                            </span>
-                            <div className="w-px h-3 bg-accent/20" />
                             <span className="text-[10px] font-mono text-accent/60 tracking-widest uppercase">
                               {item.dateRange}
                             </span>
@@ -103,6 +99,9 @@ export default function Experience({ title, subtitle, items }: ExperienceProps) 
                             )}
                           </div>
                           <h3 className="text-base font-semibold text-foreground leading-tight">{item.jobTitle}</h3>
+                          {(item.company.toLowerCase().includes('pragmatic labs') || item.contractor === 'Pragmatic Labs') && (
+                            <span className="text-[10px] font-mono text-secondary/45 block mt-0.5">for Pragmatic Labs</span>
+                          )}
                           <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1 text-xs text-secondary/70">
                             <span className="flex items-center gap-1">
                               <Briefcase className="w-3 h-3 text-accent/50" />

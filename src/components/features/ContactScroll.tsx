@@ -1,7 +1,6 @@
 ﻿"use client";
 
 import { motion, useInView } from "framer-motion";
-import { MapPin } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 
 interface ContactProps {
@@ -23,118 +22,77 @@ function TypewriterEmail({ email }: { email: string }) {
     if (!inView || startedRef.current) return;
     startedRef.current = true;
     let i = 0;
-
     const typeNext = () => {
       i++;
       setDisplayed(email.slice(0, i));
       if (i >= email.length) return;
-
       const ch = email[i] ?? "";
-      // Pause longer after @ and . to mimic hesitation
       const isPause = ch === "@" || ch === "." || ch === "_";
-      // Slight slowdown mid-word occasionally
       const jitter = Math.random() * 60;
       const base = isPause ? 180 : 70;
-      // Occasional burst of fast typing
       const burst = Math.random() < 0.15 ? -40 : 0;
       setTimeout(typeNext, Math.max(25, base + jitter + burst));
     };
-
-    const startDelay = setTimeout(typeNext, 900);
+    const startDelay = setTimeout(typeNext, 600);
     return () => clearTimeout(startDelay);
   }, [inView, email]);
 
   return (
     <div ref={ref}>
       <a
-        href={`mailto:${email}`}
+        href={"mailto:" + email}
         className="group inline-flex items-baseline gap-3 hover:text-primary transition-colors duration-200 max-w-full min-w-0"
       >
         <span
-          className="font-display font-bold text-foreground/80 group-hover:text-primary transition-colors tracking-wide uppercase break-all"
-          style={{ fontSize: "clamp(0.85rem, 3.5vw, 3.5rem)" }}
+          className="font-display font-bold text-foreground/80 group-hover:text-primary transition-colors tracking-tight break-all"
+          style={{ fontSize: "clamp(1rem, 3.5vw, 3rem)" }}
         >
           {displayed}
           {displayed.length < email.length && (
             <span className="inline-block w-[0.5em] h-[0.85em] bg-primary/70 align-middle ml-0.5 cursor-blink" />
           )}
         </span>
-        {displayed === email && (
-          <span className="hidden sm:inline text-[10px] font-mono text-secondary/55 group-hover:text-primary/50 transition-colors">
-            &lt;ENTER&gt;
-          </span>
-        )}
       </a>
     </div>
   );
 }
 
-export default function ContactScroll({ title, subtitle, sectionLabel = "05", email, location }: ContactProps) {
-  const lines = [
-    { prompt: "$", cmd: "whoami", delay: 0,
-      output: <span className="text-foreground/65">sasa &mdash; Full Stack & AI Engineer</span> },
-    { prompt: "$", cmd: "pwd", delay: 0.15,
-      output: <span className="text-foreground/65">/valencia/spain/earth</span> },
-    { prompt: "$", cmd: `echo "${subtitle ?? "remote & relocation"}"`, delay: 0.3,
-      output: <span className="text-primary/60">{subtitle ?? "Open to remote & relocation"}</span> },
-    { prompt: "$", cmd: `mail -s "Hello" ${email}`, delay: 0.5,
-      output: <TypewriterEmail email={email} />
-    },
-  ];
-
+export default function ContactScroll({ title, subtitle, email }: ContactProps) {
   return (
-    <section id="contact" className="min-h-[80vh] flex flex-col">
-      {/* Command header */}
-      <div className="flex items-center gap-3 px-6 sm:px-12 lg:px-16 py-5 border-b border-primary/8 bg-surface/50">
-        <span className="text-primary/50 font-mono text-[11px]">$</span>
-        <span className="text-[11px] font-mono text-foreground/65 tracking-widest">./contact.sh</span>
-        <span className="ml-auto text-[9px] font-mono text-secondary/45 uppercase tracking-[0.15em]">
-          {`// ${sectionLabel} / ${title.toUpperCase()}`}
-        </span>
+    <section id="contact" className="min-h-[60vh] flex flex-col">
+      {/* Section header */}
+      <div className="flex items-center gap-3 px-6 sm:px-12 lg:px-16 py-4 border-b border-primary/8 bg-surface/50">
+        <span className="text-[11px] font-mono font-semibold text-secondary/70 tracking-[0.2em] uppercase">Contact</span>
       </div>
 
-      <div className="flex-1 flex flex-col px-6 sm:px-12 lg:px-16 py-14 sm:py-20 space-y-10">
-        {lines.map((line, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.4, delay: line.delay }}
-            className="space-y-2"
-          >
-            {/* Command line */}
-            <div className="flex items-baseline gap-2">
-              <span className="text-primary/55 font-mono text-[11px] shrink-0">{line.prompt}</span>
-              <span className="text-[11px] font-mono text-foreground/60 tracking-[0.05em] break-all">
-                {line.cmd}
-              </span>
-            </div>
-            {/* Output */}
-            <div className="pl-5 text-xs font-mono leading-relaxed">
-              {line.output}
-            </div>
-          </motion.div>
-        ))}
-
-        {/* Awaiting input */}
+      <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 py-14 sm:py-20">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.8 }}
-          className="mt-4"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl"
         >
-          <div className="flex items-center gap-2">
-            <span className="text-primary/55 font-mono text-[11px]">$</span>
-            <span className="inline-block w-2 h-4 bg-primary/50 cursor-blink" />
-          </div>
-          {location && (
-            <div className="mt-6 flex items-center gap-2 text-[10px] font-mono text-secondary/50">
-              <MapPin className="w-3 h-3 text-primary/45" />
-              <span>{location}</span>
-            </div>
+          <h2 className="font-display font-bold text-2xl sm:text-3xl tracking-tight mb-3">
+            {title.replace(/\.$/, "").split(" ").map((word, i, arr) => {
+              const colors = [
+                "var(--nav-about)",
+                "var(--mondrian-blue)",
+                "var(--mondrian-yellow)",
+                "var(--accent)",
+              ];
+              return (
+                <span key={i} style={{ color: colors[i % colors.length] }}>
+                  {word}{i < arr.length - 1 ? " " : ""}
+                </span>
+              );
+            })}<span className="text-foreground/85">.</span>
+          </h2>
+          {subtitle && (
+            <p className="text-sm text-secondary/55 leading-relaxed mb-8">{subtitle}</p>
           )}
+
+          <TypewriterEmail email={email} />
         </motion.div>
       </div>
     </section>

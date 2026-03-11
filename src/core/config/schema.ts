@@ -73,6 +73,10 @@ export const ProjectSchema = z.object({
   responsibilities: z.array(z.string()).optional(),
   challenge: z.string().optional(),
   solution: z.string().optional(),
+  // Case study narrative fields
+  problem: z.string().optional(),
+  insight: z.string().optional(),
+  outcome: z.string().optional(),
   sections: z
     .array(
       z.object({
@@ -125,11 +129,11 @@ const ExperienceItemSchema = z.object({
   company: z.string(),
   client: z.string().optional(),
   contractor: z.string().optional(),
-  location: z.string(),
+  location: z.string().optional(),
   dateRange: z.string(),
   type: z.string().optional(),
   highlights: z.array(z.string()).optional(),
-  responsibilities: z.array(z.string()),
+  responsibilities: z.array(z.string()).optional(),
 });
 
 const ExperienceSectionSchema = BaseSectionSchema.extend({

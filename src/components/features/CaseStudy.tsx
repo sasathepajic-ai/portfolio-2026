@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { type ProjectType } from "@/core/config/schema";
-import { X, Globe, Maximize2, ChevronLeft, ChevronRight, Images } from "lucide-react";
+import { X, Globe, Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   SiFastapi, SiReact, SiTypescript, SiMysql, SiDocker,
   SiNginx, SiStreamlit, SiLangchain, SiOpenai, SiAnthropic,
@@ -97,28 +97,26 @@ function BrowserMockup({ src, alt, url = "ablsafety.com", onExpand }: { src: str
   return (
     <div className="w-full overflow-hidden group/mockup border border-primary/15 hover:border-primary/25 transition-colors">
       <div className="flex items-center gap-1.5 px-4 py-2.5 bg-surface border-b border-primary/12">
-        <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
-        <span className="w-2.5 h-2.5 rounded-full bg-primary/20" />
-        <span className="w-2.5 h-2.5 rounded-full bg-primary/45" />
         <div className="flex-1 mx-3 h-5 border border-primary/10 bg-primary/3 flex items-center px-3 gap-2">
           <span className="text-[9px] text-primary/45 font-mono">&gt; {url}</span>
         </div>
         {onExpand && (
           <button
             onClick={onExpand}
-            className="ml-1 p-1 rounded text-foreground/25 hover:text-foreground/65 hover:bg-foreground/8 transition-all duration-150"
+            className="ml-1 w-7 h-7 flex items-center justify-center text-[#1a0800] bg-mondrian-yellow hover:opacity-85 transition-all duration-150 shrink-0"
             aria-label="Expand image"
           >
             <Maximize2 className="w-3 h-3" />
           </button>
         )}
       </div>
-      <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+      <div className="w-full">
         <Image
           src={src}
           alt={alt ?? "Screenshot"}
-          fill
-          className="object-cover object-top"
+          width={1440}
+          height={1080}
+          className="w-full h-auto"
           sizes="100vw"
           priority
         />
@@ -151,7 +149,7 @@ function PhoneMockup({ src, alt, statusBar = true, onExpand }: { src: string; al
       {onExpand && (
         <button
           onClick={onExpand}
-          className="absolute bottom-2 right-2 z-20 p-1 rounded bg-background/50 text-foreground/35 opacity-0 group-hover/phone:opacity-100 hover:text-foreground/80 hover:bg-background/70 transition-all duration-150"
+          className="absolute bottom-2 right-2 z-20 w-7 h-7 flex items-center justify-center bg-mondrian-yellow text-[#1a0800] opacity-0 group-hover/phone:opacity-100 hover:opacity-85 transition-all duration-150"
           aria-label="Expand image"
         >
           <Maximize2 className="w-2.5 h-2.5" />
@@ -242,18 +240,12 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
-          className="fixed inset-0 z-9999 bg-background overflow-y-auto overscroll-contain"
+          className="fixed inset-0 z-9999 bg-background overflow-hidden flex flex-col"
           onWheel={(e) => e.stopPropagation()}
         >
 
           {/* ── Terminal title bar ── */}
-          <div className="sticky top-0 z-20 flex items-center gap-4 px-6 sm:px-12 lg:px-20 h-11 bg-surface border-b border-primary/15 backdrop-blur-md">
-            {/* traffic lights */}
-            <div className="flex items-center gap-1.5 shrink-0">
-              <button onClick={onClose} aria-label="Close" className="w-3 h-3 rounded-full bg-accent/55 hover:bg-accent transition-colors" />
-              <span className="w-3 h-3 rounded-full bg-primary/15" />
-              <span className="w-3 h-3 rounded-full bg-primary/30" />
-            </div>
+          <div className="shrink-0 flex items-center gap-4 px-6 sm:px-10 h-11 bg-surface border-b border-primary/15">
             {/* filename */}
             <span className="text-[10px] font-mono text-foreground/45 tracking-[0.12em] truncate">
               ~/projects/{project.title.toLowerCase().replace(/ /g, "-")}/README.md
@@ -270,8 +262,10 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
             </button>
           </div>
 
-          {/* ── Page content ── */}
-          <div className="max-w-4xl mx-auto px-6 sm:px-12 lg:px-20 pb-24">
+          <div className="flex-1 overflow-hidden flex flex-col lg:flex-row">
+            {/* LEFT: text content */}
+            <div className="lg:w-[52%] overflow-y-auto overscroll-contain">
+              <div className="px-6 sm:px-10 pb-24">
 
             {/* File header bannerline */}
             <div className="pt-10 pb-2 border-b border-primary/8 mb-10">
@@ -308,7 +302,7 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.18, duration: 0.4 }}
-                className="border border-primary/12 divide-y divide-primary/8 mb-8 max-w-sm"
+                className="border border-primary/12 divide-y divide-primary/8 mb-8"
               >
                 {project.dateRange && (
                   <div className="grid grid-cols-[6rem_1fr] text-[10px] font-mono">
@@ -339,51 +333,52 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               </motion.div>
             </div>
 
-            {/* Hero screenshot */}
-            {hero && (
+            {/* Problem → Insight → Solution → Outcome grid */}
+            {(project.problem || project.outcome) && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-14"
+                transition={{ delay: 0.22, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-10 grid grid-cols-1 sm:grid-cols-2 gap-2"
               >
-                {/* Desktop: full browser + phone mockup */}
-                <div className={`hidden lg:block relative${mobileHero ? " pr-[14%] pb-[7%]" : ""}`}>
-                  <BrowserMockup src={hero.src} alt={hero.alt} url={project.demoUrl ? new URL(project.demoUrl).hostname.replace(/^www\./,"") : project.title.toLowerCase().replace(/ /g,"-")+".io"} onExpand={() => openLightbox(hero.src)} />
-                  {mobileHero && (
-                    <div className="absolute bottom-4 right-0 w-[20%]">
-                      <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} statusBar="rgb(248, 249, 250)" onExpand={() => openLightbox(mobileHero.src)} />
-                    </div>
-                  )}
-                </div>
-
-                {/* Mobile: flat image + open gallery button */}
-                <div className="lg:hidden">
-                  <button
-                    onClick={() => openLightbox(hero.src)}
-                    className="relative w-full block overflow-hidden border border-primary/15 active:opacity-75 transition-opacity"
-                    aria-label="Open gallery"
-                  >
-                    <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
-                      <Image src={hero.src} alt={hero.alt ?? "Hero"} fill className="object-cover object-top" sizes="100vw" priority />
-                    </div>
-                    <div className="absolute inset-0 bg-black/0 active:bg-black/10 transition-colors" />
-                  </button>
-                  <div className="flex items-center justify-between mt-3">
-                    <span className="text-[10px] font-mono text-secondary/35 tracking-widest">{gallery.length} screenshot{gallery.length !== 1 ? "s" : ""}</span>
-                    <button
-                      onClick={() => openLightbox(hero.src)}
-                      className="flex items-center gap-1.5 text-[11px] font-mono text-primary/60 hover:text-primary/90 border border-primary/20 hover:border-primary/40 px-3 py-1.5 transition-all active:scale-95"
-                    >
-                      <Images className="w-3 h-3" />
-                      Open gallery
-                    </button>
+                {[
+                  { label: "Problem",  text: project.problem,  accent: "border-accent/20 bg-accent/3" },
+                  { label: "Insight",  text: project.insight,  accent: "border-primary/12 bg-primary/2" },
+                  { label: "Solution", text: project.solution, accent: "border-primary/12 bg-primary/2" },
+                  { label: "Outcome",  text: project.outcome,  accent: "border-primary/20 bg-primary/3" },
+                ].filter(s => s.text).map((step) => (
+                  <div key={step.label} className={`border p-4 ${step.accent}`}>
+                    <span className="text-[9px] font-mono text-primary/45 tracking-widest uppercase block mb-2">{step.label}</span>
+                    <p className="text-xs text-foreground/65 leading-relaxed">{step.text}</p>
                   </div>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Highlights */}
+            {project.highlights && project.highlights.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.26, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-10"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
+                  <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">Highlights</span>
+                </div>
+                <div className="space-y-2">
+                  {project.highlights.map((h, i) => (
+                    <div key={i} className="flex items-start gap-3 border border-primary/8 px-4 py-3 bg-primary/1.5">
+                      <span className="text-[9px] font-mono text-primary/35 tabular-nums shrink-0 mt-0.5">{String(i + 1).padStart(2, "0")}</span>
+                      <p className="text-xs text-foreground/65 leading-relaxed" dangerouslySetInnerHTML={{ __html: enrich(h) }} />
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             )}
 
-            {/* ## CHALLENGE / ## SOLUTION */}
+
             {(project.challenge || project.solution) && (
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
@@ -446,21 +441,40 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
                       ))}
                     </div>
 
-                    {/* Mockup */}
-                    {(section.image || section.mobileImage) && (
-                      <div className={`hidden lg:block relative${section.mobileImage ? " pr-[14%] pb-[7%]" : ""}`}>
-                        {section.image && (
-                          <BrowserMockup src={section.image} alt={section.title} onExpand={() => openLightbox(section.image!)} />
-                        )}
-                        {section.mobileImage && (
-                          <div className="absolute bottom-4 right-0 w-[20%]">
-                            <PhoneMockup src={section.mobileImage} alt={`${section.title} mobile`} onExpand={() => openLightbox(section.mobileImage!)} />
-                          </div>
-                        )}
-                      </div>
-                    )}
+
                   </motion.div>
                 ))}
+              </div>
+            )}
+
+            {/* ## GALLERY — visible only on mobile (no right panel on small screens) */}
+            {gallery.length > 0 && (
+              <div className="lg:hidden mb-10">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-[10px] font-mono text-primary/40 tracking-widest">##</span>
+                  <span className="text-[10px] font-mono text-foreground/45 tracking-[0.2em] uppercase">GALLERY</span>
+                </div>
+                <div className="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1 snap-x snap-mandatory">
+                  {gallery.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setLightboxIndex(idx)}
+                      className="shrink-0 snap-start border border-primary/15 overflow-hidden hover:border-primary/35 transition-colors"
+                      style={{
+                        width: item.mobile ? 72 : 160,
+                        aspectRatio: item.mobile ? "9/19.5" : "16/9",
+                      }}
+                    >
+                      <Image
+                        src={item.src}
+                        alt={item.label}
+                        width={item.mobile ? 72 : 160}
+                        height={item.mobile ? 156 : 90}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -504,14 +518,53 @@ export default function CaseStudy({ project, onClose }: CaseStudyProps) {
               </div>
             </div>
 
-          </div>
+              </div>{/* end left inner */}
+            </div>{/* end left column */}
 
-          {/* ── vim-style status bar at bottom ── */}
-          <div className="fixed bottom-0 left-0 right-0 z-20 flex items-center gap-6 px-6 sm:px-12 lg:px-20 h-8 bg-primary/10 border-t border-primary/20">
-            <span className="text-[9px] font-mono text-primary/60 tracking-widest">README.md</span>
-            <span className="text-[9px] font-mono text-secondary/40 tracking-widest ml-auto">{project.techStack.length} dependencies</span>
-            <span className="text-[9px] font-mono text-secondary/35 tracking-widest">q :quit</span>
-          </div>
+            {/* RIGHT: image navigation panel */}
+            <div className="hidden lg:flex lg:w-[48%] flex-col overflow-y-auto overscroll-contain border-l border-primary/8">
+              <div className="px-6 py-8 space-y-10">
+                {hero && (
+                  <div>
+                    <p className="text-[9px] font-mono text-secondary/40 tracking-[0.18em] uppercase mb-3">Hero</p>
+                    <div className={`relative${mobileHero ? " pr-[18%] pb-[10%]" : ""}`}>
+                      <BrowserMockup
+                        src={hero.src}
+                        alt={hero.alt}
+                        url={project.demoUrl ? new URL(project.demoUrl).hostname.replace(/^www\./, "") : "ablsafety.com"}
+                        onExpand={() => openLightbox(hero.src)}
+                      />
+                      {mobileHero && (
+                        <div className="absolute bottom-0 right-0 w-[22%]">
+                          <PhoneMockup src={mobileHero.src} alt={mobileHero.alt} statusBar="rgb(248, 249, 250)" onExpand={() => openLightbox(mobileHero.src)} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {project.sections?.map((section, i) => (section.image || section.mobileImage) && (
+                  <div key={i}>
+                    <p className="text-[9px] font-mono text-secondary/40 tracking-[0.18em] uppercase mb-3">{section.title}</p>
+                    <div className={`relative${section.mobileImage ? " pr-[18%] pb-[10%]" : ""}`}>
+                      {section.image && (
+                        <BrowserMockup
+                          src={section.image}
+                          alt={section.title}
+                          url={project.demoUrl ? new URL(project.demoUrl).hostname.replace(/^www\./, "") : "ablsafety.com"}
+                          onExpand={() => openLightbox(section.image!)}
+                        />
+                      )}
+                      {section.mobileImage && (
+                        <div className="absolute bottom-0 right-0 w-[22%]">
+                          <PhoneMockup src={section.mobileImage} alt={`${section.title} mobile`} onExpand={() => openLightbox(section.mobileImage!)} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>{/* end flex row body */}
 
         </motion.div>
       )}
