@@ -85,7 +85,7 @@ export default function PixelComputer() {
         }
 
         @keyframes pc-hello {
-          0%, 18% {
+          0%, 40% {
             box-shadow:
               0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
               0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
@@ -95,35 +95,8 @@ export default function PixelComputer() {
               40px 10px 0 var(--pc-cursor), 30px 10px 0 var(--pc-cursor),
               20px 10px 0 var(--pc-cursor), 10px 10px 0 var(--pc-cursor);
           }
-          24%, 38% {
-            box-shadow:
-              0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
-              0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
-              50px -30px 0 var(--pc-cursor), 40px -20px 0 var(--pc-cursor),
-              0 -30px 0 var(--pc-cursor), 10px -20px 0 var(--pc-cursor),
-              50px 0 0 var(--pc-cursor),
-              40px 10px 0 var(--pc-cursor), 30px 0 0 var(--pc-cursor),
-              20px 10px 0 var(--pc-cursor), 10px 10px 0 var(--pc-cursor);
-          }
-          44%, 58% {
-            box-shadow:
-              0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
-              0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
-              50px -30px 0 var(--pc-cursor), 50px 0 0 var(--pc-cursor),
-              40px 10px 0 var(--pc-cursor),
-              30px -20px 0 var(--pc-cursor), 30px 0 0 var(--pc-cursor), 30px 10px 0 var(--pc-cursor),
-              10px -10px 0 var(--pc-cursor),
-              0 -30px 0 var(--pc-cursor), 0 -20px 0 var(--pc-cursor), 0 10px 0 var(--pc-cursor);
-          }
-          64%, 78% {
-            box-shadow:
-              0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor), 0 0 0 var(--pc-cursor),
-              50px -30px 0 var(--pc-cursor), 50px 0 0 var(--pc-cursor), 50px 10px 0 var(--pc-cursor),
-              30px -30px 0 var(--pc-cursor), 30px -20px 0 var(--pc-cursor), 30px 0 0 var(--pc-cursor), 30px 10px 0 var(--pc-cursor),
-              10px -10px 0 var(--pc-cursor),
-              0 -30px 0 var(--pc-cursor), 0 -20px 0 var(--pc-cursor), 0 10px 0 var(--pc-cursor);
-          }
-          84%, 100% {
+
+          60%, 100% {
             box-shadow:
               50px -30px 0 var(--pc-cursor), 50px -10px 0 var(--pc-cursor),
               50px 0 0 var(--pc-cursor), 50px 10px 0 var(--pc-cursor),
