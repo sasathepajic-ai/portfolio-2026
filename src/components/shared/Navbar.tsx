@@ -76,18 +76,18 @@ export default function Navbar({
           onClick={() => setMobileOpen(true)}
           className="fixed top-4 left-5 z-9999 lg:hidden flex items-center text-[10px] font-mono bg-background/90 backdrop-blur-sm px-2.5 py-1"
           style={{
-            background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, #2563eb, #f59e0b, #cc2200, #00ee55) border-box",
+            background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, #2563eb, #d97706, #e02020, #16a34a) border-box",
             border: "1px solid transparent",
           }}
         >
           <span
             style={{
-              backgroundImage: "linear-gradient(135deg, #2563eb, #f59e0b, #cc2200, #00ee55)",
+              backgroundImage: "linear-gradient(135deg, #2563eb, #d97706, #e02020, #16a34a)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}
-          >[ MENU ]</span>
+          >{"< NAVIGATION >"}</span>
         </button>
       )}
 
@@ -105,7 +105,7 @@ export default function Navbar({
             onClick={() => setMobileOpen(false)}
             className="text-[10px] font-mono text-primary/60 hover:text-primary transition-colors px-2.5 py-1 border border-primary/30 bg-background/90"
           >
-            [ CLOSE ]
+            {"> COLLAPSE <"}
           </button>
         </div>
 

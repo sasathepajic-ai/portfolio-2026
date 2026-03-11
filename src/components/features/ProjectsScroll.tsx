@@ -64,7 +64,7 @@ function CaseStudyCard({ item, index, onSelect }: { item: ProjectType; index: nu
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       style={{
-        background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, #2563eb, #f59e0b, #cc2200, #00ee55) border-box",
+        background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, #2563eb, #d97706, #e02020, #16a34a) border-box",
         border: "1px solid transparent",
       }}
     >
