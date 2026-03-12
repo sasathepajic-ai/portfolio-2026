@@ -11,11 +11,9 @@ const DARK = {
   particleFar: "rgba(76, 125, 255, 0.35)",
   uiStroke: "rgba(0, 255, 198, 0.12)",
   scanline: "rgba(0, 0, 0, 0.18)",
-  code: "rgba(76, 125, 255, 0.30)",
   circuit: "rgba(0, 255, 198, 0.08)",
   star: "rgba(0, 255, 198, 0.6)",
   starFar: "rgba(76, 125, 255, 0.4)",
-  glyphAlpha: 0.09,
 };
 
 const LIGHT = {
@@ -25,39 +23,11 @@ const LIGHT = {
   particleFar: "rgba(90, 80, 60, 0.55)",
   uiStroke: "rgba(30, 90, 60, 0.32)",
   scanline: "rgba(0, 0, 0, 0.045)",
-  code: "rgba(50, 60, 100, 0.55)",
   circuit: "rgba(30, 90, 60, 0.28)",
   star: "rgba(30, 90, 60, 0.75)",
   starFar: "rgba(90, 80, 60, 0.65)",
-  glyphAlpha: 0.22,
 };
 
-// ─── Code fragments shown in scrolling ticker ────────────────────────────────
-const CODE_LINES = [
-  "interface User { id: string; role: 'admin'|'guest' }",
-  "const dispatch = useReducer(reducer, init);",
-  "SELECT id, name FROM users WHERE active = 1;",
-  "git commit -m 'feat: retro background layer'",
-  "await fetch('/api/v2/portfolio', { method: 'GET' });",
-  "export default function Hero({ data }: Props) {",
-  "  return <section className='relative overflow-hidden'>",
-  "transform: translate3d(0, var(--y), 0);",
-  "border: 1px solid rgba(0,255,198,0.15);",
-  "@keyframes scanline { 0% { top: -2px } 100% { top: 100% } }",
-  "const [theme, setTheme] = useState<'dark'|'light'>('dark');",
-  "docker build -t portfolio:latest .",
-  "z-index: 9; pointer-events: none; position: absolute;",
-  "npx create-next-app@latest --typescript --tailwind",
-  "model.fit(X_train, y_train, epochs=50, batch_size=32)",
-  "{ ...prevState, loading: false, data: payload }",
-  "> _ CRT terminal session 1984",
-  "BIOS 1.0  MemOK  640K RAM OK  Loading OS...",
-  "C:\\> dir /a /s  ──  volume in drive C has no label",
-  "10 PRINT 'HELLO WORLD': 20 GOTO 10",
-];
-
-// ─── ASCII art glyphs for mid-layer decorations ──────────────────────────────
-const ASCII_GLYPHS = ["▒", "░", "▓", "█", "▄", "▀", "▌", "▐", "◈", "◉", "⌐", "¬", "≡", "±", "×", "÷"];
 
 // ─── Utility ─────────────────────────────────────────────────────────────────
 const rand = (min: number, max: number) => Math.random() * (max - min) + min;
@@ -66,7 +36,6 @@ const randInt = (min: number, max: number) => Math.floor(rand(min, max));
 // ─── Type definitions ─────────────────────────────────────────────────────────
 interface Star { x: number; y: number; r: number; dx: number; dy: number; alpha: number; dAlpha: number; far: boolean }
 interface CircuitNode { x: number; y: number; len: number; dir: number; alpha: number; dAlpha: number; done: boolean; progress: number; speed: number }
-interface CodeTicker { x: number; y: number; lineIdx: number; speed: number; alpha: number }
 interface Particle { x: number; y: number; r: number; dx: number; dy: number; alpha: number; dAlpha: number; color: string }
 
 // ─── Main canvas component ───────────────────────────────────────────────────
@@ -90,11 +59,9 @@ export default function RetroBackground() {
     // ── State ───────────────────────────────────────────────────────────────
     let stars: Star[] = [];
     let circuitNodes: CircuitNode[] = [];
-    let codeTickers: CodeTicker[] = [];
     let particles: Particle[] = [];
     let gridOffsetX = 0;
     let gridOffsetY = 0;
-    let t = 0; // global frame counter
 
     function palette() { return themeRef.current === "light" ? LIGHT : DARK; }
 
@@ -123,16 +90,6 @@ export default function RetroBackground() {
       }));
     }
 
-    function buildCodeTickers(w: number, h: number) {
-      codeTickers = Array.from({ length: 5 }, () => ({
-        x: rand(0, w),
-        y: rand(20, h - 20),
-        lineIdx: randInt(0, CODE_LINES.length),
-        speed: rand(0.18, 0.38),
-        alpha: rand(0.18, 0.32),
-      }));
-    }
-
     function buildParticles(w: number, h: number) {
       particles = Array.from({ length: 18 }, () => {
         const dark = themeRef.current !== "light";
@@ -152,7 +109,6 @@ export default function RetroBackground() {
     function init(w: number, h: number) {
       buildStars(w, h);
       buildCircuitNodes(w, h);
-      buildCodeTickers(w, h);
       buildParticles(w, h);
     }
 
@@ -265,23 +221,6 @@ export default function RetroBackground() {
       }
     }
 
-    function drawCodeTickers(pal: typeof DARK) {
-      ctx!.font = "9px 'Geist Mono', monospace";
-      for (const c of codeTickers) {
-        c.x -= c.speed;
-        if (c.x < -600) {
-          c.x = W + rand(0, 200);
-          c.lineIdx = randInt(0, CODE_LINES.length);
-        }
-        const text = CODE_LINES[c.lineIdx];
-        ctx!.save();
-        ctx!.globalAlpha = c.alpha;
-        ctx!.fillStyle = pal.code;
-        ctx!.fillText(text, c.x, c.y);
-        ctx!.restore();
-      }
-    }
-
     function drawScanlines(pal: typeof DARK) {
       // Horizontal scanlines — faint banded texture
       ctx!.save();
@@ -309,28 +248,10 @@ export default function RetroBackground() {
       }
     }
 
-    function drawASCIIGlyphs(pal: typeof DARK) {
-      // A handful of slowly drifting ASCII symbols — only draw every 3 frames
-      if (t % 3 !== 0) return;
-      ctx!.save();
-      ctx!.font = "11px 'Geist Mono', monospace";
-      ctx!.fillStyle = pal.uiStroke;
-      ctx!.globalAlpha = pal.glyphAlpha;
-      // static positions seeded from t so they don't flicker
-      for (let i = 0; i < 8; i++) {
-        const x = ((i * 137 + t * 0.02) % W);
-        const y = ((i * 89 + t * 0.015) % H);
-        const g = ASCII_GLYPHS[(i + Math.floor(t / 120)) % ASCII_GLYPHS.length];
-        ctx!.fillText(g, x, y);
-      }
-      ctx!.restore();
-    }
-
     // ── Main render loop ────────────────────────────────────────────────────
     function draw() {
       if (!ctx || !canvas) return;
       const pal = palette();
-      t++;
 
       // Drift grid offsets
       gridOffsetX += 0.25;
@@ -346,10 +267,6 @@ export default function RetroBackground() {
       // ── Layer 1: mid — circuit lines ────────────────────────────────
       drawMidGrid(pal);
       drawCircuitLines(pal);
-
-      // ── Layer 2: code tickers ─────────────────────────────────────────
-      drawCodeTickers(pal);
-      drawASCIIGlyphs(pal);
 
       // ── Layer 3: particles ────────────────────────────────────────────
       drawParticles();

@@ -79,15 +79,13 @@ export default function Navbar({
             background: "linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020) border-box",
             border: "1px solid transparent",
           }}
-        >
-          <span
-            style={{
-              backgroundImage: "linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >{"< NAVIGATION >"}</span>
+          >{
+            <span className="flex items-center gap-1">
+              <span style={{ backgroundImage: "linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", transform: "translateY(-1px)", display: "inline-block" }}>&lt;</span>
+              <span style={{ backgroundImage: "linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>NAVIGATION</span>
+              <span style={{ backgroundImage: "linear-gradient(155deg, #2563eb, #16a34a, #d97706, #e02020)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", transform: "translateY(-1px)", display: "inline-block" }}>&gt;</span>
+            </span>
+          }
         </button>
       )}
 
@@ -105,7 +103,11 @@ export default function Navbar({
             onClick={() => setMobileOpen(false)}
             className="text-[10px] font-mono text-primary/60 hover:text-primary transition-colors px-2.5 py-1 border border-primary/30 bg-background/90"
           >
-            {"> COLLAPSE <"}
+            <span className="flex items-center gap-1">
+              <span style={{ transform: "translateY(-1px)", display: "inline-block" }}>&gt;</span>
+              <span>COLLAPSE</span>
+              <span style={{ transform: "translateY(-1px)", display: "inline-block" }}>&lt;</span>
+            </span>
           </button>
         </div>
 

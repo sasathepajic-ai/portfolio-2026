@@ -40,7 +40,7 @@ export default function HeroAbout({ hero, about, socials, skills }: HeroProps) {
   const h = hero.content;
   const a = about.content;
   const { theme } = useTheme();
-  const pillColor = theme === "light" ? "#2563eb" : "#cc2200";
+  const availColor = theme === "light" ? "#2563eb" : "#cc2200";
 
   return (
     <>
@@ -55,26 +55,21 @@ export default function HeroAbout({ hero, about, socials, skills }: HeroProps) {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="xl:w-1/2"
         >
-          {/* Role badge */}
+          {/* Available for work */}
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-8"
+            className="flex items-center gap-3 mb-8"
           >
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inset-0 rounded-full bg-primary/40 animate-pulse" />
-                <span className="relative rounded-full h-2 w-2 bg-primary/60" />
-              </span>
-              <span className="text-[11px] font-mono text-primary/60 tracking-[0.15em] uppercase">{h.greeting}</span>
-            </div>
-            {a.availableForWork && (
-              <span
-                className="text-[10px] font-mono px-2 py-0.5 self-start"
-                style={{ color: pillColor, border: `1px solid ${pillColor}50` }}
-              >Available for work</span>
-            )}
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inset-0 rounded-full animate-pulse" style={{ backgroundColor: `${availColor}60` }} />
+              <span className="relative rounded-full h-2 w-2" style={{ backgroundColor: availColor }} />
+            </span>
+            <span
+              className="text-[11px] font-mono tracking-[0.15em] uppercase"
+              style={{ color: availColor }}
+            >Available for work</span>
           </motion.div>
 
           {/* Headline */}
